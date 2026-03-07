@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CameraLookConfig
   m_EditorClassIdentifier: Assembly-CSharp::CameraLookConfig
   sensitivity: 80
-  cameraDistance: 13.69
+  cameraDistance: 3.5
   startXRotation: 30
   startYRotation: 0
   xMaxClamp: 85

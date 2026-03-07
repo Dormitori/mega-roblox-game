@@ -5,7 +5,7 @@ public class CameraLookConfig : ScriptableObject
 {
     public float sensitivity;
     public float cameraDistance;
-    
+
     public float startXRotation;
     public float startYRotation;
 

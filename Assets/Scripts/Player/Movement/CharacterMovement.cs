@@ -13,7 +13,7 @@ public class CharacterMovement : MonoBehaviour
     private float _upwardVelocity;
 
     private bool _jumped;
-    
+
     private bool _jumpIsBuffered;
     private float _jumpBufferTime;
 
@@ -45,7 +45,7 @@ public class CharacterMovement : MonoBehaviour
                 characterModel.transform.rotation,
                 targetRotation,
                 moveConfig.rotationSpeed * Time.deltaTime
-                );
+            );
         }
 
         var resultMovement = moveVector * moveConfig.speed + Vector3.up * _upwardVelocity;
@@ -65,7 +65,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void HandleJump()
     {
-        if (characterController.isGrounded )
+        if (characterController.isGrounded)
         {
             _jumped = false;
             _coyoteTime = 0f;
@@ -93,7 +93,7 @@ public class CharacterMovement : MonoBehaviour
             if (_jumpBufferTime > moveConfig.jumpBufferTime)
                 _jumpIsBuffered = false;
         }
-        
+
         if (!characterController.isGrounded && _jump.WasPressedThisFrame() && !_jumpIsBuffered)
         {
             _jumpIsBuffered = true;
@@ -109,7 +109,7 @@ public class CharacterMovement : MonoBehaviour
             if (_coyoteTime > moveConfig.coyoteTime)
                 _hasCoyote = false;
         }
-        
+
         if (!characterController.isGrounded && !_jumped && !_hasCoyote && _coyoteTime <= moveConfig.coyoteTime)
         {
             _hasCoyote = true;

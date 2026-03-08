@@ -44,8 +44,8 @@ public class CharacterMovement : MonoBehaviour
             animator.SetFloat("Speed",  moveConfig.speed);
             
             var targetRotation = Quaternion.LookRotation(moveVector);
-            characterModel.transform.rotation = Quaternion.Lerp(
-                characterModel.transform.rotation,
+            transform.rotation = Quaternion.Lerp(
+                transform.rotation,
                 targetRotation,
                 moveConfig.rotationSpeed * Time.deltaTime
             );

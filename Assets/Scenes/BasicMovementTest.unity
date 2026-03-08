@@ -177,7 +177,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
+  near clip plane: 0.05
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -337,8 +337,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 722499295}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.2499999, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.1699998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -390,7 +390,7 @@ Transform:
   m_GameObject: {fileID: 1489626977}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.506, z: 0}
+  m_LocalPosition: {x: 0, y: 0.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -414,6 +414,7 @@ MonoBehaviour:
   characterController: {fileID: 1489626981}
   moveConfig: {fileID: 11400000, guid: e13ec3c428c24334c909ac528df5f18d, type: 2}
   characterModel: {fileID: 1493757417}
+  animator: {fileID: 1493757418}
 --- !u!143 &1489626981
 CharacterController:
   m_ObjectHideFlags: 0
@@ -457,7 +458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 16917117d9b4c4027910bb531d9c8a7a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.08
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 16917117d9b4c4027910bb531d9c8a7a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -515,6 +516,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 9e94ceab0b3fc4226a99770cc62e29e4, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 16917117d9b4c4027910bb531d9c8a7a, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -523,6 +528,11 @@ PrefabInstance:
 --- !u!4 &1493757417 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 16917117d9b4c4027910bb531d9c8a7a, type: 3}
+  m_PrefabInstance: {fileID: 1493757416}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1493757418 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 16917117d9b4c4027910bb531d9c8a7a, type: 3}
   m_PrefabInstance: {fileID: 1493757416}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7120845110709595438

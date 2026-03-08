@@ -7,6 +7,7 @@ public class CharacterMovement : MonoBehaviour
     public CharacterController characterController;
     public CharacterMovementConfig moveConfig;
     public Transform characterModel;
+    public Animator animator;
 
     private InputAction _move;
     private InputAction _jump;
@@ -40,12 +41,18 @@ public class CharacterMovement : MonoBehaviour
 
         if (moveVector.magnitude > Mathf.Epsilon)
         {
+            animator.SetFloat("Speed",  moveConfig.speed);
+            
             var targetRotation = Quaternion.LookRotation(moveVector);
             characterModel.transform.rotation = Quaternion.Lerp(
                 characterModel.transform.rotation,
                 targetRotation,
                 moveConfig.rotationSpeed * Time.deltaTime
             );
+        }
+        else
+        {
+            animator.SetFloat("Speed", 0);
         }
 
         var resultMovement = moveVector * moveConfig.speed + Vector3.up * _upwardVelocity;
@@ -56,10 +63,22 @@ public class CharacterMovement : MonoBehaviour
     {
         if (!characterController.isGrounded)
         {
+            animator.SetBool("IsGrounded", false);
             if (_upwardVelocity > 0)
+            {
+                animator.SetBool("IsFalling", false);
                 _upwardVelocity -= moveConfig.UpwardGravity * Time.deltaTime;
+            }
             else
+            {
+                animator.SetBool("IsFalling", true);
                 _upwardVelocity -= moveConfig.DownwardGravity * Time.deltaTime;
+            }
+        }
+        else
+        {
+            animator.SetBool("IsGrounded", true);
+            animator.SetBool("IsFalling", false);
         }
     }
 

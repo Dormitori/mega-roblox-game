@@ -56,8 +56,13 @@ public class CameraLook : MonoBehaviour
     private void UpdateDistance()
     {
         var direction = camera.transform.position - orbitTarget.position;
-        if (Physics.Raycast(orbitTarget.transform.position, direction.normalized, out var hit, direction.magnitude + 3f,
-                levelLayer))
+        var isHit = Physics.Raycast(
+            orbitTarget.transform.position,
+            direction.normalized,
+            out var hit, 
+            direction.magnitude + 3f,
+            levelLayer);
+        if (isHit && hit.distance < cameraLookConfig.cameraDistance)
         {
             _currentCameraDistance = hit.distance - 0.5f;
             return;

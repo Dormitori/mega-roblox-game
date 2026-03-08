@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 800d37d3efac43f38566ebdb26149735, type: 3}
   m_Name: CharacterMovementConfig
   m_EditorClassIdentifier: Assembly-CSharp::CharacterMovementConfig
-  speed: 7
+  speed: 5
   jumpHeight: 3
   jumpTime: 0.27
   fallingTime: 0.27

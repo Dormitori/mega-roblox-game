@@ -13,12 +13,15 @@ public class CameraLook : MonoBehaviour
 
     private float _xRotation;
     private float _yRotation;
+    private float _targetCameraDistance;
     private float _currentCameraDistance;
+    private float _setCameraDistance;
 
     public void Awake()
     {
         _xRotation = cameraLookConfig.startXRotation;
         _yRotation = cameraLookConfig.startYRotation;
+        _setCameraDistance = cameraLookConfig.cameraDistance;
         UpdateCamera();
     }
 
@@ -41,14 +44,33 @@ public class CameraLook : MonoBehaviour
             UpdateCameraRotation();
         }
 
+        HandleCameraScroll();
+
         UpdateDistance();
 
         UpdateCamera();
     }
 
+    private void HandleCameraScroll()
+    {
+        if (Mathf.Abs(Mouse.current.scroll.ReadValue().y) > Mathf.Epsilon)
+        {
+            _setCameraDistance -= Mouse.current.scroll.ReadValue().y * cameraLookConfig.cameraStep;
+            _setCameraDistance = Mathf.Clamp(_setCameraDistance, cameraLookConfig.cameraMinDistance,
+                cameraLookConfig.cameraMaxDistance);
+        }
+    }
+
     private void UpdateCamera()
     {
         var rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
+        if (_targetCameraDistance < _setCameraDistance)
+            _currentCameraDistance = _targetCameraDistance;
+        else
+            _currentCameraDistance = Mathf.Lerp(
+                _currentCameraDistance, _targetCameraDistance, Time.deltaTime * cameraLookConfig.cameraAnimationSpeed
+                );
+        
         camera.transform.position = orbitTarget.position - rotation * Vector3.forward * _currentCameraDistance;
         camera.transform.LookAt(orbitTarget);
     }
@@ -62,13 +84,13 @@ public class CameraLook : MonoBehaviour
             out var hit, 
             direction.magnitude + 3f,
             levelLayer);
-        if (isHit && hit.distance < cameraLookConfig.cameraDistance)
+        if (isHit && hit.distance < _setCameraDistance)
         {
-            _currentCameraDistance = hit.distance - 0.5f;
+            _targetCameraDistance = hit.distance - 0.5f;
             return;
         }
 
-        _currentCameraDistance = cameraLookConfig.cameraDistance;
+        _targetCameraDistance = _setCameraDistance;
     }
 
     private void UpdateCameraRotation()

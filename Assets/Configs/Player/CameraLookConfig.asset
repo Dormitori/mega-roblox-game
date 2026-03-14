@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d47f459f0e1441649b97a50bd6b6eecf, type: 3}
   m_Name: CameraLookConfig
   m_EditorClassIdentifier: Assembly-CSharp::CameraLookConfig
-  sensitivity: 80
+  mouseSensitivity: 100
+  touchSensitivity: 25
   cameraDistance: 3.5
+  cameraScrollWheelStep: 2.5
+  cameraScrollMobileStep: 0.01
+  cameraMaxDistance: 11
+  cameraMinDistance: 2
+  cameraAnimationSpeed: 10
   startXRotation: 30
   startYRotation: 0
   xMaxClamp: 85

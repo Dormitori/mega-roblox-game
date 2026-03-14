@@ -1,16 +1,14 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CharacterMovement : MonoBehaviour
 {
-    public Camera camera;
+    public Camera playerCamera;
     public CharacterController characterController;
     public CharacterMovementConfig moveConfig;
-    public Transform characterModel;
     public Animator animator;
-
-    private InputAction _move;
-    private InputAction _jump;
+    
+    public InputControls inputControls;
+    
     private float _upwardVelocity;
 
     private bool _jumped;
@@ -23,17 +21,13 @@ public class CharacterMovement : MonoBehaviour
 
     private float _modelRotateTime;
 
-    private void Awake()
-    {
-        _move = InputSystem.actions.FindAction("Move");
-        _jump = InputSystem.actions.FindAction("Jump");
-    }
 
     private void Update()
     {
-        var value = _move.ReadValue<Vector2>();
-        var forward = new Vector3(camera.transform.forward.x, 0f, camera.transform.forward.z).normalized;
-        var moveVector = forward * value.y + camera.transform.right * value.x;
+        var value = inputControls.GetMoveDirection();
+        
+        var forward = new Vector3(playerCamera.transform.forward.x, 0f, playerCamera.transform.forward.z).normalized;
+        var moveVector = forward * value.y + playerCamera.transform.right * value.x;
 
         HandleGravity();
 
@@ -95,7 +89,7 @@ public class CharacterMovement : MonoBehaviour
         HandleJumpBuffer();
         HandleCoyoteTime();
 
-        if ((characterController.isGrounded || _hasCoyote) && (_jump.IsPressed() || _jumpIsBuffered))
+        if ((characterController.isGrounded || _hasCoyote) && (inputControls.JumpIsPressed() || _jumpIsBuffered))
         {
             _upwardVelocity = moveConfig.JumpVelocity;
             _jumpIsBuffered = false;
@@ -113,7 +107,7 @@ public class CharacterMovement : MonoBehaviour
                 _jumpIsBuffered = false;
         }
 
-        if (!characterController.isGrounded && _jump.WasPressedThisFrame() && !_jumpIsBuffered)
+        if (!characterController.isGrounded && (inputControls.JumpedThisFrame()) && !_jumpIsBuffered)
         {
             _jumpIsBuffered = true;
             _jumpBufferTime = 0;

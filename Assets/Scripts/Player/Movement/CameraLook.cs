@@ -4,9 +4,10 @@ using UnityEngine.InputSystem;
 
 public class CameraLook : MonoBehaviour
 {
-    public Camera camera;
+    public Camera playerCamera;
     public Transform orbitTarget;
     public CameraLookConfig cameraLookConfig;
+    public InputControls inputControls;
     public LayerMask levelLayer;
 
     private bool _isLooking;
@@ -29,17 +30,15 @@ public class CameraLook : MonoBehaviour
     {
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
-            _isLooking = true;
             Cursor.lockState = CursorLockMode.Locked;
         }
 
         if (Mouse.current.rightButton.wasReleasedThisFrame)
         {
-            _isLooking = false;
             Cursor.lockState = CursorLockMode.None;
         }
 
-        if (_isLooking)
+        if (inputControls.IsLooking())
         {
             UpdateCameraRotation();
         }
@@ -53,9 +52,10 @@ public class CameraLook : MonoBehaviour
 
     private void HandleCameraScroll()
     {
-        if (Mathf.Abs(Mouse.current.scroll.ReadValue().y) > Mathf.Epsilon)
+        var zoomValue = inputControls.GetCameraZoomValue();
+        if (Mathf.Abs(zoomValue) > Mathf.Epsilon)
         {
-            _setCameraDistance -= Mouse.current.scroll.ReadValue().y * cameraLookConfig.cameraStep;
+            _setCameraDistance -= zoomValue;
             _setCameraDistance = Mathf.Clamp(_setCameraDistance, cameraLookConfig.cameraMinDistance,
                 cameraLookConfig.cameraMaxDistance);
         }
@@ -71,13 +71,13 @@ public class CameraLook : MonoBehaviour
                 _currentCameraDistance, _targetCameraDistance, Time.deltaTime * cameraLookConfig.cameraAnimationSpeed
                 );
         
-        camera.transform.position = orbitTarget.position - rotation * Vector3.forward * _currentCameraDistance;
-        camera.transform.LookAt(orbitTarget);
+        playerCamera.transform.position = orbitTarget.position - rotation * Vector3.forward * _currentCameraDistance;
+        playerCamera.transform.LookAt(orbitTarget);
     }
 
     private void UpdateDistance()
     {
-        var direction = camera.transform.position - orbitTarget.position;
+        var direction = playerCamera.transform.position - orbitTarget.position;
         var isHit = Physics.Raycast(
             orbitTarget.transform.position,
             direction.normalized,
@@ -95,10 +95,10 @@ public class CameraLook : MonoBehaviour
 
     private void UpdateCameraRotation()
     {
-        var lookDelta = Mouse.current.delta.ReadValue();
-
-        _xRotation -= lookDelta.y * cameraLookConfig.sensitivity * Time.deltaTime;
-        _yRotation += lookDelta.x * cameraLookConfig.sensitivity * Time.deltaTime;
+        var lookDelta = inputControls.GetLookDelta();
+        
+        _xRotation -= lookDelta.y * Time.deltaTime;
+        _yRotation += lookDelta.x * Time.deltaTime;
 
         _xRotation = Math.Clamp(_xRotation, cameraLookConfig.xMinClamp, cameraLookConfig.xMaxClamp);
     }

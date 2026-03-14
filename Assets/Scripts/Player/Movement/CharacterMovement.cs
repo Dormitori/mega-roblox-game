@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _attackParticle;
     public Camera playerCamera;
     public CharacterController characterController;
     public CharacterMovementConfig moveConfig;
@@ -55,7 +56,7 @@ public class CharacterMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             animator.SetTrigger("Attack");
-            Debug.Log("Attack");
+            _attackParticle.Play();
         }
     }
 

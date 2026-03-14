@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ground
+  m_Name: Ground 2
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -27,8 +27,8 @@ Material:
     m_TexEnvs:
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 4edb903390c8549f8a5670e71dd33c07, type: 3}
-        m_Scale: {x: 20, y: 20}
-        m_Offset: {x: 0, y: 0}
+        m_Scale: {x: 2, y: 200}
+        m_Offset: {x: 0, y: 1.6}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -51,8 +51,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 4edb903390c8549f8a5670e71dd33c07, type: 3}
-        m_Scale: {x: 20, y: 20}
-        m_Offset: {x: 0, y: 0}
+        m_Scale: {x: 2, y: 200}
+        m_Offset: {x: 0, y: 1.6}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -116,13 +116,13 @@ Material:
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.5283019, g: 0.33641866, b: 0.33641866, a: 1}
-    - _Color: {r: 0.5283019, g: 0.33641863, b: 0.33641863, a: 1}
+    - _BaseColor: {r: 0.5377358, g: 0.3836963, b: 0.31198823, a: 1}
+    - _Color: {r: 0.53773576, g: 0.38369626, b: 0.3119882, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &556551750599239442
+--- !u!114 &8986386115007576701
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

@@ -51,6 +51,12 @@ public class CharacterMovement : MonoBehaviour
 
         var resultMovement = moveVector * moveConfig.speed + Vector3.up * _upwardVelocity;
         characterController.Move(resultMovement * Time.deltaTime);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            animator.SetTrigger("Attack");
+            Debug.Log("Attack");
+        }
     }
 
     private void HandleGravity()

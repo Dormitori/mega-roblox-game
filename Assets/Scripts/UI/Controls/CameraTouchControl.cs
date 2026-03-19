@@ -6,11 +6,12 @@ using UnityEngine.InputSystem.EnhancedTouch;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
-
+[DefaultExecutionOrder(-1)]
 public class CameraTouchControl : MonoBehaviour
 {
     public Vector2 CameraDelta { get; private set; }
     public bool IsCameraTouchActive { get; private set; }
+    public bool IsTouchedThisFrame { get; private set; }
 
     public List<Transform> ignoredUIRoots = new();
 
@@ -18,6 +19,13 @@ public class CameraTouchControl : MonoBehaviour
     private Dictionary<int, bool> _blockedTouches = new();
     private List<Touch> _cameraMoveTouches = new();
     private List<int> _tmpRemove = new();
+    
+    private readonly float _touchTimeThreshold = 0.5f;
+    private float _touchTime = 0f;
+    
+    private readonly float _touchMoveDeltaThreshold = 10f;
+    private float _touchCurDelta = 0;
+   
     
     private void OnEnable()
     {
@@ -31,6 +39,8 @@ public class CameraTouchControl : MonoBehaviour
 
     private void Update()
     {
+        IsTouchedThisFrame = false;
+        
         CameraDelta = Vector2.zero;
 
         var touches = Touch.activeTouches;
@@ -54,16 +64,24 @@ public class CameraTouchControl : MonoBehaviour
 
         if (_cameraMoveTouches.Count != 1)
         {
+            _touchTime = 0f;
+            _touchCurDelta = 0f;
             return;
         }
 
         var camTouch = _cameraMoveTouches[0];
+        _touchTime += Time.deltaTime;
+
+        if (camTouch.phase == TouchPhase.Ended && _touchTime < _touchTimeThreshold &&
+            _touchCurDelta < _touchMoveDeltaThreshold)
+            IsTouchedThisFrame = true;
 
         IsCameraTouchActive = true;
 
         if (camTouch.phase == TouchPhase.Moved)
         {
             var d = camTouch.delta;
+            _touchCurDelta += d.magnitude;
             CameraDelta = d;
         }
     }

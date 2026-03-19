@@ -15,6 +15,10 @@ public class CharacterMovementConfig : ScriptableObject
 
     public float rotationSpeed;
 
+    public int hitDamage = 1;
+    public float beforeHitCooldown = 0.4f;
+    public float afterHitCooldown = 0.4f;
+
     public float UpwardGravity => 2 * jumpHeight / (jumpTime * jumpTime);
     public float DownwardGravity => 2 * jumpHeight / (fallingTime * fallingTime);
     public float JumpVelocity => 2 * jumpHeight / jumpTime;

@@ -71,4 +71,11 @@ public class InputControls : MonoBehaviour
             return pinchTouchControl.PinchDelta * cameraLookConfig.cameraScrollMobileStep;
         return Mouse.current.scroll.ReadValue().y * cameraLookConfig.cameraScrollWheelStep;
     }
+
+    public bool MineIsPressed()
+    {
+        if (_isPhone)
+            return cameraTouchControl.IsTouchedThisFrame;
+        return Mouse.current.leftButton.isPressed;
+    }
 }

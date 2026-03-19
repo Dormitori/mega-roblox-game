@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,7 +9,7 @@ public class CameraLook : MonoBehaviour
     public Transform orbitTarget;
     public CameraLookConfig cameraLookConfig;
     public InputControls inputControls;
-    public LayerMask levelLayer;
+    public List<LayerMask> obstacleLayers;
 
     private bool _isLooking;
 
@@ -69,8 +70,8 @@ public class CameraLook : MonoBehaviour
         else
             _currentCameraDistance = Mathf.Lerp(
                 _currentCameraDistance, _targetCameraDistance, Time.deltaTime * cameraLookConfig.cameraAnimationSpeed
-                );
-        
+            );
+
         playerCamera.transform.position = orbitTarget.position - rotation * Vector3.forward * _currentCameraDistance;
         playerCamera.transform.LookAt(orbitTarget);
     }
@@ -78,17 +79,21 @@ public class CameraLook : MonoBehaviour
     private void UpdateDistance()
     {
         var direction = playerCamera.transform.position - orbitTarget.position;
-        var isHit = Physics.Raycast(
-            orbitTarget.transform.position,
-            direction.normalized,
-            out var hit, 
-            direction.magnitude + 3f,
-            levelLayer);
-        if (isHit && hit.distance < _setCameraDistance)
+        foreach (var layer in obstacleLayers)
         {
-            _targetCameraDistance = hit.distance - 0.5f;
-            return;
+            var isHit = Physics.Raycast(
+                orbitTarget.transform.position,
+                direction.normalized,
+                out var hit,
+                direction.magnitude + 3f,
+                layer);
+            if (isHit && hit.distance < _setCameraDistance)
+            {
+                _targetCameraDistance = hit.distance - 0.5f;
+                return;
+            }
         }
+
 
         _targetCameraDistance = _setCameraDistance;
     }
@@ -96,7 +101,7 @@ public class CameraLook : MonoBehaviour
     private void UpdateCameraRotation()
     {
         var lookDelta = inputControls.GetLookDelta();
-        
+
         _xRotation -= lookDelta.y * Time.deltaTime;
         _yRotation += lookDelta.x * Time.deltaTime;
 

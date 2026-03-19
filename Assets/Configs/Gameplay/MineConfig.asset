@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da5bf97458c46ca83c93bd97ef0f035, type: 3}
+  m_Name: MineConfig
+  m_EditorClassIdentifier: Assembly-CSharp::MineConfig
+  blockPrefabs:
+  - {fileID: 4298407955942950256, guid: 7352e9e4e300ae34bae5be5828840ef6, type: 3}
+  - {fileID: 7219410739516017933, guid: c27a3a01668fea640b28323333f6edac, type: 3}
+  - {fileID: 4345492621026120539, guid: c5f37fb58ad694119ba0485362db33e5, type: 3}
+  - {fileID: 8061760928387110963, guid: 9b2949e47ab524c2092487a8517f129e, type: 3}
+  - {fileID: 8982875132992817383, guid: dc2107fe0c3aa46fa97434cfed540a14, type: 3}
+  mineLevelsConfig:
+  - startLevel: 0
+    endLevel: 50
+    blockProbabilities:
+    - blockName: sand1
+      probability: 1
+    - blockName: sand2
+      probability: 1
+    - blockName: sand3
+      probability: 1
+    - blockName: sand4
+      probability: 1
+    - blockName: sand5
+      probability: 1
+  mineSize: 6
+  yBlockSize: 1
+  xBlockSize: 1
+  zBlockSize: 1

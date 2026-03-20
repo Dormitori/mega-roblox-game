@@ -26,7 +26,6 @@ public class MineManager : IStartable
         foreach (var block in _config.blockPrefabs)
         {
             _blocksPools[block.name] = new ObjectPool<Block>(block, _refs.blocksParent); 
-            Debug.Log(block.name);
         }
     }
 

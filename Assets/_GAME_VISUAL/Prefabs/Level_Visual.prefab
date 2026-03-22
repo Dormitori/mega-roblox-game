@@ -1015,7 +1015,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4962899460708343859}
-  - component: {fileID: 5247450216045851495}
   m_Layer: 3
   m_Name: Mine_Parent
   m_TagString: Untagged
@@ -1038,20 +1037,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7709342242496135360}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5247450216045851495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283423107578679105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25197f4074134e70aa9d6486bfaa1c97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MineManagerRefs
-  blocksParent: {fileID: 4962899460708343859}
-  mineConfig: {fileID: 11400000, guid: 6bcf016bdf89c6c47bf6d6481dab7356, type: 2}
 --- !u!1 &2333181751946165841
 GameObject:
   m_ObjectHideFlags: 0

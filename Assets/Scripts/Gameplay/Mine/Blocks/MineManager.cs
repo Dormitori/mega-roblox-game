@@ -3,9 +3,11 @@ using System.Linq;
 using UnityEngine;
 using VContainer.Unity;
 
-public class MineManager : IStartable
+public class MineManager : MonoBehaviour
 {
-    private MineManagerRefs _refs;
+    public Transform blocksParent;
+    public MineConfig mineConfig;
+
     private MineConfig _config;
     private Dictionary<string, ObjectPool<Block>> _blocksPools = new();
 
@@ -17,20 +19,15 @@ public class MineManager : IStartable
     private int _currentLevelBlocksCount;
     private int _currentDeepLevel;
     private List<Block> _nextLevelBlocks;
-    
-    public MineManager(MineManagerRefs refs)
+
+    public void Initialize()
     {
-        _refs = refs;
-        _config = _refs.mineConfig;
+        _config = mineConfig;
         _cubeRotations = GetUpwardRotations();
         foreach (var block in _config.blockPrefabs)
         {
-            _blocksPools[block.name] = new ObjectPool<Block>(block, _refs.blocksParent); 
+            _blocksPools[block.name] = new ObjectPool<Block>(block, blocksParent);
         }
-    }
-
-    public void Start()
-    {
         _currentLevelBlocksCount = GenerateMineLevel().Count;
         _nextLevelBlocks = GenerateMineLevel();
         DisableBlocks(_nextLevelBlocks);
@@ -47,7 +44,7 @@ public class MineManager : IStartable
             var block = blockPool.Rent(false);
             blocks.Add(block);
             block.BlockDestroyed += OnBlockDestroy;
-            block.transform.localPosition = new Vector3(i, -_currentDeepLevel * _config.zBlockSize, j);   
+            block.transform.localPosition = new Vector3(i, -_currentDeepLevel * _config.zBlockSize, j);
             block.transform.rotation = _cubeRotations[Random.Range(0, _cubeRotations.Count)];
             block.gameObject.SetActive(true);
             _curBlocks++;
@@ -86,10 +83,11 @@ public class MineManager : IStartable
             if (deepLevel >= levelConfig.startLevel && deepLevel <= levelConfig.endLevel)
             {
                 var probabilities = levelConfig.blockProbabilities.Select(x => x.probability).ToList();
-                var names =  levelConfig.blockProbabilities.Select(x => x.blockName).ToList();
+                var names = levelConfig.blockProbabilities.Select(x => x.blockName).ToList();
                 return RandomUtils.WeightedRandom(probabilities, names);
             }
         }
+
         throw new System.Exception($"Level {deepLevel} not found");
     }
 

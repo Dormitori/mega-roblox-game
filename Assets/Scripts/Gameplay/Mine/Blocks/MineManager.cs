@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using VContainer;
 using VContainer.Unity;
+using Random = UnityEngine.Random;
 
 public class MineManager : MonoBehaviour
 {
@@ -10,6 +13,7 @@ public class MineManager : MonoBehaviour
 
     private MineConfig _config;
     private Dictionary<string, ObjectPool<Block>> _blocksPools = new();
+    private IInventory _inventory;
 
     private List<Quaternion> _cubeRotations = new();
     private int _curBlocks = 0;
@@ -20,14 +24,20 @@ public class MineManager : MonoBehaviour
     private int _currentDeepLevel;
     private List<Block> _nextLevelBlocks;
 
-    public void Initialize()
+    [Inject]
+    public void Initialize(IInventory inventory)
     {
+        _inventory = inventory;
         _config = mineConfig;
         _cubeRotations = GetUpwardRotations();
         foreach (var block in _config.blockPrefabs)
         {
             _blocksPools[block.name] = new ObjectPool<Block>(block, blocksParent);
         }
+    }
+
+    private void Start()
+    {
         _currentLevelBlocksCount = GenerateMineLevel().Count;
         _nextLevelBlocks = GenerateMineLevel();
         DisableBlocks(_nextLevelBlocks);
@@ -59,6 +69,7 @@ public class MineManager : MonoBehaviour
 
     private void OnBlockDestroy(Block block)
     {
+        _inventory.AddItem(block.config.item, 1);
         _currentLevelDestroyedBlocks++;
         block.ResetHealth();
         block.BlockDestroyed -= OnBlockDestroy;

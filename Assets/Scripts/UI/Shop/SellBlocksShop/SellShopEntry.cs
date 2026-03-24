@@ -1,0 +1,30 @@
+using System;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class SellShopEntry : MonoBehaviour
+{
+    public event Action<SellShopEntry> Sell;
+    
+    public Items Item { get; private set; }
+    public int ResourceCount { get; private set; }
+    public int ResourcePrice { get; private set; }
+    
+    public TextMeshProUGUI resourceText;
+    public Image resourceIcon;
+    public TextMeshProUGUI priceText;
+    public Button sellButton;
+    
+    public void SetResource(Items item, Sprite icon, string resourceName, int resourceCount, int resourcePrice)
+    {
+        Item = item;
+        ResourceCount = resourceCount;
+        ResourcePrice = resourcePrice;
+        resourceIcon.sprite = icon;
+        
+        resourceText.text = $"{resourceName} (x{resourceCount})";
+        priceText.text = $"{resourcePrice * resourceCount}";
+        sellButton.onClick.AddListener(() => Sell?.Invoke(this));
+    }
+}

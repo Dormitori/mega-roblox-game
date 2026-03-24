@@ -7,7 +7,10 @@ namespace DI
     {
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.Register<Inventory>(Lifetime.Singleton).As<IInventory>();
             builder.RegisterComponentInHierarchy<MineManager>();
+            builder.RegisterComponentInHierarchy<MoneyView>();
+            builder.RegisterComponentInHierarchy<SellShop>();
             builder.RegisterEntryPoint<GameInit>();
         }
     }

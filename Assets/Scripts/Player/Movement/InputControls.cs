@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class InputControls : MonoBehaviour
 {
-    public Canvas uiInputCanvas;
+    public GameObject controlsPanel;
     
     public ControlsButton jumpButton;
     
@@ -24,7 +25,7 @@ public class InputControls : MonoBehaviour
         _isPhone = Application.platform == RuntimePlatform.WebGLPlayer && Application.isMobilePlatform || usePhone;
 
         if (!_isPhone)
-            uiInputCanvas.enabled = false;
+            controlsPanel.SetActive(false);
         
         _jumpAction = InputSystem.actions.FindAction("Jump");
         _moveAction = InputSystem.actions.FindAction("Move");
@@ -76,6 +77,8 @@ public class InputControls : MonoBehaviour
     {
         if (_isPhone)
             return cameraTouchControl.IsTouchedThisFrame;
+        if (EventSystem.current.IsPointerOverGameObject())
+            return false;
         return Mouse.current.leftButton.isPressed;
     }
 }

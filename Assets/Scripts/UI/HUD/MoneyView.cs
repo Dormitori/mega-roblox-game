@@ -13,6 +13,7 @@ public class MoneyView : MonoBehaviour
     {
         inventory.Changed += OnInventoryChanged;
         _inventory = inventory;
+        OnInventoryChanged();
     }
 
     private void OnInventoryChanged()

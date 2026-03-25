@@ -4,6 +4,10 @@ using UnityEngine.InputSystem;
 
 public class InputControls : MonoBehaviour
 {
+    public bool CanMine { get; set; } = true;
+    public bool CanLook { get; set; } = true;
+    public bool CanCameraScroll { get; set; } = true;
+    
     public GameObject controlsPanel;
     
     public ControlsButton jumpButton;
@@ -61,6 +65,8 @@ public class InputControls : MonoBehaviour
 
     public bool IsLooking()
     {
+        if (!CanLook)
+            return false;
         if (_isPhone)
             return cameraTouchControl.IsCameraTouchActive;
         return Mouse.current.rightButton.isPressed;
@@ -68,6 +74,8 @@ public class InputControls : MonoBehaviour
 
     public float GetCameraZoomValue()
     {
+        if (!CanCameraScroll)
+            return 0f;
         if (_isPhone)
             return pinchTouchControl.PinchDelta * cameraLookConfig.cameraScrollMobileStep;
         return Mouse.current.scroll.ReadValue().y * cameraLookConfig.cameraScrollWheelStep;
@@ -75,6 +83,8 @@ public class InputControls : MonoBehaviour
 
     public bool MineIsPressed()
     {
+        if (!CanMine)
+            return false;
         if (_isPhone)
             return cameraTouchControl.IsTouchedThisFrame;
         if (EventSystem.current.IsPointerOverGameObject())

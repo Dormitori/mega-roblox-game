@@ -12,6 +12,7 @@ public class SellShopEntry : MonoBehaviour
     public int ResourcePrice { get; private set; }
     
     public TextMeshProUGUI resourceText;
+    public TextMeshProUGUI countText;
     public Image resourceIcon;
     public TextMeshProUGUI priceText;
     public Button sellButton;
@@ -23,7 +24,8 @@ public class SellShopEntry : MonoBehaviour
         ResourcePrice = resourcePrice;
         resourceIcon.sprite = icon;
         
-        resourceText.text = $"{resourceName} (x{resourceCount})";
+        resourceText.text = $"{resourceName}";
+        countText.text = $"x{resourceCount}";
         priceText.text = $"{resourcePrice * resourceCount}";
         sellButton.onClick.AddListener(() => Sell?.Invoke(this));
     }

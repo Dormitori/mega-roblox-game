@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Sand
   m_EditorClassIdentifier: Assembly-CSharp::BlockConfig
   item: 1
-  icon: {fileID: 21300000, guid: 113815b1d5f17264985fe1dfc666f5fc, type: 3}
-  name: "\u041F\u0435\u0441\u043E\u043A"
-  rarity: "\u041E\u0431\u044B\u0447\u043D\u044B\u0439"
+  icon: {fileID: 21300000, guid: cca4e57234acb4f3cb34f764af6712e8, type: 3}
+  name: Sand
+  rarity: 
   baseSellPrice: 2
   health: 2

@@ -5,10 +5,12 @@ using VContainer;
 
 public class SellShop : MonoBehaviour
 {
+    public InputControls characterControls;
     public List<BlockConfig> blockConfigs;
     public SellShopEntry shopEntryPrefab;
     public Transform shopEntriesTransform;
     public Button sellAllButton;
+    public Button closeButton;
     
     private IInventory _inventory;
     private List<SellShopEntry> _shopEntries = new();
@@ -17,6 +19,7 @@ public class SellShop : MonoBehaviour
     {
         gameObject.SetActive(false);
         sellAllButton.onClick.AddListener(SellAll);
+        closeButton.onClick.AddListener(CloseShop);
     }
     
     [Inject]
@@ -25,8 +28,13 @@ public class SellShop : MonoBehaviour
         _inventory = inventory;
     }
 
-    public void ShowEntries()
+    public void OpenShop()
     {
+        gameObject.SetActive(true);
+        
+        characterControls.CanMine = false;
+        characterControls.CanCameraScroll = false;
+        
         foreach (BlockConfig blockConfig in blockConfigs)
         foreach (var item in _inventory.Items.Keys)
         {
@@ -70,9 +78,12 @@ public class SellShop : MonoBehaviour
 
     public void CloseShop()
     {
+        characterControls.CanMine = true;
+        characterControls.CanCameraScroll = true;
         foreach (var shopEntry in _shopEntries)
             Destroy(shopEntry.gameObject);
         _shopEntries.Clear();
+        gameObject.SetActive(false);
     }
     
 }

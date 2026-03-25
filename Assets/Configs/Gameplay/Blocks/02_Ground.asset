@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 095a2277426a4f31b2c211adc29d3dc3, type: 3}
-  m_Name: Sand
+  m_Name: 02_Ground
   m_EditorClassIdentifier: Assembly-CSharp::BlockConfig
-  item: 1
-  icon: {fileID: 21300000, guid: cca4e57234acb4f3cb34f764af6712e8, type: 3}
-  name: Sand
+  item: 2
+  icon: {fileID: 21300000, guid: 69bc70fee08fb48b5827a723adb58d13, type: 3}
+  name: Ground
   rarity: 
-  baseSellPrice: 2
-  health: 2
+  baseSellPrice: 4
+  health: 4

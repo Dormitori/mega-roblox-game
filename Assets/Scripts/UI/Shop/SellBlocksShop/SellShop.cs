@@ -5,6 +5,7 @@ using VContainer;
 
 public class SellShop : MonoBehaviour
 {
+    [SerializeField] private CanvasGroup _canvasGroup;
     public InputControls characterControls;
     public List<BlockConfig> blockConfigs;
     public SellShopEntry shopEntryPrefab;
@@ -17,7 +18,7 @@ public class SellShop : MonoBehaviour
 
     public void Awake()
     {
-        gameObject.SetActive(false);
+        _canvasGroup.alpha = 0;
         sellAllButton.onClick.AddListener(SellAll);
         closeButton.onClick.AddListener(CloseShop);
     }
@@ -30,7 +31,8 @@ public class SellShop : MonoBehaviour
 
     public void OpenShop()
     {
-        gameObject.SetActive(true);
+        if(_canvasGroup.alpha == 0)
+            _canvasGroup.alpha = 1;
         
         characterControls.CanMine = false;
         characterControls.CanCameraScroll = false;
@@ -83,7 +85,7 @@ public class SellShop : MonoBehaviour
         foreach (var shopEntry in _shopEntries)
             Destroy(shopEntry.gameObject);
         _shopEntries.Clear();
-        gameObject.SetActive(false);
+        _canvasGroup.alpha = 0;
     }
     
 }

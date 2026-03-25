@@ -6,13 +6,13 @@ public class SellShopTrigger : MonoBehaviour
     
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Player") return;
+        if (!other.CompareTag("Player")) return;
         sellShop.OpenShop();
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.tag != "Player") return;
+        if (!other.CompareTag("Player")) return;
         sellShop.CloseShop();
     }
 }

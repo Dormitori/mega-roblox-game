@@ -19,6 +19,6 @@ MonoBehaviour:
   jumpBufferTime: 0.15
   coyoteTime: 0.1
   rotationSpeed: 10
-  hitDamage: 2
+  hitDamage: 1
   beforeHitCooldown: 0.2
   afterHitCooldown: 0.2

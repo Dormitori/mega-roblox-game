@@ -1813,7 +1813,7 @@ MonoBehaviour:
   cameraTouchControl: {fileID: 6996135427397816168}
   pinchTouchControl: {fileID: 1186831006429305899}
   cameraLookConfig: {fileID: 11400000, guid: e090c8aad39b1394ea1f033bf623e4ae, type: 2}
-  usePhone: 0
+  usePhone: 1
   joystick: {fileID: 3678083724612686512}
 --- !u!114 &1186831006429305899
 MonoBehaviour:

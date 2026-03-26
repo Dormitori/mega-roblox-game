@@ -1,17 +1,23 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using Object = System.Object;
 using Random = UnityEngine.Random;
 
 public class MineManager : MonoBehaviour
 {
     public Transform blocksParent;
     public MineConfig mineConfig;
+    public ParticleSystem destroyParticles;
+    public float destroyParticlesDuration;
+    
     private MineConfig _config;
     private Dictionary<Items, Dictionary<int, ObjectPool<Block>>> _blocksPools = new();
+    private ObjectPool<ParticleSystem> _destroyParticlesPool;
     private IInventory _inventory;
 
     private List<Quaternion> _cubeRotations = new();
@@ -29,6 +35,7 @@ public class MineManager : MonoBehaviour
         _inventory = inventory;
         _config = mineConfig;
         _cubeRotations = GetUpwardRotations();
+        _destroyParticlesPool = new ObjectPool<ParticleSystem>(destroyParticles, blocksParent);
         
         foreach (var block in _config.blockPrefabs)
         {
@@ -79,7 +86,14 @@ public class MineManager : MonoBehaviour
     {
         _inventory.AddItem(block.config.item, 1);
         _currentLevelDestroyedBlocks++;
+        print(_currentLevelDestroyedBlocks);
         block.ResetHealth();
+        
+        if (destroyParticles != null)
+        {
+            StartCoroutine(PlayAndKillParticle(block.transform.position, block.destroyParticlesMaterial));
+        }
+        
         block.BlockDestroyed -= OnBlockDestroy;
         block.Disable();
         _blocksPools[block.blockType][block.variantId].Return(block);
@@ -94,6 +108,18 @@ public class MineManager : MonoBehaviour
         }
     }
 
+    private IEnumerator PlayAndKillParticle(Vector3 blockPosition, Material blockMaterial)
+    {
+        var particle = _destroyParticlesPool.Rent();
+        particle.GetComponent<ParticleSystemRenderer>().sharedMaterial = blockMaterial;
+
+        particle.transform.position = blockPosition;
+        particle.Play();
+        yield return new WaitForSeconds(destroyParticlesDuration);
+        particle.Stop();
+        _destroyParticlesPool.Return(particle);
+    }
+
     private (Items blockType, int variantId) GetBlockInfo(int deepLevel)
     {
         var levelsConfig = _config.mineLevelsConfig;
@@ -102,12 +128,15 @@ public class MineManager : MonoBehaviour
             if (deepLevel >= levelConfig.startLevel && deepLevel <= levelConfig.endLevel)
             {
                 var probabilities = levelConfig.blockProbabilities.Select(x => x.probability).ToList();
-                var blockTypes = levelConfig.blockProbabilities.Select(x => (int)x.blockType).ToList();
-                int selectedIndex = RandomUtils.WeightedRandom(probabilities, blockTypes);
-                var selectedBlock = levelConfig.blockProbabilities[selectedIndex];
+                var blockTypes = levelConfig.blockProbabilities.Select(x => x.blockType).ToList();
                 
-                int variantId = Random.Range(selectedBlock.minVariant, selectedBlock.maxVariant + 1);
-                return (selectedBlock.blockType, variantId);
+                var selectedBlock = RandomUtils.WeightedRandom(probabilities, blockTypes);
+                foreach (var config in levelConfig.blockProbabilities)
+                {
+                    if (config.blockType != selectedBlock) continue;
+                    var variantId = Random.Range(config.minVariant, config.maxVariant + 1);
+                    return (selectedBlock, variantId);
+                }
             }
         }
 

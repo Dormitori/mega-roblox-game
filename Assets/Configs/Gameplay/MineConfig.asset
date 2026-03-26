@@ -18,27 +18,27 @@ MonoBehaviour:
   - {fileID: 4345492621026120539, guid: c5f37fb58ad694119ba0485362db33e5, type: 3}
   - {fileID: 8061760928387110963, guid: 9b2949e47ab524c2092487a8517f129e, type: 3}
   - {fileID: 8982875132992817383, guid: dc2107fe0c3aa46fa97434cfed540a14, type: 3}
+  - {fileID: 5838325090604995398, guid: 4dc81f1a1ef814005ab10d2907c0ac6d, type: 3}
+  - {fileID: -8166843958664593278, guid: a1376f40ddc7a451486b1dd75931e955, type: 3}
+  - {fileID: -4912222688529255258, guid: 30a9ff00cddf048ce87584b2c22c0e5e, type: 3}
+  - {fileID: -1554140835062457918, guid: 4a7dafd9829d245ad9ef127661f79faf, type: 3}
+  - {fileID: 4080043920325624243, guid: 4f4d24421ec954db6ae47aebcc8a783c, type: 3}
   mineLevelsConfig:
   - startLevel: 0
-    endLevel: 50
+    endLevel: 0
     blockProbabilities:
     - blockType: 1
       probability: 1
       minVariant: 1
       maxVariant: 5
-    - blockType: 1
+    - blockType: 2
       probability: 1
       minVariant: 1
       maxVariant: 5
-    - blockType: 1
-      probability: 1
-      minVariant: 1
-      maxVariant: 5
-    - blockType: 1
-      probability: 1
-      minVariant: 1
-      maxVariant: 5
-    - blockType: 1
+  - startLevel: 1
+    endLevel: 50
+    blockProbabilities:
+    - blockType: 2
       probability: 1
       minVariant: 1
       maxVariant: 5

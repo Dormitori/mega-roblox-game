@@ -17,10 +17,8 @@ public class Block : MonoBehaviour
     public Material defaultMaterial;
     public Material highlightMaterial;
     public Material disabledMaterial;
+    public Material destroyParticlesMaterial;
     public MeshRenderer meshRenderer;
-    
-    [Header("Destroy Effects")]
-    public ParticleSystem destroyParticles;
 
     private Health _health;
     private Tweener _shakeTween;
@@ -35,7 +33,7 @@ public class Block : MonoBehaviour
         if (IsNotValidComponents()) return;
 
         _originalScale = visualsTransform.localScale;
-        
+        meshRenderer.sharedMaterial = defaultMaterial;
         _health.Death += OnBlockDestroy;
         _health.SetHealth(config.health);
     }
@@ -44,7 +42,7 @@ public class Block : MonoBehaviour
     {
         if (meshRenderer != null && highlightMaterial != null)
         {
-            meshRenderer.material = highlightMaterial;
+            meshRenderer.sharedMaterial = highlightMaterial;
             
             if (animationConfig != null && animationConfig.highlightScaleAmount > 0)
             {
@@ -62,7 +60,7 @@ public class Block : MonoBehaviour
     {
         if (meshRenderer != null && defaultMaterial != null)
         {
-            meshRenderer.material = defaultMaterial;
+            meshRenderer.sharedMaterial = defaultMaterial;
         }
         
         _scaleTween?.Kill();
@@ -74,7 +72,7 @@ public class Block : MonoBehaviour
     {
         if (meshRenderer != null && disabledMaterial != null)
         {
-            meshRenderer.material = disabledMaterial;
+            meshRenderer.sharedMaterial = disabledMaterial;
         }
         IsDisabled = true;
     }
@@ -83,7 +81,7 @@ public class Block : MonoBehaviour
     {
         if (meshRenderer != null && defaultMaterial != null)
         {
-            meshRenderer.material = defaultMaterial;
+            meshRenderer.sharedMaterial = defaultMaterial;
         }
         IsDisabled = false;
 
@@ -143,12 +141,6 @@ public class Block : MonoBehaviour
         _shakeTween?.Kill();
         _scaleTween?.Kill();
         _hitSequence?.Kill();
-  
-        if (destroyParticles != null)
-        {
-            destroyParticles.transform.SetParent(null);
-            destroyParticles.Play();
-        }
         
         BlockDestroyed?.Invoke(this);
     }

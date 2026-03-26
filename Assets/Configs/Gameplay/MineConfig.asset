@@ -22,16 +22,26 @@ MonoBehaviour:
   - startLevel: 0
     endLevel: 50
     blockProbabilities:
-    - blockName: sand1
+    - blockType: 1
       probability: 1
-    - blockName: sand2
+      minVariant: 1
+      maxVariant: 5
+    - blockType: 1
       probability: 1
-    - blockName: sand3
+      minVariant: 1
+      maxVariant: 5
+    - blockType: 1
       probability: 1
-    - blockName: sand4
+      minVariant: 1
+      maxVariant: 5
+    - blockType: 1
       probability: 1
-    - blockName: sand5
+      minVariant: 1
+      maxVariant: 5
+    - blockType: 1
       probability: 1
+      minVariant: 1
+      maxVariant: 5
   mineSize: 6
   yBlockSize: 1
   xBlockSize: 1

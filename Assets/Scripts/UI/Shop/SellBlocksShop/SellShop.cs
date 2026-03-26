@@ -18,11 +18,11 @@ public class SellShop : MonoBehaviour
 
     public void Awake()
     {
-        _canvasGroup.alpha = 0;
+        HidePanel();
         sellAllButton.onClick.AddListener(SellAll);
         closeButton.onClick.AddListener(CloseShop);
     }
-    
+
     [Inject]
     public void Initialize(IInventory inventory)
     {
@@ -31,9 +31,11 @@ public class SellShop : MonoBehaviour
 
     public void OpenShop()
     {
-        if(_canvasGroup.alpha == 0)
+        if (_canvasGroup.alpha == 0)
+        {
+            _canvasGroup.blocksRaycasts = true;
             _canvasGroup.alpha = 1;
-        
+        }
         characterControls.CanMine = false;
         characterControls.CanCameraScroll = false;
         
@@ -85,7 +87,13 @@ public class SellShop : MonoBehaviour
         foreach (var shopEntry in _shopEntries)
             Destroy(shopEntry.gameObject);
         _shopEntries.Clear();
+        HidePanel();
+    }
+    
+    private void HidePanel()
+    {
         _canvasGroup.alpha = 0;
+        _canvasGroup.blocksRaycasts = false;
     }
     
 }

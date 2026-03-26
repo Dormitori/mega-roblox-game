@@ -122,6 +122,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4123530898966994245}
   - {fileID: 1919714905581818225}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -138,13 +139,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Block
   IsDisabled: 0
-  name: sand5
+  blockType: 1
+  variantId: 5
   config: {fileID: 11400000, guid: 926e3909f510e3d41b4a53a5a37943a0, type: 2}
+  animationConfig: {fileID: 11400000, guid: 5bfdf4f3ee43e4fb8862ac377ff1f42b, type: 2}
   visualsTransform: {fileID: 1919714905581818225}
   defaultMaterial: {fileID: 2100000, guid: ab08612e63d71e8419000749e3c68d16, type: 2}
   highlightMaterial: {fileID: 2100000, guid: a0cb24b2727d04ed8b9b50810e281a2a, type: 2}
   disabledMaterial: {fileID: 2100000, guid: b5f0631906fb9044082e5d4b7b53481d, type: 2}
   meshRenderer: {fileID: 7808961319248883705}
+  destroyParticles: {fileID: 3940723940178367867}
 --- !u!65 &-4818572058094521121
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -212,6 +216,73 @@ Transform:
   - {fileID: 5879497391493245811}
   m_Father: {fileID: 6027787923001699366}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1709006939408252798
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6027787923001699366}
+    m_Modifications:
+    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320149397165392037, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
+      propertyPath: m_Name
+      value: Destroy_Particle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
+--- !u!198 &3940723940178367867 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2380116440267008517, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
+  m_PrefabInstance: {fileID: 1709006939408252798}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4123530898966994245 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
+  m_PrefabInstance: {fileID: 1709006939408252798}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7357647815395164747
 PrefabInstance:
   m_ObjectHideFlags: 0

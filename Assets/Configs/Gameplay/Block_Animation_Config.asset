@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 626a9a6f831654098a57bccc7655117c, type: 3}
+  m_Name: Block_Animation_Config
+  m_EditorClassIdentifier: Assembly-CSharp::BlockAnimationConfig
+  hitScaleDuration: 0.3
+  hitScaleAmount: 0.15
+  hitScaleEase: 27
+  highlightScaleAmount: 0
+  highlightDuration: 0.3
+  highlightEase: 6
+  disableScaleAmount: 0.9
+  disableDuration: 0.3
+  disableEase: 5
+  enableDuration: 0.3
+  enableEase: 27
+  destroyDuration: 0.5
+  destroyEase: 26

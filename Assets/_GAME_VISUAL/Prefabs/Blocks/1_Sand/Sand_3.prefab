@@ -156,7 +156,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3507911680221029364}
-  - {fileID: 2993809400574244430}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4345492621026120539
@@ -180,8 +179,8 @@ MonoBehaviour:
   defaultMaterial: {fileID: 2100000, guid: ab08612e63d71e8419000749e3c68d16, type: 2}
   highlightMaterial: {fileID: 2100000, guid: a0cb24b2727d04ed8b9b50810e281a2a, type: 2}
   disabledMaterial: {fileID: 2100000, guid: b5f0631906fb9044082e5d4b7b53481d, type: 2}
+  destroyParticlesMaterial: {fileID: 2100000, guid: d207f2fdfd2614c42af8437596243e4d, type: 2}
   meshRenderer: {fileID: 2440817962412035523}
-  destroyParticles: {fileID: 2739841979469807216}
 --- !u!65 &1225907266603468768
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -216,73 +215,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   health: 0
---- !u!1001 &504966698058552437
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 6124943306026638521}
-    m_Modifications:
-    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4320149397165392037, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
-      propertyPath: m_Name
-      value: Destroy_Particle
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
---- !u!198 &2739841979469807216 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2380116440267008517, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
-  m_PrefabInstance: {fileID: 504966698058552437}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2993809400574244430 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3354659733060280891, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
-  m_PrefabInstance: {fileID: 504966698058552437}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3756037024622483127
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -30,9 +30,13 @@ public class SelectedPickaxeView : MonoBehaviour
     {
         PickaxeName.text = pickaxeConfig.pickaxeName;
         PickaxeBuffs.text = MakeBuffList(pickaxeConfig);
-        pickaxeShopView.SetView(pickaxeConfig, true, false);
+        
+        // ✅ Обновляем view справа с текущим состоянием
+        pickaxeShopView.SetView(pickaxeConfig, purchased, equipped, true); // Always selected in right panel
+        
         _pickaxeConfig  = pickaxeConfig;
         _pickaxeShopView = view;
+        
         if (equipped)
         {
             buyButton.gameObject.SetActive(false);

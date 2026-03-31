@@ -65,7 +65,6 @@ namespace Gameplay.Common
             if (swingCoroutine != null)
                 StopCoroutine(swingCoroutine);
             swingCoroutine = StartCoroutine(SwingRoutine());
-            Debug.Log("Swinging");
         }
         public void StopSwinging()
         {

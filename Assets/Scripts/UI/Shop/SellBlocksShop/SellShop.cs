@@ -3,24 +3,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-public class SellShop : MonoBehaviour
+public class SellShop : PopUpWindow
 {
-    [SerializeField] private CanvasGroup _canvasGroup;
-    public InputControls characterControls;
     public List<BlockConfig> blockConfigs;
     public SellShopEntry shopEntryPrefab;
     public Transform shopEntriesTransform;
     public Button sellAllButton;
-    public Button closeButton;
     
     private IInventory _inventory;
     private List<SellShopEntry> _shopEntries = new();
 
-    public void Awake()
+    public override void Awake()
     {
-        HidePanel();
+        base.Awake();
         sellAllButton.onClick.AddListener(SellAll);
-        closeButton.onClick.AddListener(CloseShop);
     }
 
     [Inject]
@@ -29,18 +25,11 @@ public class SellShop : MonoBehaviour
         _inventory = inventory;
     }
 
-    public void OpenShop()
+    public override void OnWindowShow()
     {
-        if (_canvasGroup.alpha == 0)
-        {
-            _canvasGroup.blocksRaycasts = true;
-            _canvasGroup.alpha = 1;
-        }
-        characterControls.CanMine = false;
-        characterControls.CanCameraScroll = false;
-        
+        base.OnWindowShow();
         foreach (BlockConfig blockConfig in blockConfigs)
-        foreach (var item in _inventory.Items.Keys)
+        foreach (var item in _inventory.ItemsCount.Keys)
         {
             if (blockConfig.item == item && _inventory.GetItemCount(item) > 0)
             {
@@ -49,7 +38,7 @@ public class SellShop : MonoBehaviour
                     blockConfig.item, 
                     blockConfig.icon,
                     blockConfig.name, 
-                    _inventory.Items[item], 
+                    _inventory.ItemsCount[item], 
                     blockConfig.baseSellPrice
                     );
                 _shopEntries.Add(shopEntry);
@@ -80,20 +69,11 @@ public class SellShop : MonoBehaviour
         _shopEntries.Clear();
     }
 
-    public void CloseShop()
+    public override void OnWindowHide()
     {
-        characterControls.CanMine = true;
-        characterControls.CanCameraScroll = true;
+        base.OnWindowHide();
         foreach (var shopEntry in _shopEntries)
             Destroy(shopEntry.gameObject);
         _shopEntries.Clear();
-        HidePanel();
     }
-    
-    private void HidePanel()
-    {
-        _canvasGroup.alpha = 0;
-        _canvasGroup.blocksRaycasts = false;
-    }
-    
 }

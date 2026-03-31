@@ -6,6 +6,7 @@ public class MineBlocks : MonoBehaviour
 {
     public CharacterMovementConfig config;
     public LayerMask blockLayer;
+    public PlayerPickaxe PlayerPickaxe;
     public Transform minePoint;
     public InputControls inputControls;
     public Animator animator;
@@ -53,13 +54,15 @@ public class MineBlocks : MonoBehaviour
     private IEnumerator HitCoroutine()
     {
         _isHitting = true;
+        var hitSpeed = PlayerPickaxe.CurrentPickaxeConfig.baseSpeedMultiplier;
+        animator.SetFloat("AttackSpeed", hitSpeed);
         animator.SetTrigger("Attack");
         attackParticle.Play();
-        yield return new WaitForSeconds(config.beforeHitCooldown);
+        yield return new WaitForSeconds(config.beforeHitCooldown / hitSpeed);
         if (_currentBlock && !_currentBlock.IsDisabled)
-            _currentBlock.TakeDamage(config.hitDamage);
+            _currentBlock.TakeDamage(PlayerPickaxe.CurrentPickaxeConfig.baseDamage);
         
-        yield return new WaitForSeconds(config.afterHitCooldown);
+        yield return new WaitForSeconds(config.afterHitCooldown / hitSpeed);
         _isHitting = false;
     }
 

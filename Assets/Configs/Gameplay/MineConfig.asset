@@ -27,18 +27,18 @@ MonoBehaviour:
   - startLevel: 0
     endLevel: 0
     blockProbabilities:
-    - blockType: 1
+    - blockType: 100
       probability: 1
       minVariant: 1
       maxVariant: 5
-    - blockType: 2
+    - blockType: 101
       probability: 1
       minVariant: 1
       maxVariant: 5
   - startLevel: 1
     endLevel: 50
     blockProbabilities:
-    - blockType: 2
+    - blockType: 101
       probability: 1
       minVariant: 1
       maxVariant: 5

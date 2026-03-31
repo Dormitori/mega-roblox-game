@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52b80ca15a4c419b9693a52d333017e3, type: 3}
+  m_Name: 05Pickaxe
+  m_EditorClassIdentifier: Assembly-CSharp::PickaxeConfig
+  item: 109
+  pickaxeName: Quarts Pickaxe
+  pickaxeIcon: {fileID: 21300000, guid: 706d678caac494496ae44dc8c33fe975, type: 3}
+  pickaxePrefab: {fileID: 1378480028989246000, guid: 95c3066f5a33441e9bf60224d9da7db5, type: 3}
+  baseDamage: 5
+  baseSpeedMultiplier: 2.2
+  price: 50

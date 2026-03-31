@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class SellShopTrigger : MonoBehaviour
+public class PopupWindowsTrigger : MonoBehaviour
 {
-    public SellShop sellShop;
+    public PopUpWindow popUpWindow;
     
     public void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
-        sellShop.OpenShop();
+        popUpWindow.ShowWindowAnimated();
     }
 
     public void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Player")) return;
-        sellShop.CloseShop();
+        popUpWindow.HideWindowAnimated();
     }
 }

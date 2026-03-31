@@ -45,7 +45,6 @@ public class MineManager : MonoBehaviour
             }
             
             _blocksPools[block.blockType][block.variantId] = new ObjectPool<Block>(block, blocksParent);
-            Debug.Log($"Created pool for {block.blockType} variant {block.variantId}");
         }
     }
 
@@ -86,7 +85,6 @@ public class MineManager : MonoBehaviour
     {
         _inventory.AddItem(block.config.item, 1);
         _currentLevelDestroyedBlocks++;
-        print(_currentLevelDestroyedBlocks);
         block.ResetHealth();
         
         if (destroyParticles != null)

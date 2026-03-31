@@ -190,7 +190,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d71aa3024fe47e1bad11235db6b1fe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SellShop
-  _canvasGroup: {fileID: 4708204305015092664}
+  closeButton: {fileID: 1099542545392549275}
+  animationYOffset: 50
+  animationDuration: 0.2
   characterControls: {fileID: 0}
   blockConfigs:
   - {fileID: 11400000, guid: 926e3909f510e3d41b4a53a5a37943a0, type: 2}
@@ -201,7 +203,6 @@ MonoBehaviour:
   shopEntryPrefab: {fileID: 1224457020194868915, guid: 3159cadd4f57b4e169a9d854b5a50002, type: 3}
   shopEntriesTransform: {fileID: 9081942705144380203}
   sellAllButton: {fileID: 1004958976744851012}
-  closeButton: {fileID: 1099542545392549275}
 --- !u!225 &4708204305015092664
 CanvasGroup:
   m_ObjectHideFlags: 0

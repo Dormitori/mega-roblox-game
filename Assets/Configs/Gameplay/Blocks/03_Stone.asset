@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095a2277426a4f31b2c211adc29d3dc3, type: 3}
   m_Name: 03_Stone
   m_EditorClassIdentifier: Assembly-CSharp::BlockConfig
-  item: 3
+  item: 102
   icon: {fileID: 21300000, guid: d3342009e36d944d1921f13910414544, type: 3}
   name: Stone
   rarity: 

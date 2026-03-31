@@ -11,6 +11,7 @@ namespace DI
             builder.RegisterComponentInHierarchy<MineManager>();
             builder.RegisterComponentInHierarchy<MoneyView>();
             builder.RegisterComponentInHierarchy<SellShop>();
+            builder.RegisterComponentInHierarchy<PickaxeShop>();
             builder.RegisterEntryPoint<GameInit>();
         }
     }

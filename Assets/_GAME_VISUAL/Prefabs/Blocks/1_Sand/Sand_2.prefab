@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Block
   IsDisabled: 0
-  blockType: 1
+  blockType: 100
   variantId: 2
   config: {fileID: 11400000, guid: 926e3909f510e3d41b4a53a5a37943a0, type: 2}
   animationConfig: {fileID: 11400000, guid: 5bfdf4f3ee43e4fb8862ac377ff1f42b, type: 2}

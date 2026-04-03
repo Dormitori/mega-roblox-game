@@ -408946,6 +408946,7 @@ MonoBehaviour:
   mineConfig: {fileID: 11400000, guid: 6bcf016bdf89c6c47bf6d6481dab7356, type: 2}
   destroyParticles: {fileID: 2380116440267008517, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
   destroyParticlesDuration: 1
+  hpPopupPrefab: {fileID: 8234567890123456787, guid: 7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b, type: 3}
 --- !u!1 &1722596945
 GameObject:
   m_ObjectHideFlags: 0
@@ -496972,6 +496973,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2998042039081878716, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4220637437329256379, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4582877951173403254, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}

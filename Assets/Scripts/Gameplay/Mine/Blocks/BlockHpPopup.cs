@@ -3,7 +3,6 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-/// <summary>Всплывающий мировой текст HP блока (пулится через MineManager).</summary>
 public class BlockHpPopup : MonoBehaviour
 {
     [SerializeField] private float fontSizeBase = 6f;
@@ -21,29 +20,11 @@ public class BlockHpPopup : MonoBehaviour
 
     private void Awake()
     {
-        if (_textMesh == null)
-        {
-            _textMesh = gameObject.AddComponent<TextMeshPro>();
-            var font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
-            if (font != null)
-            {
-                _textMesh.font = font;
-                _textMesh.fontSharedMaterial = font.material;
-            }
-
-            _textMesh.alignment = TextAlignmentOptions.Center;
-            _textMesh.textWrappingMode = TextWrappingModes.NoWrap;
-            _textMesh.richText = true;
-            _textMesh.raycastTarget = false;
-            _textMesh.outlineWidth = 0.2f;
-            _textMesh.outlineColor = new Color32(0, 0, 0, 220);
-            _textMesh.sortingOrder = 50;
-        }
+        _camera = Camera.main;
     }
 
     public void Play(int current, int maxHp, Vector3 worldPosition, Action onComplete)
     {
-        _camera = Camera.main;
         transform.localScale = Vector3.one * popScaleFrom;
         transform.position = worldPosition + Vector3.up * spawnOffsetY;
 
@@ -80,11 +61,8 @@ public class BlockHpPopup : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_camera == null)
-            _camera = Camera.main;
-        if (_camera == null) return;
-
-        transform.rotation = Quaternion.LookRotation(transform.position - _camera.transform.position);
+        transform.rotation = Quaternion.LookRotation(
+            transform.position - _camera.transform.position);
     }
 
     private void OnDisable()

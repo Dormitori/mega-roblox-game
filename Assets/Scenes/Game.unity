@@ -354549,7 +354549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 732c0646f29b49e0a4efdc531ce04d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterMovement
-  playerCamera: {fileID: 330585545}
+  cameraLook: {fileID: 1489626978}
   characterController: {fileID: 1489626981}
   moveConfig: {fileID: 11400000, guid: e13ec3c428c24334c909ac528df5f18d, type: 2}
   animator: {fileID: 1809073318}

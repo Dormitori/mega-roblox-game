@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[DefaultExecutionOrder(-100)]
 public class CameraLook : MonoBehaviour
 {
     public Camera playerCamera;
@@ -24,10 +25,12 @@ public class CameraLook : MonoBehaviour
         _xRotation = cameraLookConfig.startXRotation;
         _yRotation = cameraLookConfig.startYRotation;
         _setCameraDistance = cameraLookConfig.cameraDistance;
-        UpdateCamera();
+        _targetCameraDistance = _setCameraDistance;
+        _currentCameraDistance = _setCameraDistance;
+        ApplyCameraTransform();
     }
 
-    public void LateUpdate()
+    public void Update()
     {
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
@@ -48,7 +51,12 @@ public class CameraLook : MonoBehaviour
 
         UpdateDistance();
 
-        UpdateCamera();
+        LerpCameraDistance();
+    }
+
+    private void LateUpdate()
+    {
+        ApplyCameraTransform();
     }
 
     private void HandleCameraScroll()
@@ -62,30 +70,36 @@ public class CameraLook : MonoBehaviour
         }
     }
 
-    private void UpdateCamera()
+    private void LerpCameraDistance()
     {
-        var rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
         if (_targetCameraDistance < _setCameraDistance)
             _currentCameraDistance = _targetCameraDistance;
         else
             _currentCameraDistance = Mathf.Lerp(
                 _currentCameraDistance, _targetCameraDistance, Time.deltaTime * cameraLookConfig.cameraAnimationSpeed
             );
+    }
 
+    private void ApplyCameraTransform()
+    {
+        var rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
         playerCamera.transform.position = orbitTarget.position - rotation * Vector3.forward * _currentCameraDistance;
         playerCamera.transform.LookAt(orbitTarget);
     }
 
     private void UpdateDistance()
     {
-        var direction = playerCamera.transform.position - orbitTarget.position;
+        var rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
+        // Camera sits at orbitTarget - rotation*forward*d, so from target toward camera is -rotation*forward (not +forward).
+        var direction = -(rotation * Vector3.forward);
+        var maxDistance = _setCameraDistance + 3f;
         foreach (var layer in obstacleLayers)
         {
             var isHit = Physics.Raycast(
-                orbitTarget.transform.position,
-                direction.normalized,
+                orbitTarget.position,
+                direction,
                 out var hit,
-                direction.magnitude + 3f,
+                maxDistance,
                 layer);
             if (isHit && hit.distance < _setCameraDistance)
             {
@@ -94,8 +108,19 @@ public class CameraLook : MonoBehaviour
             }
         }
 
-
         _targetCameraDistance = _setCameraDistance;
+    }
+    
+    public void GetHorizontalMoveAxes(out Vector3 forward, out Vector3 right)
+    {
+        var raw = Quaternion.Euler(_xRotation, _yRotation, 0f) * Vector3.forward;
+        forward = new Vector3(raw.x, 0f, raw.z);
+        if (forward.sqrMagnitude < 1e-6f)
+            forward = Vector3.forward;
+        else
+            forward.Normalize();
+
+        right = Quaternion.Euler(0f, 90f, 0f) * forward;
     }
 
     private void UpdateCameraRotation()

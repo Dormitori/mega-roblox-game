@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    public Camera playerCamera;
+    public CameraLook cameraLook;
     public CharacterController characterController;
     public CharacterMovementConfig moveConfig;
     public Animator animator;
@@ -25,9 +25,9 @@ public class CharacterMovement : MonoBehaviour
     private void Update()
     {
         var value = inputControls.GetMoveDirection();
-        
-        var forward = new Vector3(playerCamera.transform.forward.x, 0f, playerCamera.transform.forward.z).normalized;
-        var moveVector = forward * value.y + playerCamera.transform.right * value.x;
+
+        cameraLook.GetHorizontalMoveAxes(out var forward, out var right);
+        var moveVector = forward * value.y + right * value.x;
 
         HandleGravity();
 

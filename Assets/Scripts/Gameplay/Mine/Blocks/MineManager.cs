@@ -14,10 +14,13 @@ public class MineManager : MonoBehaviour
     public MineConfig mineConfig;
     public ParticleSystem destroyParticles;
     public float destroyParticlesDuration;
+    [Tooltip("Префаб всплывающего HP (пустой GO + BlockHpPopup). Если null — Resources/Prefabs/BlockHpPopup.")]
+    public BlockHpPopup hpPopupPrefab;
     
     private MineConfig _config;
     private Dictionary<Items, Dictionary<int, ObjectPool<Block>>> _blocksPools = new();
     private ObjectPool<ParticleSystem> _destroyParticlesPool;
+    private ObjectPool<BlockHpPopup> _hpPopupPool;
     private IInventory _inventory;
 
     private List<Quaternion> _cubeRotations = new();
@@ -36,6 +39,11 @@ public class MineManager : MonoBehaviour
         _config = mineConfig;
         _cubeRotations = GetUpwardRotations();
         _destroyParticlesPool = new ObjectPool<ParticleSystem>(destroyParticles, blocksParent);
+        
+        if (hpPopupPrefab == null)
+            hpPopupPrefab = Resources.Load<BlockHpPopup>("Prefabs/BlockHpPopup");
+        if (hpPopupPrefab != null)
+            _hpPopupPool = new ObjectPool<BlockHpPopup>(hpPopupPrefab, blocksParent, prewarm: 4);
         
         foreach (var block in _config.blockPrefabs)
         {
@@ -67,6 +75,7 @@ public class MineManager : MonoBehaviour
                 var block = blockPool.Rent(false);
                 blocks.Add(block);
                 block.BlockDestroyed += OnBlockDestroy;
+                block.Damaged += OnBlockDamaged;
                 block.transform.localPosition = new Vector3(i, -_currentDeepLevel * _config.zBlockSize, j);
                 block.transform.rotation = _cubeRotations[Random.Range(0, _cubeRotations.Count)];
                 block.gameObject.SetActive(true);
@@ -81,8 +90,17 @@ public class MineManager : MonoBehaviour
         return blocks;
     }
 
+    private void OnBlockDamaged(Block block, int remaining, int maxHp)
+    {
+        if (_hpPopupPool == null) return;
+        var popup = _hpPopupPool.Rent();
+        if (popup == null) return;
+        popup.Play(remaining, maxHp, block.transform.position, () => _hpPopupPool.Return(popup));
+    }
+
     private void OnBlockDestroy(Block block)
     {
+        block.Damaged -= OnBlockDamaged;
         _inventory.AddItem(block.config.item, 1);
         _currentLevelDestroyedBlocks++;
         block.ResetHealth();

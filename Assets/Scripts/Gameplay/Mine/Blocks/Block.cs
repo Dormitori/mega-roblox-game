@@ -7,6 +7,8 @@ public class Block : MonoBehaviour
 {
     public bool IsDisabled;
     public event Action<Block> BlockDestroyed;
+    /// <summary>Оставшееся HP и максимум после успешного урона (блок ещё жив).</summary>
+    public event Action<Block, int, int> Damaged;
 
     [Header("Block Settings")]
     public Items blockType;
@@ -99,6 +101,9 @@ public class Block : MonoBehaviour
         if (_health.health >= Mathf.Epsilon) 
         {
             PlayHitAnimation();
+            var rem = Mathf.RoundToInt(_health.health);
+            var maxHp = Mathf.RoundToInt(config.health);
+            Damaged?.Invoke(this, rem, maxHp);
         }
     }
 

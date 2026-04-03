@@ -12,7 +12,10 @@ public class MineBlocks : MonoBehaviour
     public Animator animator;
     public ParticleSystem attackParticle;
     public float mineDistance;
-    
+
+    /// <summary>Пока true — удар киркой идёт, движение обычно блокируется в CharacterMovement.</summary>
+    public bool IsMiningAttacking => _isHitting;
+
     private RaycastHit _currentBlockHit;
     private Block _currentBlock;
     private bool _isHitting;
@@ -55,7 +58,13 @@ public class MineBlocks : MonoBehaviour
     {
         _isHitting = true;
         var hitSpeed = PlayerPickaxe.CurrentPickaxeConfig.baseSpeedMultiplier;
-        animator.SetFloat("AttackSpeed", hitSpeed);
+        var attackDuration = (config.beforeHitCooldown + config.afterHitCooldown) / hitSpeed;
+        var clipLen = config.attackAnimationClipLengthSeconds;
+        var stateMul = config.attackAnimatorStateSpeedMultiplier;
+        if (clipLen > 1e-4f && attackDuration > 1e-4f && stateMul > 1e-4f)
+            animator.SetFloat("AttackSpeed", clipLen / (stateMul * attackDuration));
+        else
+            animator.SetFloat("AttackSpeed", hitSpeed);
         animator.SetTrigger("Attack");
         attackParticle.Play();
         yield return new WaitForSeconds(config.beforeHitCooldown / hitSpeed);
@@ -63,6 +72,8 @@ public class MineBlocks : MonoBehaviour
             _currentBlock.TakeDamage(PlayerPickaxe.CurrentPickaxeConfig.baseDamage);
         
         yield return new WaitForSeconds(config.afterHitCooldown / hitSpeed);
+        if (config.miningAttackMovementTail > 0f)
+            yield return new WaitForSeconds(config.miningAttackMovementTail);
         _isHitting = false;
     }
 

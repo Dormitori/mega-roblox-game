@@ -22,3 +22,6 @@ MonoBehaviour:
   hitDamage: 1
   beforeHitCooldown: 0.2
   afterHitCooldown: 0.2
+  attackAnimationClipLengthSeconds: 0.967
+  attackAnimatorStateSpeedMultiplier: 1.5
+  miningAttackMovementTail: 0

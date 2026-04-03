@@ -354554,6 +354554,7 @@ MonoBehaviour:
   moveConfig: {fileID: 11400000, guid: e13ec3c428c24334c909ac528df5f18d, type: 2}
   animator: {fileID: 1809073318}
   inputControls: {fileID: 8142814105382486677}
+  mineBlocks: {fileID: 1489626982}
 --- !u!143 &1489626981
 CharacterController:
   m_ObjectHideFlags: 0

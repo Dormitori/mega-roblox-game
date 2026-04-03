@@ -8,7 +8,10 @@ public class CharacterMovement : MonoBehaviour
     public Animator animator;
     
     public InputControls inputControls;
-    
+
+    [Tooltip("Если задан — горизонтальное движение и прыжок отключены на время удара киркой.")]
+    public MineBlocks mineBlocks;
+
     private float _upwardVelocity;
 
     private bool _jumped;
@@ -28,6 +31,8 @@ public class CharacterMovement : MonoBehaviour
 
         cameraLook.GetHorizontalMoveAxes(out var forward, out var right);
         var moveVector = forward * value.y + right * value.x;
+        if (mineBlocks != null && mineBlocks.IsMiningAttacking)
+            moveVector = Vector3.zero;
 
         HandleGravity();
 
@@ -89,7 +94,8 @@ public class CharacterMovement : MonoBehaviour
         HandleJumpBuffer();
         HandleCoyoteTime();
 
-        if ((characterController.isGrounded || _hasCoyote) && (inputControls.JumpIsPressed() || _jumpIsBuffered))
+        var miningBlocksMove = mineBlocks != null && mineBlocks.IsMiningAttacking;
+        if (!miningBlocksMove && (characterController.isGrounded || _hasCoyote) && (inputControls.JumpIsPressed() || _jumpIsBuffered))
         {
             _upwardVelocity = moveConfig.JumpVelocity;
             _jumpIsBuffered = false;

@@ -19,3 +19,6 @@ MonoBehaviour:
   baseDamage: 2
   baseSpeedMultiplier: 1.2
   price: 20
+  requirements:
+  - item: 100
+    count: 10

@@ -5,11 +5,11 @@ using VContainer;
 
 public class SellShop : PopUpWindow
 {
-    public List<BlockConfig> blockConfigs;
     public SellShopEntry shopEntryPrefab;
     public Transform shopEntriesTransform;
     public Button sellAllButton;
-    
+
+    private List<BlockConfig> _blockConfigs;
     private IInventory _inventory;
     private List<SellShopEntry> _shopEntries = new();
 
@@ -20,15 +20,16 @@ public class SellShop : PopUpWindow
     }
 
     [Inject]
-    public void Initialize(IInventory inventory)
+    public void Initialize(IInventory inventory, ConfigManager<BlockConfig> configManager)
     {
         _inventory = inventory;
+        _blockConfigs = configManager.Configs;
     }
 
     public override void OnWindowShow()
     {
         base.OnWindowShow();
-        foreach (BlockConfig blockConfig in blockConfigs)
+        foreach (BlockConfig blockConfig in _blockConfigs)
         foreach (var item in _inventory.ItemsCount.Keys)
         {
             if (blockConfig.item == item && _inventory.GetItemCount(item) > 0)

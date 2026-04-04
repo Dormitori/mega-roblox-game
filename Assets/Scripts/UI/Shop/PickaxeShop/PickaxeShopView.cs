@@ -6,31 +6,28 @@ using UnityEngine.UI;
 
 public class PickaxeShopView : MonoBehaviour, IPointerClickHandler
 {
-    public event Action<PickaxeConfig> Clicked;
-    
+    public event Action Clicked;
+
     public Image iconImage;
     public Image darkImage;
     public Image equippedToggleImage;
     public Image outlineToggleImage;
-    public TextMeshProUGUI priceText;
-    
-    private PickaxeConfig _config;
+
     private float _notUnlockedAlfa = 0.5f;
 
-    public void SetView(PickaxeConfig config, bool unlocked, bool equipped, bool selected = false)
-    {
-        if (config != null)
-        {
-            _config = config;
-            iconImage.sprite = config.pickaxeIcon;
-            priceText.text = config.price.ToString();
-        }
 
+    public void UpdateIcon(Sprite icon)
+    {
+        iconImage.sprite = icon;
+    }
+    
+    public void UpdateView(bool owned, bool equipped, bool selected)
+    {
         var darkImageColor = darkImage.color;
         var equippedToggleColor = equippedToggleImage.color;
         var outlineToggleColor = outlineToggleImage.color;
         
-        darkImageColor.a = !unlocked ? _notUnlockedAlfa : 0f;
+        darkImageColor.a = !owned ? _notUnlockedAlfa : 0f;
         equippedToggleColor.a = equipped ? 1f : 0f;
         outlineToggleColor.a = selected ? 1f : 0f;
         
@@ -41,6 +38,6 @@ public class PickaxeShopView : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Clicked?.Invoke(_config);
+        Clicked?.Invoke();
     }
 }

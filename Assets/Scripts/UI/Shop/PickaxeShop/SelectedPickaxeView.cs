@@ -1,48 +1,63 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SelectedPickaxeView : MonoBehaviour
 {
-    public event Action<PickaxeConfig, PickaxeShopView> Buy;
-    public event Action<PickaxeConfig, PickaxeShopView> Equip;
+    public event Action Buy;
+    public event Action Equip;
     
-    public TextMeshProUGUI PickaxeName;
-    public TextMeshProUGUI PickaxeBuffs;
+    public TextMeshProUGUI pickaxeName;
+    public TextMeshProUGUI pickaxeBuffs;
+    public TextMeshProUGUI coinsText;
+    public PickaxeRequirementsView pickaxeRequirementsView;
     public PickaxeShopView pickaxeShopView;
     public Button buyButton;
     public Button equipButton;
     public TextMeshProUGUI equippedText;
 
-    private PickaxeConfig _pickaxeConfig;
-    private PickaxeShopView _pickaxeShopView;
+    private List<BlockConfig> _blockConfigs;
+    private IInventory _inventory;
     
     private void Awake()
     {
-        buyButton.onClick.AddListener(() => Buy?.Invoke(_pickaxeConfig, _pickaxeShopView));
-        equipButton.onClick.AddListener(() => Equip?.Invoke(_pickaxeConfig, _pickaxeShopView));
+        buyButton.onClick.AddListener(() => Buy?.Invoke());
+        equipButton.onClick.AddListener(() => Equip?.Invoke());
+        
+        pickaxeShopView.UpdateView(true, false, false);
     }
 
-    public void SetSelected(
-        PickaxeConfig pickaxeConfig, PickaxeShopView view, bool equipped, bool purchased, bool enoughMoneyToBuy = false
-        )
+    public void Initialize(List<BlockConfig> blockConfigs, IInventory inventory)
     {
-        PickaxeName.text = pickaxeConfig.pickaxeName;
-        PickaxeBuffs.text = MakeBuffList(pickaxeConfig);
+        _blockConfigs = blockConfigs;
+        _inventory = inventory;
+    }
+
+    public void UpdateView(
+        PickaxeConfig pickaxeConfig,
+        bool owned,
+        bool equipped
+    )
+    {
+        pickaxeName.text = pickaxeConfig.pickaxeName;
+        pickaxeBuffs.text = MakeBuffList(pickaxeConfig);
         
-        // ✅ Обновляем view справа с текущим состоянием
-        pickaxeShopView.SetView(pickaxeConfig, purchased, equipped, true); // Always selected in right panel
+        pickaxeShopView.UpdateIcon(pickaxeConfig.pickaxeIcon);
         
-        _pickaxeConfig  = pickaxeConfig;
-        _pickaxeShopView = view;
+        if (!owned)
+            pickaxeRequirementsView.SetRequirements(pickaxeConfig.RequirementsBlocks(_blockConfigs), _inventory);
+        else
+            pickaxeRequirementsView.Clear();
+        coinsText.text = pickaxeConfig.price.ToString();
         
         if (equipped)
         {
             buyButton.gameObject.SetActive(false);
             equipButton.gameObject.SetActive(false);
             equippedText.gameObject.SetActive(true);
-        } else if (purchased)
+        } else if (owned)
         {
             buyButton.gameObject.SetActive(false);
             equipButton.gameObject.SetActive(true);
@@ -51,7 +66,7 @@ public class SelectedPickaxeView : MonoBehaviour
         else
         {
             buyButton.gameObject.SetActive(true);
-            buyButton.interactable = enoughMoneyToBuy;
+            buyButton.interactable = pickaxeConfig.SatisfyRequirements(_inventory);
             equipButton.gameObject.SetActive(false);
             equippedText.gameObject.SetActive(false);
         }

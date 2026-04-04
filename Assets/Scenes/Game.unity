@@ -110550,6 +110550,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 459300136}
   m_CullTransparentMesh: 1
+--- !u!1 &459952588 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6745793455611126192, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+  m_PrefabInstance: {fileID: 2091319940}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &459952593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459952588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fabeadce29408fa2f18465caef51a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickaxeRequirementsView
+  linePrefab: {fileID: 5023082392166764111, guid: 8dcccda4d9c31e146b02b0769207d470, type: 3}
 --- !u!1 &460026816
 GameObject:
   m_ObjectHideFlags: 0
@@ -165038,6 +165056,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 697160644}
   m_CullTransparentMesh: 1
+--- !u!114 &697216643 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6265220701587391171, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+  m_PrefabInstance: {fileID: 2091319940}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &697296809
 GameObject:
   m_ObjectHideFlags: 0
@@ -223045,6 +223074,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 35.789993, y: 31.470001}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &942212532 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6399194418523137108, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+  m_PrefabInstance: {fileID: 2091319940}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &942297147
 GameObject:
   m_ObjectHideFlags: 0
@@ -316688,6 +316728,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1330909632}
   m_CullTransparentMesh: 1
+--- !u!114 &1331533734 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4769599157039439002, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+  m_PrefabInstance: {fileID: 2091319940}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1331640146
 GameObject:
   m_ObjectHideFlags: 0
@@ -496943,6 +496994,14 @@ PrefabInstance:
       propertyPath: characterControls
       value: 
       objectReference: {fileID: 8142814105382486677}
+    - target: {fileID: 2347517838544684570, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -463
+      objectReference: {fileID: 0}
+    - target: {fileID: 2347517838544684570, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 231.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2523543323831100657, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -496974,6 +497033,18 @@ PrefabInstance:
     - target: {fileID: 2998042039081878716, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135232036698357055, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -104.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3296972123923176202, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+      propertyPath: m_CellSize.x
+      value: 190
+      objectReference: {fileID: 0}
+    - target: {fileID: 3296972123923176202, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+      propertyPath: m_CellSize.y
+      value: 190
       objectReference: {fileID: 0}
     - target: {fileID: 4220637437329256379, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
       propertyPath: m_SizeDelta.x
@@ -496982,6 +497053,14 @@ PrefabInstance:
     - target: {fileID: 4582877951173403254, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
       propertyPath: m_Name
       value: PickaxeShop
+      objectReference: {fileID: 0}
+    - target: {fileID: 5145045959085799719, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -893.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 5145045959085799719, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -446.995
       objectReference: {fileID: 0}
     - target: {fileID: 6012425705006627896, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
       propertyPath: m_Pivot.x
@@ -497079,10 +497158,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8432672681839802427, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+      propertyPath: coinsText
+      value: 
+      objectReference: {fileID: 1331533734}
+    - target: {fileID: 8432672681839802427, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+      propertyPath: pickaxeName
+      value: 
+      objectReference: {fileID: 697216643}
+    - target: {fileID: 8432672681839802427, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+      propertyPath: pickaxeBuffs
+      value: 
+      objectReference: {fileID: 942212532}
+    - target: {fileID: 8432672681839802427, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+      propertyPath: pickaxeRequirementsView
+      value: 
+      objectReference: {fileID: 459952593}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8967641787271837268, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6745793455611126192, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 459952593}
   m_SourcePrefab: {fileID: 100100000, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
 --- !u!224 &2091319941 stripped
 RectTransform:

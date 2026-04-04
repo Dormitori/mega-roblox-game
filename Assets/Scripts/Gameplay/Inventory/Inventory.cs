@@ -7,6 +7,7 @@ public interface IInventory
     event Action Changed;
     Dictionary<Items, int> ItemsCount { get; }
     void AddItem(Items item, int amount);
+    bool HasItem(Items item);
     bool TryRemoveItem(Items item, int amount);
     int GetItemCount(Items item);
 }
@@ -31,6 +32,11 @@ public class Inventory : IInventory
     {
         ItemsCount[item] += amount;
         Changed?.Invoke();
+    }
+
+    public bool HasItem(Items item)
+    {
+        return ItemsCount[item] > 0;
     }
 
     public bool TryRemoveItem(Items item, int amount)

@@ -14,7 +14,6 @@ public class MineManager : MonoBehaviour
     public MineConfig mineConfig;
     public ParticleSystem destroyParticles;
     public float destroyParticlesDuration;
-    [Tooltip("Префаб всплывающего HP (пустой GO + BlockHpPopup). Если null — Resources/Prefabs/BlockHpPopup.")]
     public BlockHpPopup hpPopupPrefab;
     
     private MineConfig _config;
@@ -40,10 +39,7 @@ public class MineManager : MonoBehaviour
         _cubeRotations = GetUpwardRotations();
         _destroyParticlesPool = new ObjectPool<ParticleSystem>(destroyParticles, blocksParent);
         
-        if (hpPopupPrefab == null)
-            hpPopupPrefab = Resources.Load<BlockHpPopup>("Prefabs/BlockHpPopup");
-        if (hpPopupPrefab != null)
-            _hpPopupPool = new ObjectPool<BlockHpPopup>(hpPopupPrefab, blocksParent, prewarm: 4);
+        _hpPopupPool = new ObjectPool<BlockHpPopup>(hpPopupPrefab, blocksParent, prewarm: 4);
         
         foreach (var block in _config.blockPrefabs)
         {
@@ -80,7 +76,7 @@ public class MineManager : MonoBehaviour
                 block.transform.rotation = _cubeRotations[Random.Range(0, _cubeRotations.Count)];
                 block.gameObject.SetActive(true);
                 _curBlocks++;
-                if (_curBlocks >= _maxBlocksPerLevel) // защита от бесконечного цикла
+                if (_curBlocks >= _maxBlocksPerLevel)
                     return blocks;
             }
         }
@@ -92,7 +88,6 @@ public class MineManager : MonoBehaviour
 
     private void OnBlockDamaged(Block block, int remaining, int maxHp)
     {
-        if (_hpPopupPool == null) return;
         var popup = _hpPopupPool.Rent();
         if (popup == null) return;
         popup.Play(remaining, maxHp, block.transform.position, () => _hpPopupPool.Return(popup));
@@ -156,12 +151,11 @@ public class MineManager : MonoBehaviour
             }
         }
 
-        throw new System.Exception($"Level {deepLevel} not found");
+        throw new Exception($"Level {deepLevel} not found");
     }
 
     private void SetupBlockPrefab(Block block)
     {
-        // Проверяем и настраиваем необходимые компоненты
         if (block.GetComponent<Health>() == null)
         {
             Debug.LogWarning($"Adding Health component to {block.gameObject.name}");
@@ -173,7 +167,6 @@ public class MineManager : MonoBehaviour
             Debug.LogWarning($"No MeshRenderer found on {block.gameObject.name}");
         }
         
-        // Устанавливаем анимационную конфигурацию по умолчанию если не установлена
         if (block.animationConfig == null)
         {
             var defaultAnimConfig = Resources.Load<BlockAnimationConfig>("DefaultBlockAnimationConfig");
@@ -228,7 +221,6 @@ public class MineManager : MonoBehaviour
     
     private BlockConfig FindBlockConfig(Items itemType)
     {
-        // Ищем в ресурсах конфигурацию по типу предмета
         var configs = Resources.LoadAll<BlockConfig>("Configs");
         
         foreach (var config in configs)
@@ -244,11 +236,10 @@ public class MineManager : MonoBehaviour
     
     private void CreateDefaultConfig(Block block)
     {
-        // Создаем временную конфигурацию по умолчанию
         var defaultConfig = ScriptableObject.CreateInstance<BlockConfig>();
         defaultConfig.item = block.blockType;
         defaultConfig.name = $"{block.blockType}_{block.variantId}";
-        defaultConfig.health = 100f; // Значение по умолчанию
+        defaultConfig.health = 100f;
         
         block.config = defaultConfig;
         

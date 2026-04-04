@@ -90,7 +90,7 @@ public class CameraLook : MonoBehaviour
     private void UpdateDistance()
     {
         var rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
-        // Camera sits at orbitTarget - rotation*forward*d, so from target toward camera is -rotation*forward (not +forward).
+        
         var direction = -(rotation * Vector3.forward);
         var maxDistance = _setCameraDistance + 3f;
         foreach (var layer in obstacleLayers)

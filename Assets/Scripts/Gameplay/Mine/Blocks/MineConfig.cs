@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Config/Gameplay/MineConfig")]
 public class MineConfig : ScriptableObject
 {
-    
     public List<Block> blockPrefabs;
     public List<MineLevelsConfig> mineLevelsConfig;
     public int mineSize;

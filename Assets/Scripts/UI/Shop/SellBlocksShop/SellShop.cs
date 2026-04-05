@@ -10,7 +10,7 @@ public class SellShop : PopUpWindow
     public Button sellAllButton;
 
     private List<BlockConfig> _blockConfigs;
-    private IInventory _inventory;
+    private Inventory _inventory;
     private List<SellShopEntry> _shopEntries = new();
 
     public override void Awake()
@@ -20,7 +20,7 @@ public class SellShop : PopUpWindow
     }
 
     [Inject]
-    public void Initialize(IInventory inventory, ConfigManager<BlockConfig> configManager)
+    public void Initialize(Inventory inventory, ConfigManager<BlockConfig> configManager)
     {
         _inventory = inventory;
         _blockConfigs = configManager.Configs;
@@ -29,29 +29,29 @@ public class SellShop : PopUpWindow
     public override void OnWindowShow()
     {
         base.OnWindowShow();
-        foreach (BlockConfig blockConfig in _blockConfigs)
-        foreach (var item in _inventory.ItemsCount.Keys)
+        foreach (var blockConfig in _blockConfigs)
         {
-            if (blockConfig.item == item && _inventory.GetItemCount(item) > 0)
-            {
-                var shopEntry = Instantiate(shopEntryPrefab, Vector3.zero, Quaternion.identity, shopEntriesTransform);
-                shopEntry.SetResource(
-                    blockConfig.item, 
-                    blockConfig.icon,
-                    blockConfig.name, 
-                    _inventory.ItemsCount[item], 
-                    blockConfig.baseSellPrice
-                    );
-                _shopEntries.Add(shopEntry);
-                shopEntry.Sell += OnSell;
-            }
+            if (_inventory.GetBlockCount(blockConfig.type) == 0)
+                continue;
+            
+            var shopEntry = Instantiate(shopEntryPrefab, Vector3.zero, Quaternion.identity, shopEntriesTransform);
+
+            shopEntry.SetResource(
+                blockConfig.type,
+                blockConfig.icon,
+                blockConfig.name,
+                _inventory.GetBlockCount(blockConfig.type),
+                blockConfig.baseSellPrice
+            );
+            _shopEntries.Add(shopEntry);
+            shopEntry.Sell += OnSell;
         }
     }
 
     private void OnSell(SellShopEntry shopEntry)
     {
-        _inventory.TryRemoveItem(shopEntry.Item, shopEntry.ResourceCount);
-        _inventory.AddItem(Items.Coins, shopEntry.ResourceCount * shopEntry.ResourcePrice);
+        _inventory.TryRemoveBlock(shopEntry.BlockType, shopEntry.ResourceCount);
+        _inventory.AddCurrency(CurrencyType.Coins, shopEntry.ResourceCount * shopEntry.ResourcePrice);
         shopEntry.Sell -= OnSell;
         _shopEntries.Remove(shopEntry);
         Destroy(shopEntry.gameObject);
@@ -61,12 +61,12 @@ public class SellShop : PopUpWindow
     {
         foreach (var shopEntry in _shopEntries)
         {
-            _inventory.TryRemoveItem(shopEntry.Item, shopEntry.ResourceCount);
-            _inventory.AddItem(Items.Coins, shopEntry.ResourceCount * shopEntry.ResourcePrice);
+            _inventory.TryRemoveBlock(shopEntry.BlockType, shopEntry.ResourceCount);
+            _inventory.AddCurrency(CurrencyType.Coins, shopEntry.ResourceCount * shopEntry.ResourcePrice);
             shopEntry.Sell -= OnSell;
             Destroy(shopEntry.gameObject);
         }
-        
+
         _shopEntries.Clear();
     }
 

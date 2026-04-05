@@ -11,7 +11,7 @@ public class Block : MonoBehaviour
     public event Action<Block, int, int> Damaged;
 
     [Header("Block Settings")]
-    public Items blockType;
+    public BlockType blockType;
     public int variantId;
     public BlockConfig config;
     public BlockAnimationConfig animationConfig;

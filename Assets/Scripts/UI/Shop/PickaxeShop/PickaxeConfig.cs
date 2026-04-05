@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Config/Gameplay/Pickaxe Config")]
 public class PickaxeConfig : ScriptableObject
 {
-    public Items item;
+    public PickaxeType pickaxeType;
     public string pickaxeName;
     public Sprite pickaxeIcon;
     public GameObject pickaxePrefab;
@@ -15,22 +15,22 @@ public class PickaxeConfig : ScriptableObject
     public int price;
     public List<Requirements> requirements;
 
-    public bool SatisfyRequirements(IInventory inventory)
+    public bool SatisfyRequirements(Inventory inventory)
     {
-        if (inventory.ItemsCount[Items.Coins] < price)
+        if (inventory.GetCurrencyCount(CurrencyType.Coins) < price)
             return false;
 
-        return requirements.All(requirement => inventory.ItemsCount[requirement.item] >= requirement.count);
+        return requirements.All(requirement => inventory.GetBlockCount(requirement.blockType) >= requirement.count);
     }
 
-    public bool TryBuy(IInventory inventory)
+    public bool TryBuy(Inventory inventory)
     {
         if (!SatisfyRequirements(inventory))
             return false;
 
-        inventory.TryRemoveItem(Items.Coins, price);
+        inventory.TryRemoveCurrency(CurrencyType.Coins, price);
         foreach (var requirement in requirements)
-            inventory.TryRemoveItem(requirement.item, requirement.count);
+            inventory.TryRemoveBlock(requirement.blockType, requirement.count);
 
         return true;
     }
@@ -39,7 +39,7 @@ public class PickaxeConfig : ScriptableObject
     {
         foreach (var blockConfig in blockConfigs)
         foreach (var requirement in requirements)
-            if (requirement.item == blockConfig.item)
+            if (requirement.blockType == blockConfig.type)
                 yield return (blockConfig, requirement.count);
     }
 }
@@ -48,6 +48,6 @@ public class PickaxeConfig : ScriptableObject
 [System.Serializable]
 public class Requirements
 {
-    public Items item;
+    public BlockType blockType;
     public int count;
 }

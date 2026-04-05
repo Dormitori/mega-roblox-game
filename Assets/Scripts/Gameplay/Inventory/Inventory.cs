@@ -2,52 +2,71 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IInventory
+public class Inventory
 {
-    event Action Changed;
-    Dictionary<Items, int> ItemsCount { get; }
-    void AddItem(Items item, int amount);
-    bool HasItem(Items item);
-    bool TryRemoveItem(Items item, int amount);
-    int GetItemCount(Items item);
-}
+    public event Action CurrencyChanged;
 
-public class Inventory : IInventory
-{
-    public event Action Changed;
-
-    public Dictionary<Items, int> ItemsCount { get; private set; } = new();
+    private Dictionary<CurrencyType, int> _currencies = new();
+    private Dictionary<BlockType, int> _blocks = new();
+    private HashSet<PickaxeType> _pickaxes = new();
 
     public Inventory()
     {
-        foreach (var item in Enum.GetValues(typeof(Items)))
-        {
-            ItemsCount.Add((Items)item, 0);
-        }
+        foreach (var item in Enum.GetValues(typeof(CurrencyType)))
+            _currencies.Add((CurrencyType)item, 0);
 
-        ItemsCount[Items.PickaxeWood01] = 1;
+        foreach (var item in Enum.GetValues(typeof(BlockType)))
+            _blocks.Add((BlockType)item, 0);
     }
 
-    public void AddItem(Items item, int amount)
+    public void AddCurrency(CurrencyType currency, int amount)
     {
-        ItemsCount[item] += amount;
-        Changed?.Invoke();
+        _currencies[currency] += amount;
+        CurrencyChanged?.Invoke();
     }
 
-    public bool HasItem(Items item)
+    public bool TryRemoveCurrency(CurrencyType currency, int amount)
     {
-        return ItemsCount[item] > 0;
-    }
+        if (_currencies[currency] < amount)
+            return false;
 
-    public bool TryRemoveItem(Items item, int amount)
-    {
-        if (amount <= 0 || ItemsCount[item] - amount < 0) return false;
-        ItemsCount[item] -= amount;
+        _currencies[currency] -= amount;
+        CurrencyChanged?.Invoke();
         return true;
     }
 
-    public int GetItemCount(Items item)
+    public int GetCurrencyCount(CurrencyType currency)
     {
-        return ItemsCount[item];
+        return _currencies[currency];
+    }
+
+
+    public void AddBlock(BlockType block, int amount)
+    {
+        _blocks[block] += amount;
+    }
+
+    public bool TryRemoveBlock(BlockType block, int amount)
+    {
+        if (_blocks[block] < amount)
+            return false;
+
+        _blocks[block] -= amount;
+        return true;
+    }
+
+    public int GetBlockCount(BlockType block)
+    {
+        return _blocks[block];
+    }
+
+    public void AddPickaxe(PickaxeType pickaxe)
+    {
+        _pickaxes.Add(pickaxe);
+    }
+
+    public bool HasPickaxe(PickaxeType pickaxe)
+    {
+        return _pickaxes.Contains(pickaxe);
     }
 }

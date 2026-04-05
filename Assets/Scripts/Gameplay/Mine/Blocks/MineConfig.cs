@@ -25,7 +25,7 @@ public class MineLevelsConfig
 [Serializable]
 public class BlockProbability
 {
-    public Items blockType;
+    public BlockType blockType;
     public int probability;
     public int minVariant = 1;
     public int maxVariant = 5;

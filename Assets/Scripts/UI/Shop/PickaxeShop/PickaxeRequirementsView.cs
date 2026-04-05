@@ -10,15 +10,15 @@ public class PickaxeRequirementsView : MonoBehaviour
     private readonly Color _satisfiedColor = Color.green;
     private readonly Color _notSatisfiedColor = Color.red;
 
-    public void SetRequirements(IEnumerable<(BlockConfig, int)> requirements, IInventory inventory)
+    public void SetRequirements(IEnumerable<(BlockConfig, int)> requirements, Inventory inventory)
     {
         Clear();
         foreach (var requirement in requirements)
         {
             var line = Instantiate(linePrefab, transform);
             line.icon.sprite = requirement.Item1.icon;
-            line.label.text = $"{inventory.ItemsCount[requirement.Item1.item]}/{requirement.Item2} {requirement.Item1.name}";
-            if (inventory.ItemsCount[requirement.Item1.item] >= requirement.Item2)
+            line.label.text = $"{inventory.GetBlockCount(requirement.Item1.type)}/{requirement.Item2} {requirement.Item1.name}";
+            if (inventory.GetBlockCount(requirement.Item1.type) >= requirement.Item2)
                 line.label.color  = _satisfiedColor;
             else
                 line.label.color = _notSatisfiedColor;

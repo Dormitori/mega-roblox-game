@@ -10,7 +10,7 @@ public class PickaxeShop : PopUpWindow
 
     private List<PickaxeConfig> _pickaxeConfigs;
     private List<BlockConfig> _blockConfigs;
-    private IInventory _inventory;
+    private Inventory _inventory;
 
     private List<(PickaxeShopView, PickaxeConfig)> _pickaxeViews = new();
 
@@ -20,7 +20,7 @@ public class PickaxeShop : PopUpWindow
 
     [Inject]
     public void Initialize(
-        IInventory inventory,
+        Inventory inventory,
         ConfigManager<BlockConfig> blockConfigs,
         ConfigManager<PickaxeConfig> pickaxeConfigs
     )
@@ -44,7 +44,7 @@ public class PickaxeShop : PopUpWindow
         foreach (var (view, config) in _pickaxeViews)
         {
             view.UpdateView(
-                _inventory.HasItem(config.item),
+                _inventory.HasPickaxe(config.pickaxeType),
                 config == _equippedPickaxe,
                 config == _selectedPickaxe
             );
@@ -52,7 +52,7 @@ public class PickaxeShop : PopUpWindow
 
         selectedPickaxeView.UpdateView(
             _selectedPickaxe,
-            _inventory.HasItem(_selectedPickaxe.item),
+            _inventory.HasPickaxe(_selectedPickaxe.pickaxeType),
             _selectedPickaxe == _equippedPickaxe
         );
     }
@@ -62,6 +62,7 @@ public class PickaxeShop : PopUpWindow
         selectedPickaxeView.Initialize(_blockConfigs, _inventory);
         _selectedPickaxe = playerPickaxe.defaultPickaxeConfig;
         _equippedPickaxe = playerPickaxe.defaultPickaxeConfig;
+        _inventory.AddPickaxe(playerPickaxe.defaultPickaxeConfig.pickaxeType);
 
         foreach (var pickaxeConfig in _pickaxeConfigs)
         {
@@ -88,7 +89,7 @@ public class PickaxeShop : PopUpWindow
         if (!_selectedPickaxe.TryBuy(_inventory))
             return;
 
-        _inventory.AddItem(_selectedPickaxe.item, 1);
+        _inventory.AddPickaxe(_selectedPickaxe.pickaxeType);
         Refresh();
     }
 

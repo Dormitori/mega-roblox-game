@@ -7,7 +7,7 @@ public class SellShopEntry : MonoBehaviour
 {
     public event Action<SellShopEntry> Sell;
     
-    public Items Item { get; private set; }
+    public BlockType BlockType { get; private set; }
     public int ResourceCount { get; private set; }
     public int ResourcePrice { get; private set; }
     
@@ -17,9 +17,9 @@ public class SellShopEntry : MonoBehaviour
     public TextMeshProUGUI priceText;
     public Button sellButton;
     
-    public void SetResource(Items item, Sprite icon, string resourceName, int resourceCount, int resourcePrice)
+    public void SetResource(BlockType blockType, Sprite icon, string resourceName, int resourceCount, int resourcePrice)
     {
-        Item = item;
+        BlockType = blockType;
         ResourceCount = resourceCount;
         ResourcePrice = resourcePrice;
         resourceIcon.sprite = icon;

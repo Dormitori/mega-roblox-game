@@ -23,7 +23,7 @@ public class PlayerPickaxe : MonoBehaviour
             
         foreach (var pickaxeModel in pickaxeModels)
         {
-            if (pickaxeModel.item == config.item)
+            if (pickaxeModel.item == config.pickaxeType)
             {
                 pickaxeModel.pickaxeModel.SetActive(true);
                 _currentPickaxeModel = pickaxeModel.pickaxeModel;
@@ -36,7 +36,7 @@ public class PlayerPickaxe : MonoBehaviour
     [Serializable]
     public class PickaxeModel
     {
-        public Items item;
+        public PickaxeType item;
         public GameObject pickaxeModel;
     }
 }

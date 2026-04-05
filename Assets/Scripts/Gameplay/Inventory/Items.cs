@@ -1,14 +1,20 @@
-public enum Items
+
+public enum CurrencyType
 {
-    // Items
-    Coins,
-    // Blocks
-    Sand = 100,
+    Coins
+}
+
+public enum BlockType 
+{
+    Sand,
     Ground,
     Stone,
     Rock,
     Lava,
-    // Pickaxes
+}
+
+public enum PickaxeType
+{
     PickaxeWood01,
     PickaxeStone02,
     PickaxeCopper03,
@@ -22,3 +28,4 @@ public enum Items
     PickaxeGreen11,
     PickaxeRuby12
 }
+

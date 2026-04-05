@@ -6,18 +6,18 @@ public class MoneyView : MonoBehaviour
 {
     public TextMeshProUGUI CoinsText;
 
-    private IInventory _inventory;
+    private Inventory _inventory;
     
     [Inject]
-    public void Initialize(IInventory inventory)
+    public void Initialize(Inventory inventory)
     {
-        inventory.Changed += OnInventoryChanged;
+        inventory.CurrencyChanged += OnInventoryChanged;
         _inventory = inventory;
         OnInventoryChanged();
     }
 
     private void OnInventoryChanged()
     {
-        CoinsText.text = _inventory.GetItemCount(Items.Coins).ToString();
+        CoinsText.text = _inventory.GetCurrencyCount(CurrencyType.Coins).ToString();
     }
 }

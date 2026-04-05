@@ -7,7 +7,7 @@ namespace DI
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.Register<Inventory>(Lifetime.Singleton).As<IInventory>();
+            builder.Register<Inventory>(Lifetime.Singleton);
             
             builder.Register<ConfigManager<BlockConfig>>(Lifetime.Singleton);
             builder.Register<ConfigManager<PickaxeConfig>>(Lifetime.Singleton);

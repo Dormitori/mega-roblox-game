@@ -19,7 +19,7 @@ public class SelectedPickaxeView : MonoBehaviour
     public TextMeshProUGUI equippedText;
 
     private List<BlockConfig> _blockConfigs;
-    private IInventory _inventory;
+    private Inventory _inventory;
     
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class SelectedPickaxeView : MonoBehaviour
         pickaxeShopView.UpdateView(true, false, false);
     }
 
-    public void Initialize(List<BlockConfig> blockConfigs, IInventory inventory)
+    public void Initialize(List<BlockConfig> blockConfigs, Inventory inventory)
     {
         _blockConfigs = blockConfigs;
         _inventory = inventory;

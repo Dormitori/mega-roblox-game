@@ -502024,9 +502024,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DI.GameScope
   parentReference:
-    TypeName: 
+    TypeName: DI.GlobalScope
   autoRun: 1
-  autoInjectGameObjects: []
+  autoInjectGameObjects:
+  - {fileID: 441450610}
 --- !u!1 &2114872879
 GameObject:
   m_ObjectHideFlags: 0

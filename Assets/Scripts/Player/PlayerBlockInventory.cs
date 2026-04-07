@@ -38,7 +38,6 @@ public class PlayerBlockInventory : MonoBehaviour
     private void OnBlocksChange(int amount)
     {
         _currentBlockCount += amount;
-        print(_currentBlockCount);
         BlockCountChanged?.Invoke();
     }
 }

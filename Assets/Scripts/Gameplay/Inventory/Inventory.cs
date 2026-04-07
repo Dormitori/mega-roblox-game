@@ -45,7 +45,6 @@ public class Inventory
     public void AddBlock(BlockType block, int amount)
     {
         _blocks[block] += amount;
-        Debug.Log(amount);
         BlocksChanged?.Invoke(amount);
     }
 

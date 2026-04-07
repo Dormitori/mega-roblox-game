@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095a2277426a4f31b2c211adc29d3dc3, type: 3}
   m_Name: 02_Ground
   m_EditorClassIdentifier: Assembly-CSharp::BlockConfig
-  item: 101
+  type: 1
   icon: {fileID: 21300000, guid: 69bc70fee08fb48b5827a723adb58d13, type: 3}
   name: Ground
   rarity: 

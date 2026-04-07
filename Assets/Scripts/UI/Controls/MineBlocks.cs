@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,7 +5,8 @@ public class MineBlocks : MonoBehaviour
 {
     public CharacterMovementConfig config;
     public LayerMask blockLayer;
-    public PlayerPickaxe PlayerPickaxe;
+    public PlayerPickaxe playerPickaxe;
+    public PlayerBlockInventory playerBlockInventory;
     public Transform minePoint;
     public InputControls inputControls;
     public Animator animator;
@@ -57,7 +57,7 @@ public class MineBlocks : MonoBehaviour
     private IEnumerator HitCoroutine()
     {
         _isHitting = true;
-        var hitSpeed = PlayerPickaxe.CurrentPickaxeConfig.baseSpeedMultiplier;
+        var hitSpeed = playerPickaxe.CurrentPickaxeConfig.baseSpeedMultiplier;
         var attackDuration = (config.beforeHitCooldown + config.afterHitCooldown) / hitSpeed;
         var clipLen = config.attackAnimationClipLengthSeconds;
         var stateMul = config.attackAnimatorStateSpeedMultiplier;
@@ -68,8 +68,10 @@ public class MineBlocks : MonoBehaviour
         animator.SetTrigger("Attack");
         attackParticle.Play();
         yield return new WaitForSeconds(config.beforeHitCooldown / hitSpeed);
-        if (_currentBlock && !_currentBlock.IsDisabled)
-            _currentBlock.TakeDamage(PlayerPickaxe.CurrentPickaxeConfig.baseDamage);
+        if (_currentBlock && !_currentBlock.IsDisabled && playerBlockInventory.HasSpace)
+            _currentBlock.TakeDamage(playerPickaxe.CurrentPickaxeConfig.baseDamage);
+        else if (!playerBlockInventory.HasSpace)
+            playerBlockInventory.ShowNotEnoughSpaceText();
         
         yield return new WaitForSeconds(config.afterHitCooldown / hitSpeed);
         if (config.miningAttackMovementTail > 0f)

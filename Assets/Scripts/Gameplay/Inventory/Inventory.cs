@@ -5,6 +5,7 @@ using UnityEngine;
 public class Inventory
 {
     public event Action CurrencyChanged;
+    public event Action<int> BlocksChanged;
 
     private Dictionary<CurrencyType, int> _currencies = new();
     private Dictionary<BlockType, int> _blocks = new();
@@ -44,6 +45,8 @@ public class Inventory
     public void AddBlock(BlockType block, int amount)
     {
         _blocks[block] += amount;
+        Debug.Log(amount);
+        BlocksChanged?.Invoke(amount);
     }
 
     public bool TryRemoveBlock(BlockType block, int amount)
@@ -52,6 +55,7 @@ public class Inventory
             return false;
 
         _blocks[block] -= amount;
+        BlocksChanged?.Invoke(-amount);
         return true;
     }
 

@@ -13,6 +13,7 @@ namespace DI
             builder.Register<ConfigManager<PickaxeConfig>>(Lifetime.Singleton);
             
             builder.RegisterComponentInHierarchy<MineManager>();
+            builder.RegisterComponentInHierarchy<PlayerBlockInventory>();
             builder.RegisterComponentInHierarchy<MoneyView>();
             builder.RegisterComponentInHierarchy<SellShop>();
             builder.RegisterComponentInHierarchy<PickaxeShop>();

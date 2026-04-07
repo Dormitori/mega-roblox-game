@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b80ca15a4c419b9693a52d333017e3, type: 3}
   m_Name: 03Pickaxe
   m_EditorClassIdentifier: Assembly-CSharp::PickaxeConfig
-  item: 107
+  pickaxeType: 2
   pickaxeName: Copper Pickaxe
   pickaxeIcon: {fileID: 21300000, guid: 515e9375dbe5d4577baaeb21bb1a053f, type: 3}
   pickaxePrefab: {fileID: 1973277226314471566, guid: 818106799b8e546e996e504c21233b3f, type: 3}
@@ -20,7 +20,7 @@ MonoBehaviour:
   baseSpeedMultiplier: 1.5
   price: 30
   requirements:
-  - item: 100
+  - blockType: 0
     count: 5
-  - item: 101
+  - blockType: 1
     count: 5

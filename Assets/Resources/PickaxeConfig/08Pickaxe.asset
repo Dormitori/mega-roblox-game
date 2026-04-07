@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b80ca15a4c419b9693a52d333017e3, type: 3}
   m_Name: 08Pickaxe
   m_EditorClassIdentifier: Assembly-CSharp::PickaxeConfig
-  item: 112
+  pickaxeType: 7
   pickaxeName: Lazurit Pickaxe
   pickaxeIcon: {fileID: 21300000, guid: 0a8bde5d948bc4172934553fb13f5b16, type: 3}
   pickaxePrefab: {fileID: 2660046389347738653, guid: b881090fd37584050acd09de1f064d3a, type: 3}
   baseDamage: 8
   baseSpeedMultiplier: 2.8
   price: 80
+  requirements: []

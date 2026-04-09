@@ -801,7 +801,7 @@ MonoBehaviour:
   pickaxeName: {fileID: 6265220701587391171}
   pickaxeBuffs: {fileID: 6399194418523137108}
   coinsText: {fileID: 4769599157039439002}
-  pickaxeRequirementsView: {fileID: 8980706653170552108}
+  pickaxeRequirementsView: {fileID: 298808823041371392}
   pickaxeShopView: {fileID: 8567659158258204993}
   buyButton: {fileID: 992664104093697914}
   equipButton: {fileID: 1964101124046545335}
@@ -1312,6 +1312,7 @@ GameObject:
   - component: {fileID: 5418462756479316720}
   - component: {fileID: 4784413079178704322}
   - component: {fileID: 8980706653170552108}
+  - component: {fileID: 298808823041371392}
   m_Layer: 0
   m_Name: Requiments
   m_TagString: Untagged
@@ -1404,6 +1405,19 @@ MonoBehaviour:
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1.49
 --- !u!114 &8980706653170552108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6745793455611126192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fabeadce29408fa2f18465caef51a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickaxeRequirementsView
+  linePrefab: {fileID: 5023082392166764111, guid: 8dcccda4d9c31e146b02b0769207d470, type: 3}
+--- !u!114 &298808823041371392
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

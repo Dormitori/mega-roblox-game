@@ -6,10 +6,14 @@ public class Inventory
 {
     public event Action CurrencyChanged;
     public event Action<int> BlocksChanged;
+    public event Action BackpackCapacityChanged;
 
+    
     private Dictionary<CurrencyType, int> _currencies = new();
     private Dictionary<BlockType, int> _blocks = new();
     private HashSet<PickaxeType> _pickaxes = new();
+
+    private int _backpackCapacity = 10;
 
     public Inventory()
     {
@@ -71,5 +75,16 @@ public class Inventory
     public bool HasPickaxe(PickaxeType pickaxe)
     {
         return _pickaxes.Contains(pickaxe);
+    }
+    
+    public void SetBackpackCapacity(int capacity)
+    {
+        _backpackCapacity = capacity;
+        BackpackCapacityChanged?.Invoke();
+    }
+
+    public int GetBackpackCapacity()
+    {
+        return _backpackCapacity;
     }
 }

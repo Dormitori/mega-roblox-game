@@ -194,12 +194,6 @@ MonoBehaviour:
   animationYOffset: 50
   animationDuration: 0.2
   characterControls: {fileID: 0}
-  blockConfigs:
-  - {fileID: 11400000, guid: 926e3909f510e3d41b4a53a5a37943a0, type: 2}
-  - {fileID: 11400000, guid: 5f2c8ab8ab4ab41dd8dd4869fc0f8285, type: 2}
-  - {fileID: 11400000, guid: 07444c4db74e044b79f972b4ee7e810b, type: 2}
-  - {fileID: 11400000, guid: 2ccf6e608394d4730a5775b943045e19, type: 2}
-  - {fileID: 11400000, guid: fb9eb2d6eff364afb9b7619349512db2, type: 2}
   shopEntryPrefab: {fileID: 1224457020194868915, guid: 3159cadd4f57b4e169a9d854b5a50002, type: 3}
   shopEntriesTransform: {fileID: 9081942705144380203}
   sellAllButton: {fileID: 1004958976744851012}

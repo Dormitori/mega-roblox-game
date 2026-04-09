@@ -14,25 +14,28 @@ public class PlayerBlockInventory : MonoBehaviour
     public PopUpText notEnoughSpaceTextPrefab;
     public Transform textParent;
     
-
+    private Inventory _inventory;
     private int _currentCapacity = 10;
     private int _currentBlockCount;
+    
     
     [Inject]
     public void Initialize(Inventory inventory)
     {
+        _inventory = inventory;
         inventory.BlocksChanged += OnBlocksChange;
+        inventory.BackpackCapacityChanged += OnCapacityChange;
+    }
+
+    private void OnCapacityChange()
+    {
+        _currentCapacity = _inventory.GetBackpackCapacity();
+        CapacityChanged?.Invoke();
     }
 
     public void ShowNotEnoughSpaceText()
     {
         Instantiate(notEnoughSpaceTextPrefab, textParent);
-    }
-
-    public void SetCapacity(int capacity)
-    {
-        _currentCapacity = capacity;
-        CapacityChanged?.Invoke();
     }
     
     private void OnBlocksChange(int amount)

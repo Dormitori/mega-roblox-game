@@ -5,10 +5,6 @@ using UnityEngine.Audio;
 
 namespace Core.Audio
 {
-    /// <summary>
-    /// Единая точка аудио: микшер, музыка, SFX. Инжекть <see cref="IAudioService"/> или бери ссылку на этот компонент.
-    /// Смена меню/игры: <c>StopMusic(0); PlayMusic(SoundId.MenuMusic|GameMusic, true, fade);</c>
-    /// </summary>
     public class AudioService : MonoBehaviour, IAudioService
     {
         [SerializeField] private AudioMixer audioMixer;
@@ -16,8 +12,6 @@ namespace Core.Audio
         [SerializeField] private AudioSource musicSource;
         [SerializeField] private AudioSource sfxSource;
 
-        [Header("Startup music (optional)")]
-        [Tooltip("Если включено — после выставления громкостей запустится музыка меню (как раньше делал AudioManager).")]
         [SerializeField] private bool playMenuMusicOnStart = true;
         [SerializeField] private float startupMenuMusicFadeDuration = 1f;
 
@@ -27,9 +21,6 @@ namespace Core.Audio
         [SerializeField, Range(0f, 1f)] private float defaultSfx = 1f;
 
         [SerializeField] private SoundBank soundBank;
-        
-        // private ISaveService _saveService;
-        // [Inject] private void Construct(ISaveService save) { _saveService = save; }
 
         private Coroutine _musicFadeCoroutine;
 
@@ -78,7 +69,6 @@ namespace Core.Audio
         public void SetMasterVolume(float linear)
         {
             linear = Mathf.Clamp01(linear);
-            // if (_saveService != null) _saveService.SaveFloat(StringData.MasterKey, linear);
             audioMixer?.SetFloat(MasterParam, LinearToDecibel(linear));
         }
 
@@ -126,7 +116,6 @@ namespace Core.Audio
         public void SetMusicVolume(float linear)
         {
             _musicLocal = Mathf.Clamp01(linear);
-            // if (_saveService != null) _saveService.SaveFloat(StringData.MusicKey, _musicLocal);
             audioMixer?.SetFloat(MusicParam, LinearToDecibel(_musicLocal));
         }
 
@@ -179,7 +168,6 @@ namespace Core.Audio
         public void SetSfxVolume(float linear)
         {
             _sfxLocal = Mathf.Clamp01(linear);
-            // if (_saveService != null) _saveService.SaveFloat(StringData.SfxKey, _sfxLocal);
             audioMixer?.SetFloat(SfxParam, LinearToDecibel(_sfxLocal));
         }
 

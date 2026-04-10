@@ -17,7 +17,6 @@ public class MineBlocks : MonoBehaviour
 
     [SerializeField, Range(0f, 0.2f)] private float mineHitPitchJitterHalfRange = 0.06f;
 
-    /// <summary>Пока true — удар киркой идёт, движение обычно блокируется в CharacterMovement.</summary>
     public bool IsMiningAttacking => _isHitting;
 
     private IAudioService _audioService;

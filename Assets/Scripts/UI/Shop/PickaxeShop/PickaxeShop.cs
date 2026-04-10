@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using Core.Audio;
 using UnityEngine;
 using VContainer;
+
 public class PickaxeShop : PopUpWindow
 {
     public Transform shopItemsTransform;
@@ -11,6 +13,7 @@ public class PickaxeShop : PopUpWindow
     private List<PickaxeConfig> _pickaxeConfigs;
     private List<BlockConfig> _blockConfigs;
     private Inventory _inventory;
+    private IAudioService _audioService;
 
     private List<(PickaxeShopView, PickaxeConfig)> _pickaxeViews = new();
 
@@ -22,12 +25,14 @@ public class PickaxeShop : PopUpWindow
     public void Initialize(
         Inventory inventory,
         ConfigManager<BlockConfig> blockConfigs,
-        ConfigManager<PickaxeConfig> pickaxeConfigs
+        ConfigManager<PickaxeConfig> pickaxeConfigs,
+        IAudioService audioService
     )
     {
         _inventory = inventory;
         _pickaxeConfigs = pickaxeConfigs.Configs;
         _blockConfigs = blockConfigs.Configs;
+        _audioService = audioService;
         InitShop();
     }
 
@@ -90,6 +95,7 @@ public class PickaxeShop : PopUpWindow
             return;
 
         _inventory.AddPickaxe(_selectedPickaxe.pickaxeType);
+        _audioService?.PlaySfx(SoundId.BuySell);
         Refresh();
     }
 

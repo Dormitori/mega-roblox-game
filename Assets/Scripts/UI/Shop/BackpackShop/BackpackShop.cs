@@ -1,3 +1,4 @@
+using Core.Audio;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,15 +13,17 @@ public class BackpackShop : PopUpWindow
     public TextMeshProUGUI nextCapacityText;
 
     private Inventory _inventory;
+    private IAudioService _audioService;
 
     private int _currentLevel;
 
     private int NextLevel => _currentLevel + 1;
 
     [Inject]
-    private void Initialize(Inventory inventory)
+    private void Initialize(Inventory inventory, IAudioService audioService)
     {
         _inventory = inventory;
+        _audioService = audioService;
     }
 
     private void Start()
@@ -41,6 +44,7 @@ public class BackpackShop : PopUpWindow
             return;
         _currentLevel++;
         _inventory.SetBackpackCapacity(upgradeStep.capacity);
+        _audioService?.PlaySfx(SoundId.BuySell);
         Refresh();
     }
 

@@ -7,7 +7,6 @@ public class Block : MonoBehaviour
 {
     public bool IsDisabled;
     public event Action<Block> BlockDestroyed;
-    /// <summary>Оставшееся HP и максимум после успешного урона (блок ещё жив).</summary>
     public event Action<Block, int, int> Damaged;
 
     [Header("Block Settings")]

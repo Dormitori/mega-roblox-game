@@ -11,18 +11,24 @@ public class CharacterMovement : MonoBehaviour
     
     public InputControls inputControls;
 
-    [Tooltip("Если задан — горизонтальное движение и прыжок отключены на время удара киркой.")]
     public MineBlocks mineBlocks;
 
-    [Header("Footsteps (SoundBank: Footstep, несколько клипов)")]
     [SerializeField] private bool playFootsteps = true;
     [SerializeField, Range(0f, 1f)] private float footstepVolume = 0.5f;
     [SerializeField] private float footstepPitchMin = 0.5f;
     [SerializeField] private float footstepPitchMax = 1.05f;
     [SerializeField] private float footstepMinInterval = 0.3f;
+    [SerializeField, Range(0f, 1.5f)] private float footstepDelayAfterJump = 0.28f;
+
+    [SerializeField] private bool playJumpLandSounds = true;
+    [SerializeField, Range(0f, 1f)] private float jumpVolume = 0.75f;
+    [SerializeField, Range(0f, 1f)] private float landVolume = 0.65f;
+    [SerializeField, Range(0f, 0.2f)] private float jumpPitchJitterHalfRange = 0.06f;
+    [SerializeField, Range(0f, 0.2f)] private float landPitchJitterHalfRange = 0.08f;
 
     private IAudioService _audioService;
     private float _lastFootstepTime = -999f;
+    private float _footstepAllowedAfterTime = -999f;
 
     private float _upwardVelocity;
 
@@ -44,6 +50,8 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
+        var groundedBeforeMove = characterController.isGrounded;
+
         var value = inputControls.GetMoveDirection();
 
         cameraLook.GetHorizontalMoveAxes(out var forward, out var right);
@@ -75,6 +83,9 @@ public class CharacterMovement : MonoBehaviour
 
         var resultMovement = moveVector * moveConfig.speed + Vector3.up * _upwardVelocity;
         characterController.Move(resultMovement * Time.deltaTime);
+
+        if (playJumpLandSounds && _audioService != null && characterController.isGrounded && !groundedBeforeMove)
+            _audioService.PlaySfx(SoundId.Land, landVolume, landPitchJitterHalfRange);
     }
 
     private void TryPlayFootstep(Vector3 moveVector)
@@ -86,6 +97,8 @@ public class CharacterMovement : MonoBehaviour
         if (mineBlocks != null && mineBlocks.IsMiningAttacking)
             return;
         if (moveVector.sqrMagnitude <= Mathf.Epsilon)
+            return;
+        if (Time.time < _footstepAllowedAfterTime)
             return;
         if (Time.time - _lastFootstepTime < footstepMinInterval)
             return;
@@ -135,6 +148,11 @@ public class CharacterMovement : MonoBehaviour
         var miningBlocksMove = mineBlocks != null && mineBlocks.IsMiningAttacking;
         if (!miningBlocksMove && (characterController.isGrounded || _hasCoyote) && (inputControls.JumpIsPressed() || _jumpIsBuffered))
         {
+            if (playJumpLandSounds && _audioService != null)
+                _audioService.PlaySfx(SoundId.Jump, jumpVolume, jumpPitchJitterHalfRange);
+
+            _footstepAllowedAfterTime = Time.time + footstepDelayAfterJump;
+
             _upwardVelocity = moveConfig.JumpVelocity;
             _jumpIsBuffered = false;
             _hasCoyote = false;

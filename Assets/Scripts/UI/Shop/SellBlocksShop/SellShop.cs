@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Audio;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -11,6 +12,7 @@ public class SellShop : PopUpWindow
 
     private List<BlockConfig> _blockConfigs;
     private Inventory _inventory;
+    private IAudioService _audioService;
     private List<SellShopEntry> _shopEntries = new();
 
     public override void Awake()
@@ -20,10 +22,11 @@ public class SellShop : PopUpWindow
     }
 
     [Inject]
-    public void Initialize(Inventory inventory, ConfigManager<BlockConfig> configManager)
+    public void Initialize(Inventory inventory, ConfigManager<BlockConfig> configManager, IAudioService audioService)
     {
         _inventory = inventory;
         _blockConfigs = configManager.Configs;
+        _audioService = audioService;
     }
 
     public override void OnWindowShow()
@@ -52,6 +55,7 @@ public class SellShop : PopUpWindow
     {
         _inventory.TryRemoveBlock(shopEntry.BlockType, shopEntry.ResourceCount);
         _inventory.AddCurrency(CurrencyType.Coins, shopEntry.ResourceCount * shopEntry.ResourcePrice);
+        _audioService?.PlaySfx(SoundId.BuySell);
         shopEntry.Sell -= OnSell;
         _shopEntries.Remove(shopEntry);
         Destroy(shopEntry.gameObject);
@@ -59,6 +63,9 @@ public class SellShop : PopUpWindow
 
     private void SellAll()
     {
+        if (_shopEntries.Count == 0)
+            return;
+
         foreach (var shopEntry in _shopEntries)
         {
             _inventory.TryRemoveBlock(shopEntry.BlockType, shopEntry.ResourceCount);
@@ -68,6 +75,7 @@ public class SellShop : PopUpWindow
         }
 
         _shopEntries.Clear();
+        _audioService?.PlaySfx(SoundId.BuySell);
     }
 
     public override void OnWindowHide()

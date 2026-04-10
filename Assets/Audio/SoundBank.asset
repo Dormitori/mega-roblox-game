@@ -16,7 +16,7 @@ MonoBehaviour:
   - id: 1
     clips:
     - {fileID: 8300000, guid: 207219f1a9e4e49a5bf965e930968bd9, type: 3}
-  - id: 3
+  - id: 5
     clips:
     - {fileID: 8300000, guid: 1ee7f6a69c1f94ac597e20fb78bcd79b, type: 3}
   - id: 2
@@ -31,6 +31,15 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 30b2dd7af693245dd97aa2baba87b0b3, type: 3}
     - {fileID: 8300000, guid: 445777ddaf0924fc98d0397e0b9b0e92, type: 3}
     - {fileID: 8300000, guid: a9bb5afabdbe843548d3421375ef008e, type: 3}
+  - id: 7
+    clips:
+    - {fileID: 8300000, guid: c7cea3c5c612c134c8ec98d4e58b7ac6, type: 3}
+  - id: 3
+    clips:
+    - {fileID: 8300000, guid: 38038726f12f54b02b32184389ac139e, type: 3}
   - id: 4
     clips:
-    - {fileID: 8300000, guid: f646d488337c94084b47e56752970960, type: 3}
+    - {fileID: 8300000, guid: c4d94cbf5136f45f7b3818e7ddc20266, type: 3}
+  - id: 6
+    clips:
+    - {fileID: 8300000, guid: 906436d5d2a6c4550abfe1540a720ff8, type: 3}

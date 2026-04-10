@@ -20,6 +20,7 @@ namespace DI
             builder.RegisterComponentInHierarchy<MoneyView>();
             builder.RegisterComponentInHierarchy<SellShop>();
             builder.RegisterComponentInHierarchy<PickaxeShop>();
+            builder.RegisterComponentInHierarchy<SettingsPanel>();
             builder.RegisterEntryPoint<GameInit>();
         }
     }

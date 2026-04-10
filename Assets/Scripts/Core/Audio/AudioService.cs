@@ -31,6 +31,8 @@ namespace Core.Audio
         private float _musicLocal;
         private float _sfxLocal;
 
+        private bool _suppressVolumeSave;
+
         private Transform _followTransform;
 
         private void Update()
@@ -48,9 +50,16 @@ namespace Core.Audio
 
         private void Start()
         {
+            _suppressVolumeSave = true;
+            if (PlayerPrefs.HasKey(StringData.MusicKey))
+                _musicLocal = Mathf.Clamp01(PlayerPrefs.GetFloat(StringData.MusicKey));
+            if (PlayerPrefs.HasKey(StringData.SfxKey))
+                _sfxLocal = Mathf.Clamp01(PlayerPrefs.GetFloat(StringData.SfxKey));
+
             SetMasterVolume(defaultMaster);
-            SetMusicVolume(defaultMusic);
-            SetSfxVolume(defaultSfx);
+            SetMusicVolume(_musicLocal);
+            SetSfxVolume(_sfxLocal);
+            _suppressVolumeSave = false;
 
             if (playMenuMusicOnStart)
             {
@@ -117,6 +126,11 @@ namespace Core.Audio
         {
             _musicLocal = Mathf.Clamp01(linear);
             audioMixer?.SetFloat(MusicParam, LinearToDecibel(_musicLocal));
+            if (!_suppressVolumeSave)
+            {
+                PlayerPrefs.SetFloat(StringData.MusicKey, _musicLocal);
+                PlayerPrefs.Save();
+            }
         }
 
         public float GetMusicVolume() => _musicLocal;
@@ -169,6 +183,11 @@ namespace Core.Audio
         {
             _sfxLocal = Mathf.Clamp01(linear);
             audioMixer?.SetFloat(SfxParam, LinearToDecibel(_sfxLocal));
+            if (!_suppressVolumeSave)
+            {
+                PlayerPrefs.SetFloat(StringData.SfxKey, _sfxLocal);
+                PlayerPrefs.Save();
+            }
         }
 
         public float GetSfxVolume() => _sfxLocal;
@@ -233,15 +252,31 @@ namespace Core.Audio
                 _prevMusic = GetMusicVolume();
                 _prevSfx = GetSfxVolume();
 
-                SetMasterVolume(0f);
-                SetMusicVolume(0f);
-                SetSfxVolume(0f);
+                _suppressVolumeSave = true;
+                try
+                {
+                    SetMasterVolume(0f);
+                    SetMusicVolume(0f);
+                    SetSfxVolume(0f);
+                }
+                finally
+                {
+                    _suppressVolumeSave = false;
+                }
             }
             else
             {
-                SetMasterVolume(_prevMaster);
-                SetMusicVolume(_prevMusic);
-                SetSfxVolume(_prevSfx);
+                _suppressVolumeSave = true;
+                try
+                {
+                    SetMasterVolume(_prevMaster);
+                    SetMusicVolume(_prevMusic);
+                    SetSfxVolume(_prevSfx);
+                }
+                finally
+                {
+                    _suppressVolumeSave = false;
+                }
             }
         }
 

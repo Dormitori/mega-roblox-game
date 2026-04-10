@@ -6,7 +6,6 @@ using VContainer;
 public class PickaxeShop : PopUpWindow
 {
     public Transform shopItemsTransform;
-    public PlayerPickaxe playerPickaxe;
     public PickaxeShopView pickaxeShopViewPrefab;
     public SelectedPickaxeView selectedPickaxeView;
 
@@ -14,6 +13,7 @@ public class PickaxeShop : PopUpWindow
     private List<BlockConfig> _blockConfigs;
     private Inventory _inventory;
     private IAudioService _audioService;
+    private PlayerPickaxe _playerPickaxe;
 
     private List<(PickaxeShopView, PickaxeConfig)> _pickaxeViews = new();
 
@@ -24,12 +24,14 @@ public class PickaxeShop : PopUpWindow
     [Inject]
     public void Initialize(
         Inventory inventory,
+        PlayerPickaxe playerPickaxe,
         ConfigManager<BlockConfig> blockConfigs,
         ConfigManager<PickaxeConfig> pickaxeConfigs,
         IAudioService audioService
     )
     {
         _inventory = inventory;
+        _playerPickaxe = playerPickaxe;
         _pickaxeConfigs = pickaxeConfigs.Configs;
         _blockConfigs = blockConfigs.Configs;
         _audioService = audioService;
@@ -49,7 +51,7 @@ public class PickaxeShop : PopUpWindow
         foreach (var (view, config) in _pickaxeViews)
         {
             view.UpdateView(
-                _inventory.HasPickaxe(config.pickaxeType),
+                _inventory.HasPickaxe(config.type),
                 config == _equippedPickaxe,
                 config == _selectedPickaxe
             );
@@ -57,7 +59,7 @@ public class PickaxeShop : PopUpWindow
 
         selectedPickaxeView.UpdateView(
             _selectedPickaxe,
-            _inventory.HasPickaxe(_selectedPickaxe.pickaxeType),
+            _inventory.HasPickaxe(_selectedPickaxe.type),
             _selectedPickaxe == _equippedPickaxe
         );
     }
@@ -65,9 +67,8 @@ public class PickaxeShop : PopUpWindow
     private void InitShop()
     {
         selectedPickaxeView.Initialize(_blockConfigs, _inventory);
-        _selectedPickaxe = playerPickaxe.defaultPickaxeConfig;
-        _equippedPickaxe = playerPickaxe.defaultPickaxeConfig;
-        _inventory.AddPickaxe(playerPickaxe.defaultPickaxeConfig.pickaxeType);
+        _selectedPickaxe = _playerPickaxe.CurrentPickaxeConfig;
+        _equippedPickaxe = _playerPickaxe.CurrentPickaxeConfig;
 
         foreach (var pickaxeConfig in _pickaxeConfigs)
         {
@@ -94,7 +95,7 @@ public class PickaxeShop : PopUpWindow
         if (!_selectedPickaxe.TryBuy(_inventory))
             return;
 
-        _inventory.AddPickaxe(_selectedPickaxe.pickaxeType);
+        _inventory.AddPickaxe(_selectedPickaxe.type);
         _audioService?.PlaySfx(SoundId.BuySell);
         Refresh();
     }
@@ -102,7 +103,7 @@ public class PickaxeShop : PopUpWindow
     private void OnEquip()
     {
         _equippedPickaxe = _selectedPickaxe;
-        playerPickaxe.EquipPickaxe(_selectedPickaxe);
+        _playerPickaxe.EquipPickaxe(_selectedPickaxe.type);
         Refresh();
     }
 }

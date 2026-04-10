@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Config/Gameplay/Pickaxe Config")]
 public class PickaxeConfig : ScriptableObject
 {
-    public PickaxeType pickaxeType;
+    public PickaxeType type;
     public string pickaxeName;
     public Sprite pickaxeIcon;
     public GameObject pickaxePrefab;

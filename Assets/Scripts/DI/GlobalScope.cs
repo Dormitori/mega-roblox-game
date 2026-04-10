@@ -10,6 +10,7 @@ namespace DI
         [SerializeField] private AudioService _audioService;
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.Register<JsonPlayerPrefsSaveService>(Lifetime.Singleton).As<ISaveService>();
             builder.RegisterInstance(_audioService).As<IAudioService>();
         }
     }

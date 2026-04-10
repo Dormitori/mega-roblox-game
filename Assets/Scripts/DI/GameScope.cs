@@ -1,3 +1,4 @@
+using Core.Audio;
 using VContainer;
 using VContainer.Unity;
 
@@ -15,6 +16,7 @@ namespace DI
             builder.RegisterComponentInHierarchy<MineManager>();
             builder.RegisterComponentInHierarchy<MineBlocks>();
             builder.RegisterComponentInHierarchy<CharacterMovement>();
+            builder.RegisterComponentInHierarchy<PlayerPickaxe>();
             builder.RegisterComponentInHierarchy<BackpackShop>();
             builder.RegisterComponentInHierarchy<PlayerBlockInventory>();
             builder.RegisterComponentInHierarchy<MoneyView>();

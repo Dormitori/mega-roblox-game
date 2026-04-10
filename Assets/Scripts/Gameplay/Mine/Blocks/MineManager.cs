@@ -23,6 +23,7 @@ public class MineManager : MonoBehaviour
     private ObjectPool<BlockHpPopup> _hpPopupPool;
     private Inventory _inventory;
     private IAudioService _audioService;
+    private ISaveService _saveService;
 
     private List<Quaternion> _cubeRotations = new();
     private int _curBlocks = 0;
@@ -30,19 +31,25 @@ public class MineManager : MonoBehaviour
 
     private int _currentLevelDestroyedBlocks;
     private int _currentLevelBlocksCount;
-    private int _currentDeepLevel;
+    private int _currentGeneratedDeepLevel;
     private List<Block> _nextLevelBlocks;
 
     [Inject]
-    public void Initialize(Inventory inventory, IAudioService audioService)
+    public void Initialize(Inventory inventory, IAudioService audioService, ISaveService saveService)
     {
         _inventory = inventory;
         _audioService = audioService;
+        _saveService = saveService;
         _config = mineConfig;
         _cubeRotations = GetUpwardRotations();
         _destroyParticlesPool = new ObjectPool<ParticleSystem>(destroyParticles, blocksParent);
 
         _hpPopupPool = new ObjectPool<BlockHpPopup>(hpPopupPrefab, blocksParent, prewarm: 4);
+        
+        if (saveService.HasKey(SaveKeys.MineDeepLevel))
+            _currentGeneratedDeepLevel = saveService.Load<int>(SaveKeys.MineDeepLevel);
+
+        SaveTrigger.OnSave += SaveCurrentDeepLevel;
 
         foreach (var block in _config.blockPrefabs)
         {
@@ -69,13 +76,13 @@ public class MineManager : MonoBehaviour
         {
             for (var j = 0; j < _config.yBlockSize * _config.mineSize; j += _config.yBlockSize)
             {
-                var (blockType, variantId) = GetBlockInfo(_currentDeepLevel);
+                var (blockType, variantId) = GetBlockInfo(_currentGeneratedDeepLevel);
                 var blockPool = _blocksPools[blockType][variantId];
                 var block = blockPool.Rent(false);
                 blocks.Add(block);
                 block.BlockDestroyed += OnBlockDestroy;
                 block.Damaged += OnBlockDamaged;
-                block.transform.localPosition = new Vector3(i, -_currentDeepLevel * _config.zBlockSize, j);
+                block.transform.localPosition = new Vector3(i, -_currentGeneratedDeepLevel * _config.zBlockSize, j);
                 block.transform.rotation = _cubeRotations[Random.Range(0, _cubeRotations.Count)];
                 block.gameObject.SetActive(true);
                 _curBlocks++;
@@ -85,7 +92,7 @@ public class MineManager : MonoBehaviour
         }
 
         _curBlocks = 0;
-        _currentDeepLevel++;
+        _currentGeneratedDeepLevel++;
         return blocks;
     }
 
@@ -175,5 +182,10 @@ public class MineManager : MonoBehaviour
     {
         foreach (var block in blocks)
             block.Enable();
+    }
+
+    private void SaveCurrentDeepLevel()
+    {
+        _saveService.Save(SaveKeys.MineDeepLevel, _currentGeneratedDeepLevel - 2);
     }
 }

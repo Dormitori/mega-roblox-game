@@ -25,6 +25,8 @@ public class PlayerBlockInventory : MonoBehaviour
         _inventory = inventory;
         inventory.BlocksChanged += OnBlocksChange;
         inventory.BackpackCapacityChanged += OnCapacityChange;
+        _currentBlockCount = _inventory.GetAllBlockCount();
+        OnCapacityChange();
     }
 
     private void OnCapacityChange()

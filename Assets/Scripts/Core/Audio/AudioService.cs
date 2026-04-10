@@ -2,6 +2,7 @@ using System.Collections;
 using Core.Common;
 using UnityEngine;
 using UnityEngine.Audio;
+using VContainer;
 
 namespace Core.Audio
 {
@@ -35,6 +36,28 @@ namespace Core.Audio
 
         private Transform _followTransform;
 
+        private ISaveService _saveService;
+
+        [Inject]
+        private void Initialize(ISaveService saveService)
+        {
+            _saveService = saveService;
+            if (saveService.HasKey(SaveKeys.MusicVolume))
+                _musicLocal = Mathf.Clamp01(saveService.Load<float>(SaveKeys.MusicVolume));
+            else
+                _musicLocal = defaultMusic;
+            if (saveService.HasKey(SaveKeys.SfxVolume))
+                _sfxLocal = Mathf.Clamp01(saveService.Load<float>(SaveKeys.SfxVolume));
+            else
+                _sfxLocal = defaultSfx;
+            
+            _suppressVolumeSave = true;
+            SetMusicVolume(_musicLocal);
+            SetSfxVolume(_sfxLocal);
+            SetMasterVolume(defaultMaster);
+            _suppressVolumeSave = false;
+        }
+        
         private void Update()
         {
             if (!_followTransform)
@@ -42,25 +65,8 @@ namespace Core.Audio
             transform.position = _followTransform.position;
         }
 
-        private void Awake()
-        {
-            _musicLocal = defaultMusic;
-            _sfxLocal = defaultSfx;
-        }
-
         private void Start()
         {
-            _suppressVolumeSave = true;
-            if (PlayerPrefs.HasKey(StringData.MusicKey))
-                _musicLocal = Mathf.Clamp01(PlayerPrefs.GetFloat(StringData.MusicKey));
-            if (PlayerPrefs.HasKey(StringData.SfxKey))
-                _sfxLocal = Mathf.Clamp01(PlayerPrefs.GetFloat(StringData.SfxKey));
-
-            SetMasterVolume(defaultMaster);
-            SetMusicVolume(_musicLocal);
-            SetSfxVolume(_sfxLocal);
-            _suppressVolumeSave = false;
-
             if (playMenuMusicOnStart)
             {
                 StopMusic(0f);
@@ -128,8 +134,7 @@ namespace Core.Audio
             audioMixer?.SetFloat(MusicParam, LinearToDecibel(_musicLocal));
             if (!_suppressVolumeSave)
             {
-                PlayerPrefs.SetFloat(StringData.MusicKey, _musicLocal);
-                PlayerPrefs.Save();
+                _saveService.Save(SaveKeys.MusicVolume, _musicLocal);
             }
         }
 
@@ -185,8 +190,7 @@ namespace Core.Audio
             audioMixer?.SetFloat(SfxParam, LinearToDecibel(_sfxLocal));
             if (!_suppressVolumeSave)
             {
-                PlayerPrefs.SetFloat(StringData.SfxKey, _sfxLocal);
-                PlayerPrefs.Save();
+                _saveService.Save(SaveKeys.SfxVolume, _sfxLocal);
             }
         }
 

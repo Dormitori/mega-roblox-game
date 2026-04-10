@@ -24,6 +24,12 @@ public class BackpackShop : PopUpWindow
     {
         _inventory = inventory;
         _audioService = audioService;
+        var upgradeStep = GetStep(_currentLevel);
+        while (upgradeStep.capacity < _inventory.GetBackpackCapacity())
+        {
+            _currentLevel++;
+            upgradeStep = GetStep(_currentLevel);
+        }
     }
 
     private void Start()

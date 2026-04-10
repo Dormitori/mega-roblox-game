@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b80ca15a4c419b9693a52d333017e3, type: 3}
   m_Name: 06Pickaxe
   m_EditorClassIdentifier: Assembly-CSharp::PickaxeConfig
-  pickaxeType: 5
+  type: 5
   pickaxeName: Silver Pickaxe
   pickaxeIcon: {fileID: 21300000, guid: 06039a53b0a03459c9a3846f5450723d, type: 3}
   pickaxePrefab: {fileID: 1098835664608156498, guid: b2ccd1dc3263a4ca380b84fbf1a1e79f, type: 3}

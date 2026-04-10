@@ -783,7 +783,6 @@ MonoBehaviour:
   animationDuration: 0.2
   characterControls: {fileID: 0}
   shopItemsTransform: {fileID: 2255687455732324852}
-  playerPickaxe: {fileID: 0}
   pickaxeShopViewPrefab: {fileID: 5725741059435598159, guid: bdb1fd294afda034da7ac9009183f3fa, type: 3}
   selectedPickaxeView: {fileID: 8432672681839802427}
 --- !u!114 &8432672681839802427

@@ -60099,6 +60099,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 259415667}
   m_CullTransparentMesh: 1
+--- !u!1 &260011512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 260011513}
+  - component: {fileID: 260011514}
+  m_Layer: 0
+  m_Name: SaveTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &260011513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260011512}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 441450611}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &260011514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260011512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf35eed62596477cb9d83b3d9f7d4287, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveTrigger
+  autoSaveInterval: 30
 --- !u!1 &260054180
 GameObject:
   m_ObjectHideFlags: 0
@@ -105473,6 +105518,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1722568567}
+  - {fileID: 260011513}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &441755765
@@ -290515,22 +290561,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2424135231083276091, guid: afd2ded8da70ab248908f981032a6969, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3674349048815020542, guid: afd2ded8da70ab248908f981032a6969, type: 3}
       propertyPath: characterControls
       value: 
       objectReference: {fileID: 8142814105382486677}
-    - target: {fileID: 5548735463164766496, guid: afd2ded8da70ab248908f981032a6969, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6030288756378059941, guid: afd2ded8da70ab248908f981032a6969, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7394860247226284020, guid: afd2ded8da70ab248908f981032a6969, type: 3}
       propertyPath: m_Name
       value: BackpackShop
@@ -355490,31 +355524,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1878021ef9144678459aefae009867a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPickaxe
-  defaultPickaxeConfig: {fileID: 11400000, guid: c1753107d6d6e9d48af40c19d2ab95ab, type: 2}
   pickaxeModels:
-  - item: 105
+  - item: 0
     pickaxeModel: {fileID: 759999174080094447}
-  - item: 106
+  - item: 1
     pickaxeModel: {fileID: 1831205198468670693}
-  - item: 107
+  - item: 2
     pickaxeModel: {fileID: 4137902388607806995}
-  - item: 108
+  - item: 3
     pickaxeModel: {fileID: 273451181049510763}
-  - item: 109
+  - item: 4
     pickaxeModel: {fileID: 3181382834759055444}
-  - item: 110
+  - item: 5
     pickaxeModel: {fileID: 7605008352346692644}
-  - item: 111
+  - item: 6
     pickaxeModel: {fileID: 2727185013442637998}
-  - item: 112
+  - item: 7
     pickaxeModel: {fileID: 2535523615737515855}
-  - item: 113
+  - item: 8
     pickaxeModel: {fileID: 7029526441940529672}
-  - item: 114
+  - item: 9
     pickaxeModel: {fileID: 314563860162377244}
-  - item: 115
+  - item: 10
     pickaxeModel: {fileID: 5571172506585387646}
-  - item: 116
+  - item: 11
     pickaxeModel: {fileID: 3352145947721884206}
 --- !u!114 &1489626984
 MonoBehaviour:
@@ -498346,10 +498379,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 4214091341055836431}
     m_Modifications:
     - target: {fileID: 1304806166193507596, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
-      propertyPath: playerPickaxe
-      value: 
-      objectReference: {fileID: 1489626983}
-    - target: {fileID: 1304806166193507596, guid: 8179b2ddcb1b11b469e1231a029e975c, type: 3}
       propertyPath: characterControls
       value: 
       objectReference: {fileID: 8142814105382486677}
@@ -515012,7 +515041,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7381951237546889698}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0

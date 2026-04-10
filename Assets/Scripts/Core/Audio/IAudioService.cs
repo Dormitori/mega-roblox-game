@@ -16,8 +16,10 @@ namespace Core.Audio
 
         public void PlayMusic(AudioClip clip, bool loop = true, float fadeDuration = 0.3f);
         float GetMusicVolume();
-        void PlaySfx(SoundId id, float volume = 1f);
-        void PlaySfx(AudioClip clip, float volume = 1f);
+        void PlaySfx(SoundId id, float volume = 1f, float pitchJitterHalfRange = 0f);
+        void PlaySfx(SoundId id, float volume, float pitchMin, float pitchMax);
+        void PlaySfx(AudioClip clip, float volume = 1f, float pitchJitterHalfRange = 0f);
+        void PlaySfx(AudioClip clip, float volume, float pitchMin, float pitchMax);
         void PlaySfxAtPosition(SoundId id, Vector3 pos, float volume = 1f);
         void SetSfxVolume(float linear);
         float GetSfxVolume();

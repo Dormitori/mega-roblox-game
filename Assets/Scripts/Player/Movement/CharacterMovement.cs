@@ -1,4 +1,6 @@
+using Core.Audio;
 using UnityEngine;
+using VContainer;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -12,6 +14,16 @@ public class CharacterMovement : MonoBehaviour
     [Tooltip("Если задан — горизонтальное движение и прыжок отключены на время удара киркой.")]
     public MineBlocks mineBlocks;
 
+    [Header("Footsteps (SoundBank: Footstep, несколько клипов)")]
+    [SerializeField] private bool playFootsteps = true;
+    [SerializeField, Range(0f, 1f)] private float footstepVolume = 0.5f;
+    [SerializeField] private float footstepPitchMin = 0.5f;
+    [SerializeField] private float footstepPitchMax = 1.05f;
+    [SerializeField] private float footstepMinInterval = 0.3f;
+
+    private IAudioService _audioService;
+    private float _lastFootstepTime = -999f;
+
     private float _upwardVelocity;
 
     private bool _jumped;
@@ -24,6 +36,11 @@ public class CharacterMovement : MonoBehaviour
 
     private float _modelRotateTime;
 
+    [Inject]
+    private void Construct(IAudioService audioService)
+    {
+        _audioService = audioService;
+    }
 
     private void Update()
     {
@@ -54,8 +71,29 @@ public class CharacterMovement : MonoBehaviour
             animator.SetFloat("Speed", 0);
         }
 
+        TryPlayFootstep(moveVector);
+
         var resultMovement = moveVector * moveConfig.speed + Vector3.up * _upwardVelocity;
         characterController.Move(resultMovement * Time.deltaTime);
+    }
+
+    private void TryPlayFootstep(Vector3 moveVector)
+    {
+        if (!playFootsteps || _audioService == null)
+            return;
+        if (!characterController.isGrounded)
+            return;
+        if (mineBlocks != null && mineBlocks.IsMiningAttacking)
+            return;
+        if (moveVector.sqrMagnitude <= Mathf.Epsilon)
+            return;
+        if (Time.time - _lastFootstepTime < footstepMinInterval)
+            return;
+
+        var pMin = Mathf.Min(footstepPitchMin, footstepPitchMax);
+        var pMax = Mathf.Max(footstepPitchMin, footstepPitchMax);
+        _audioService.PlaySfx(SoundId.Footstep, footstepVolume, pMin, pMax);
+        _lastFootstepTime = Time.time;
     }
 
     private void HandleGravity()

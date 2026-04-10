@@ -136,16 +136,37 @@ namespace Core.Audio
 
         #region SFX
 
-        public void PlaySfx(SoundId id, float volume = 1f)
+        public void PlaySfx(SoundId id, float volume = 1f, float pitchJitterHalfRange = 0f)
         {
             var clip = soundBank?.GetRandomClip(id);
-            if (clip != null) PlaySfx(clip, volume);
+            if (clip != null) PlaySfx(clip, volume, pitchJitterHalfRange);
         }
 
-        public void PlaySfx(AudioClip clip, float volume = 1f)
+        public void PlaySfx(SoundId id, float volume, float pitchMin, float pitchMax)
+        {
+            var clip = soundBank?.GetRandomClip(id);
+            if (clip != null) PlaySfx(clip, volume, pitchMin, pitchMax);
+        }
+
+        public void PlaySfx(AudioClip clip, float volume = 1f, float pitchJitterHalfRange = 0f)
         {
             if (sfxSource == null || clip == null) return;
+            var prevPitch = sfxSource.pitch;
+            if (pitchJitterHalfRange > 0f)
+                sfxSource.pitch = Random.Range(1f - pitchJitterHalfRange, 1f + pitchJitterHalfRange);
+            else
+                sfxSource.pitch = 1f;
             sfxSource.PlayOneShot(clip, Mathf.Clamp01(volume));
+            sfxSource.pitch = prevPitch;
+        }
+
+        public void PlaySfx(AudioClip clip, float volume, float pitchMin, float pitchMax)
+        {
+            if (sfxSource == null || clip == null) return;
+            var prevPitch = sfxSource.pitch;
+            sfxSource.pitch = pitchMax > pitchMin ? Random.Range(pitchMin, pitchMax) : 1f;
+            sfxSource.PlayOneShot(clip, Mathf.Clamp01(volume));
+            sfxSource.pitch = prevPitch;
         }
 
         public void PlaySfxAtPosition(SoundId id, Vector3 pos, float volume = 1f)

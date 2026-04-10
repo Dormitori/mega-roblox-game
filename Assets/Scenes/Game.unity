@@ -290515,10 +290515,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2424135231083276091, guid: afd2ded8da70ab248908f981032a6969, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3674349048815020542, guid: afd2ded8da70ab248908f981032a6969, type: 3}
       propertyPath: characterControls
       value: 
       objectReference: {fileID: 8142814105382486677}
+    - target: {fileID: 5548735463164766496, guid: afd2ded8da70ab248908f981032a6969, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6030288756378059941, guid: afd2ded8da70ab248908f981032a6969, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7394860247226284020, guid: afd2ded8da70ab248908f981032a6969, type: 3}
       propertyPath: m_Name
       value: BackpackShop
@@ -355406,6 +355418,11 @@ MonoBehaviour:
   animator: {fileID: 1809073318}
   inputControls: {fileID: 8142814105382486677}
   mineBlocks: {fileID: 1489626982}
+  playFootsteps: 1
+  footstepVolume: 0.43
+  footstepPitchMin: 0.5
+  footstepPitchMax: 1.05
+  footstepMinInterval: 0.45
 --- !u!143 &1489626981
 CharacterController:
   m_ObjectHideFlags: 0
@@ -355454,6 +355471,7 @@ MonoBehaviour:
   animator: {fileID: 1809073318}
   attackParticle: {fileID: 2070247996}
   mineDistance: 1.4
+  mineHitPitchJitterHalfRange: 0.106
 --- !u!114 &1489626983
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Audio;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -21,6 +22,7 @@ public class MineManager : MonoBehaviour
     private ObjectPool<ParticleSystem> _destroyParticlesPool;
     private ObjectPool<BlockHpPopup> _hpPopupPool;
     private Inventory _inventory;
+    private IAudioService _audioService;
 
     private List<Quaternion> _cubeRotations = new();
     private int _curBlocks = 0;
@@ -32,9 +34,10 @@ public class MineManager : MonoBehaviour
     private List<Block> _nextLevelBlocks;
 
     [Inject]
-    public void Initialize(Inventory inventory)
+    public void Initialize(Inventory inventory, IAudioService audioService)
     {
         _inventory = inventory;
+        _audioService = audioService;
         _config = mineConfig;
         _cubeRotations = GetUpwardRotations();
         _destroyParticlesPool = new ObjectPool<ParticleSystem>(destroyParticles, blocksParent);
@@ -88,6 +91,7 @@ public class MineManager : MonoBehaviour
 
     private void OnBlockDamaged(Block block, int remaining, int maxHp)
     {
+        if (_hpPopupPool == null) return;
         var popup = _hpPopupPool.Rent();
         if (popup == null) return;
         popup.Play(remaining, maxHp, block.transform.position, () => _hpPopupPool.Return(popup));
@@ -96,6 +100,7 @@ public class MineManager : MonoBehaviour
     private void OnBlockDestroy(Block block)
     {
         block.Damaged -= OnBlockDamaged;
+        _audioService?.PlaySfx(SoundId.BlockDestroy, 1f, 0.5f, 1.1f);
         _inventory.AddBlock(block.config.type, 1);
         _currentLevelDestroyedBlocks++;
         block.ResetHealth();

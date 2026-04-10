@@ -363,4 +363,4 @@ MonoBehaviour:
   defaultMaster: 1
   defaultMusic: 1
   defaultSfx: 1
-  soundBank: {fileID: 11400000, guid: 1a340f4b7459142c2bf1438a6beb5e91, type: 2}
+  soundBank: {fileID: 11400000, guid: 7d00450c0d3314cdfbe680c2f7f3f9ea, type: 2}

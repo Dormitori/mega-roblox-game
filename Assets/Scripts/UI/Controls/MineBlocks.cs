@@ -1,5 +1,7 @@
 using System.Collections;
+using Core.Audio;
 using UnityEngine;
+using VContainer;
 
 public class MineBlocks : MonoBehaviour
 {
@@ -13,13 +15,23 @@ public class MineBlocks : MonoBehaviour
     public ParticleSystem attackParticle;
     public float mineDistance;
 
+    [SerializeField, Range(0f, 0.2f)] private float mineHitPitchJitterHalfRange = 0.06f;
+
     /// <summary>Пока true — удар киркой идёт, движение обычно блокируется в CharacterMovement.</summary>
     public bool IsMiningAttacking => _isHitting;
+
+    private IAudioService _audioService;
 
     private RaycastHit _currentBlockHit;
     private Block _currentBlock;
     private bool _isHitting;
-    
+
+    [Inject]
+    private void Construct(IAudioService audioService)
+    {
+        _audioService = audioService;
+    }
+
     private void Update()
     {
         if (GetHit(out RaycastHit hit))
@@ -57,6 +69,8 @@ public class MineBlocks : MonoBehaviour
     private IEnumerator HitCoroutine()
     {
         _isHitting = true;
+        _audioService?.PlaySfx(SoundId.BlockHit, 1f, mineHitPitchJitterHalfRange);
+
         var hitSpeed = playerPickaxe.CurrentPickaxeConfig.baseSpeedMultiplier;
         var attackDuration = (config.beforeHitCooldown + config.afterHitCooldown) / hitSpeed;
         var clipLen = config.attackAnimationClipLengthSeconds;

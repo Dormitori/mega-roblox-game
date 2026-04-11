@@ -8198,96 +8198,96 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 
-      - 
+      - Wood pickaxe
+      - "\u0414\u0435\u0440\u0435\u0432\u044F\u043D\u043D\u0430\u044F  \u043A\u0438\u0440\u043A\u0430"
       Flags: 0000
       Languages_Touch: []
     - Term: Pickaxes/PickaxeStone02
       TermType: 0
       Description: 
       Languages:
-      - 
-      - 
+      - Stone pickaxe
+      - "\u041A\u0430\u043C\u0435\u043D\u043D\u0430\u044F \u043A\u0438\u0440\u043A\u0430"
       Flags: 0000
       Languages_Touch: []
     - Term: Pickaxes/PickaxeCopper03
       TermType: 0
       Description: 
       Languages:
-      - 
-      - 
+      - Copper pickaxe
+      - "\u041C\u0435\u0434\u043D\u0430\u044F \u043A\u0438\u0440\u043A\u0430"
       Flags: 0000
       Languages_Touch: []
     - Term: Pickaxes/PickaxeMetal04
       TermType: 0
       Description: 
       Languages:
-      - 
-      - 
+      - Iron pickaxe
+      - "\u0416\u0435\u043B\u0435\u0437\u043D\u0430\u044F \u043A\u0438\u0440\u043A\u0430"
       Flags: 0000
       Languages_Touch: []
     - Term: Pickaxes/PickaxeQuarts05
       TermType: 0
       Description: 
       Languages:
-      - 
-      - 
+      - Quartz pickaxe
+      - "\u041A\u0432\u0430\u0440\u0446\u0435\u0432\u0430\u044F \u043A\u0438\u0440\u043A\u0430"
       Flags: 0000
       Languages_Touch: []
     - Term: Pickaxes/PickaxeSilver06
       TermType: 0
       Description: 
       Languages:
-      - 
-      - 
+      - Silver pickaxe
+      - "\u0421\u0435\u0440\u0435\u0431\u0440\u044F\u043D\u043D\u0430\u044F \u043A\u0438\u0440\u043A\u0430"
       Flags: 0000
       Languages_Touch: []
     - Term: Pickaxes/PickaxeGold07
       TermType: 0
       Description: 
       Languages:
-      - 
-      - 
+      - Gold pickaxe
+      - "\u0417\u043E\u043B\u043E\u0442\u0430\u044F \u043A\u0438\u0440\u043A\u0430"
       Flags: 0000
       Languages_Touch: []
     - Term: Pickaxes/PickaxeLazurit08
       TermType: 0
       Description: 
       Languages:
-      - 
-      - 
+      - Azure pickaxe
+      - "\u041B\u0430\u0437\u0443\u0440\u0438\u0442\u043E\u0432\u0430\u044F \u043A\u0438\u0440\u043A\u0430"
       Flags: 0000
       Languages_Touch: []
     - Term: Pickaxes/PickaxeDiamond09
       TermType: 0
       Description: 
       Languages:
-      - 
-      - 
+      - Diamond pickaxe
+      - "\u0410\u043B\u043C\u0430\u0437\u043D\u0430\u044F \u043A\u0438\u0440\u043A\u0430"
       Flags: 0000
       Languages_Touch: []
     - Term: Pickaxes/PickaxeAmetyst10
       TermType: 0
       Description: 
       Languages:
-      - 
-      - 
+      - Amethyst pickaxe
+      - "\u0410\u043C\u0435\u0442\u0438\u0441\u0442\u043E\u0432\u0430\u044F \u043A\u0438\u0440\u043A\u0430"
       Flags: 0000
       Languages_Touch: []
     - Term: Pickaxes/PickaxeGreen11
       TermType: 0
       Description: 
       Languages:
-      - 
-      - 
+      - Emerald pickaxe
+      - "\u0418\u0437\u0443\u043C\u0440\u0443\u0434\u043D\u0430\u044F \u043A\u0438\u0440\u043A\u0430"
       Flags: 0000
       Languages_Touch: []
     - Term: Pickaxes/PickaxeRuby12
       TermType: 0
       Description: 
       Languages:
-      - 
-      - 
+      - Ruby pickaxe
+      - "\u0420\u0443\u0431\u0438\u043D\u043E\u0432\u0430\u044F \u043A\u0438\u0440\u043A\u0430"
       Flags: 0000
       Languages_Touch: []
     CaseInsensitiveTerms: 0

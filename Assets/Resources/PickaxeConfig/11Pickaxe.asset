@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 11Pickaxe
   m_EditorClassIdentifier: Assembly-CSharp::PickaxeConfig
   type: 10
-  pickaxeName: Green Pickaxe
   pickaxeIcon: {fileID: 21300000, guid: 237e0977811b94b0bb7e04f8aed3dcfd, type: 3}
   pickaxePrefab: {fileID: 435670625007085814, guid: 246895f9759c945209c1d4cbe94ca0f0, type: 3}
   baseDamage: 11

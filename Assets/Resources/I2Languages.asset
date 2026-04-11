@@ -8190,6 +8190,102 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
+      - Lava
+      - "\u041B\u0430\u0432\u0430"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pickaxes/PickaxeWood01
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pickaxes/PickaxeStone02
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pickaxes/PickaxeCopper03
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pickaxes/PickaxeMetal04
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pickaxes/PickaxeQuarts05
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pickaxes/PickaxeSilver06
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pickaxes/PickaxeGold07
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pickaxes/PickaxeLazurit08
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pickaxes/PickaxeDiamond09
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pickaxes/PickaxeAmetyst10
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pickaxes/PickaxeGreen11
+      TermType: 0
+      Description: 
+      Languages:
+      - 
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pickaxes/PickaxeRuby12
+      TermType: 0
+      Description: 
+      Languages:
       - 
       - 
       Flags: 0000

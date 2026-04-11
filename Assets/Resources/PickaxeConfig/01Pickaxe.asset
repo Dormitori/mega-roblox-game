@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b80ca15a4c419b9693a52d333017e3, type: 3}
   m_Name: 01Pickaxe
   m_EditorClassIdentifier: Assembly-CSharp::PickaxeConfig
-  item: 105
-  pickaxeName: Wooden Pickaxe
+  type: 0
   pickaxeIcon: {fileID: 21300000, guid: 4721740dc52464eba976910c19a3a761, type: 3}
   pickaxePrefab: {fileID: 268349899093175116, guid: 391f8f2bc497f4550888fb9062630422, type: 3}
   baseDamage: 1

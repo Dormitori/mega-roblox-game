@@ -41,7 +41,7 @@ public class SelectedPickaxeView : MonoBehaviour
         bool equipped
     )
     {
-        pickaxeName.text = pickaxeConfig.pickaxeName;
+        pickaxeName.text = pickaxeConfig.LocalizedName;
         pickaxeBuffs.text = MakeBuffList(pickaxeConfig);
         
         pickaxeShopView.UpdateIcon(pickaxeConfig.pickaxeIcon);

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Core.Localization;
 using UnityEngine;
 
 
@@ -7,13 +8,14 @@ using UnityEngine;
 public class PickaxeConfig : ScriptableObject
 {
     public PickaxeType type;
-    public string pickaxeName;
     public Sprite pickaxeIcon;
     public GameObject pickaxePrefab;
     public int baseDamage;
     public float baseSpeedMultiplier;
     public int price;
     public List<Requirements> requirements;
+
+    public string LocalizedName => PickaxeTypeLocalization.GetLocalizedName(type);
 
     public bool SatisfyRequirements(Inventory inventory)
     {

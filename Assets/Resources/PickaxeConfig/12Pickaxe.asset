@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 12Pickaxe
   m_EditorClassIdentifier: Assembly-CSharp::PickaxeConfig
   type: 11
-  pickaxeName: Ruby Pickaxe
   pickaxeIcon: {fileID: 21300000, guid: 9f3f08d37e76349a7896baa7ff79a757, type: 3}
   pickaxePrefab: {fileID: 451415701902813803, guid: c2f9ea7334b87459890f6ae1ba229293, type: 3}
   baseDamage: 12

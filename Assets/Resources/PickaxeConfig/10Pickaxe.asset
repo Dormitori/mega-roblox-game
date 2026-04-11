@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 10Pickaxe
   m_EditorClassIdentifier: Assembly-CSharp::PickaxeConfig
   type: 9
-  pickaxeName: Ametist Pickaxe
   pickaxeIcon: {fileID: 21300000, guid: 130a21993390d4939b0745eeffbebd3d, type: 3}
   pickaxePrefab: {fileID: 2030227677065870468, guid: 4e79dba0d7b144d688882c3bd775cee6, type: 3}
   baseDamage: 10

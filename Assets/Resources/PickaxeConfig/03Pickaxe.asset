@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 03Pickaxe
   m_EditorClassIdentifier: Assembly-CSharp::PickaxeConfig
   type: 2
-  pickaxeName: Copper Pickaxe
   pickaxeIcon: {fileID: 21300000, guid: 515e9375dbe5d4577baaeb21bb1a053f, type: 3}
   pickaxePrefab: {fileID: 1973277226314471566, guid: 818106799b8e546e996e504c21233b3f, type: 3}
   baseDamage: 3

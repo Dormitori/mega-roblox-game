@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 06Pickaxe
   m_EditorClassIdentifier: Assembly-CSharp::PickaxeConfig
   type: 5
-  pickaxeName: Silver Pickaxe
   pickaxeIcon: {fileID: 21300000, guid: 06039a53b0a03459c9a3846f5450723d, type: 3}
   pickaxePrefab: {fileID: 1098835664608156498, guid: b2ccd1dc3263a4ca380b84fbf1a1e79f, type: 3}
   baseDamage: 6

@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 02Pickaxe
   m_EditorClassIdentifier: Assembly-CSharp::PickaxeConfig
   type: 1
-  pickaxeName: Stone Pickaxe
   pickaxeIcon: {fileID: 21300000, guid: 883fa4540b8304b64b831771ff0633cc, type: 3}
   pickaxePrefab: {fileID: 4678468834810363556, guid: 6f65b04d3074e466f91201bf1f2155ee, type: 3}
   baseDamage: 2

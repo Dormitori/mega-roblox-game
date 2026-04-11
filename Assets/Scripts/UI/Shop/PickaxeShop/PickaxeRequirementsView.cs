@@ -17,7 +17,7 @@ public class PickaxeRequirementsView : MonoBehaviour
         {
             var line = Instantiate(linePrefab, transform);
             line.icon.sprite = requirement.Item1.icon;
-            line.label.text = $"{inventory.GetBlockCount(requirement.Item1.type)}/{requirement.Item2} {requirement.Item1.name}";
+            line.label.text = $"{inventory.GetBlockCount(requirement.Item1.type)}/{requirement.Item2} {requirement.Item1.LocalizedName}";
             if (inventory.GetBlockCount(requirement.Item1.type) >= requirement.Item2)
                 line.label.color  = _satisfiedColor;
             else

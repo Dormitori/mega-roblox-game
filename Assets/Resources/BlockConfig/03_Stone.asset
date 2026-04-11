@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BlockConfig
   type: 2
   icon: {fileID: 21300000, guid: d3342009e36d944d1921f13910414544, type: 3}
-  name: Stone
   rarity: 
   baseSellPrice: 8
   health: 8

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 095a2277426a4f31b2c211adc29d3dc3, type: 3}
-  m_Name: 04_Rock
+  m_Name: New Block Config
   m_EditorClassIdentifier: Assembly-CSharp::BlockConfig
-  type: 3
-  icon: {fileID: 21300000, guid: 60d0c2b3dd0e2404793247fe59d9f244, type: 3}
+  type: 0
+  icon: {fileID: 0}
   rarity: 
-  baseSellPrice: 16
-  health: 16
+  baseSellPrice: 0
+  health: 0

@@ -722,16 +722,28 @@ namespace I2.Loc
         public static object s_RecycledEditor;
         public static string TextField ( Rect position, string text, int maxLength, GUIStyle style, int controlID )
 		{
+            if (style == null)
+            {
+                if (GUI.skin != null)
+                    style = GUI.skin.FindStyle(Style_ToolbarSearchTextField);
+                if (style == null)
+                    style = EditorStyles.toolbarSearchField;
+                if (style == null)
+                    style = EditorStyles.textField;
+            }
+
             if (s_RecycledEditor==null)
             {
                 FieldInfo info = typeof(EditorGUI).GetField("s_RecycledEditor", BindingFlags.NonPublic | BindingFlags.Static);
-                s_RecycledEditor = info.GetValue(null);
+                if (info != null)
+                    s_RecycledEditor = info.GetValue(null);
             }
 
             if (s_RecycledEditor == null)
-                return "";
+                return EditorGUI.TextField(position, text, style);
 
-            return Reflection_InvokeMethod( typeof( EditorGUI ), "DoTextField", s_RecycledEditor, controlID, position, text, style, null, false, false, false, false ) as string;
+            var result = Reflection_InvokeMethod( typeof( EditorGUI ), "DoTextField", s_RecycledEditor, controlID, position, text, style, null, false, false, false, false ) as string;
+            return result ?? text;
 		}
 
         static public void RepaintInspectors()

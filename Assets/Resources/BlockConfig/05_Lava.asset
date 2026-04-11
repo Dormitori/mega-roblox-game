@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BlockConfig
   type: 4
   icon: {fileID: 21300000, guid: 1d77cf5cf569d436e86023786006b336, type: 3}
-  name: Lava
   rarity: 
   baseSellPrice: 32
   health: 32

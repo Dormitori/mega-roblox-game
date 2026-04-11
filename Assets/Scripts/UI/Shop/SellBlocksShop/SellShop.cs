@@ -42,7 +42,7 @@ public class SellShop : PopUpWindow
             shopEntry.SetResource(
                 blockConfig.type,
                 blockConfig.icon,
-                blockConfig.name,
+                blockConfig.LocalizedName,
                 _inventory.GetBlockCount(blockConfig.type),
                 blockConfig.baseSellPrice
             );

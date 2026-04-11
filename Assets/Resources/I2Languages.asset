@@ -105,6 +105,39 @@ MonoBehaviour:
       - "\u041C\u0410\u0413\u0410\u0417\u0418\u041D \u0421\u0423\u041C\u041E\u041A"
       Flags: 0000
       Languages_Touch: []
+    - Term: BAG SLOTS
+      TermType: 0
+      Description: 
+      Languages:
+      - BAG SLOTS
+      - "\u0421\u0423\u041C\u041A\u0418"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Opens the king of this mines
+      TermType: 0
+      Description: 
+      Languages:
+      - "Opens the king \nof this mines"
+      - "\u041E\u0442\u043A\u0440\u044B\u0432\u0430\u0435\u0442\u0441\u044F\n\u043A\u043E\u0440\u043E\u043B\u044E
+        \u044D\u0442\u043E\u0439\n\u0448\u0430\u0445\u0442\u044B"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Pickaxes
+      TermType: 0
+      Description: 
+      Languages:
+      - Pickaxes
+      - "\u041A\u0438\u0440\u043A\u0438"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: BLOCKS
+      TermType: 0
+      Description: 
+      Languages:
+      - BLOCKS
+      - "\u0411\u041B\u041E\u041A\u0418"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

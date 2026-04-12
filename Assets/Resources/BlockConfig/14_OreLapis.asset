@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 14_OreLapis
   m_EditorClassIdentifier: Assembly-CSharp::BlockConfig
   type: 13
-  icon: {fileID: 21300000, guid: cca4e57234acb4f3cb34f764af6712e8, type: 3}
+  icon: {fileID: 21300000, guid: 7f17dc1d2fe1b4e38a6e598318126655, type: 3}
   rarity: 
   baseSellPrice: 10
   health: 10

@@ -8199,103 +8199,103 @@ MonoBehaviour:
       Description: 
       Languages:
       - Obsidian
-      - 
+      - "\u041E\u0431\u0441\u0438\u0434\u0438\u0430\u043D"
       Flags: 0000
       Languages_Touch: []
     - Term: Blocks/OreCoal
       TermType: 0
       Description: 
       Languages:
-      - Coal ore
-      - 
+      - Coal
+      - "\u0423\u0433\u043E\u043B\u044C"
       Flags: 0000
       Languages_Touch: []
     - Term: Blocks/OreCopper
       TermType: 0
       Description: 
       Languages:
-      - Copper ore
-      - 
+      - Copper
+      - "\u041C\u0435\u0434\u044C"
       Flags: 0000
       Languages_Touch: []
     - Term: Blocks/OreIron
       TermType: 0
       Description: 
       Languages:
-      - Iron ore
-      - 
+      - Iron
+      - "\u0416\u0435\u043B\u0435\u0437\u043E"
       Flags: 0000
       Languages_Touch: []
     - Term: Blocks/OreBronze
       TermType: 0
       Description: 
       Languages:
-      - Bronze ore
-      - 
+      - Bronze
+      - "\u0411\u0440\u043E\u043D\u0437\u0430"
       Flags: 0000
       Languages_Touch: []
     - Term: Blocks/OreQuartz
       TermType: 0
       Description: 
       Languages:
-      - Quartz ore
-      - 
+      - Quartz
+      - "\u041A\u0432\u0430\u0440\u0446"
       Flags: 0000
       Languages_Touch: []
     - Term: Blocks/OreSilver
       TermType: 0
       Description: 
       Languages:
-      - Silver ore
-      - 
+      - Silver
+      - "\u0421\u0435\u0440\u0435\u0431\u0440\u043E"
       Flags: 0000
       Languages_Touch: []
     - Term: Blocks/OreGold
       TermType: 0
       Description: 
       Languages:
-      - Gold ore
-      - 
+      - Gold
+      - "\u0417\u043E\u043B\u043E\u0442\u043E"
       Flags: 0000
       Languages_Touch: []
     - Term: Blocks/OreLapis
       TermType: 0
       Description: 
       Languages:
-      - Lapis ore
-      - 
+      - Azure
+      - "\u041B\u0430\u0437\u0443\u0440\u044C"
       Flags: 0000
       Languages_Touch: []
     - Term: Blocks/OreDiamond
       TermType: 0
       Description: 
       Languages:
-      - Diamond ore
-      - 
+      - Diamond
+      - "\u0410\u043B\u043C\u0430\u0437"
       Flags: 0000
       Languages_Touch: []
     - Term: Blocks/OreAmethyst
       TermType: 0
       Description: 
       Languages:
-      - Amethyst ore
-      - 
+      - Amethyst
+      - "\u0410\u043C\u0435\u0442\u0438\u0441\u0442"
       Flags: 0000
       Languages_Touch: []
     - Term: Blocks/OreGreenDiamond
       TermType: 0
       Description: 
       Languages:
-      - Green diamond ore
-      - 
+      - Emerald
+      - "\u0418\u0437\u0443\u043C\u0440\u0443\u0434"
       Flags: 0000
       Languages_Touch: []
     - Term: Blocks/OreRuby
       TermType: 0
       Description: 
       Languages:
-      - Ruby ore
-      - 
+      - Ruby
+      - "\u0420\u0443\u0431\u0438\u043D"
       Flags: 0000
       Languages_Touch: []
     - Term: Pickaxes/PickaxeWood01

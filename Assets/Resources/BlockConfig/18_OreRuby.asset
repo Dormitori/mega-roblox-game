@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 18_OreRuby
   m_EditorClassIdentifier: Assembly-CSharp::BlockConfig
   type: 17
-  icon: {fileID: 21300000, guid: cca4e57234acb4f3cb34f764af6712e8, type: 3}
+  icon: {fileID: 21300000, guid: ec2cf04f1ff07450fb355452688c6693, type: 3}
   rarity: 
   baseSellPrice: 10
   health: 10

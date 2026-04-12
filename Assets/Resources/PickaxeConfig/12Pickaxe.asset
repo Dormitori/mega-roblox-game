@@ -17,5 +17,9 @@ MonoBehaviour:
   pickaxePrefab: {fileID: 451415701902813803, guid: c2f9ea7334b87459890f6ae1ba229293, type: 3}
   baseDamage: 550
   baseSpeedMultiplier: 2.2
-  price: 120
-  requirements: []
+  price: 1500000
+  requirements:
+  - blockType: 17
+    count: 25
+  - blockType: 16
+    count: 20

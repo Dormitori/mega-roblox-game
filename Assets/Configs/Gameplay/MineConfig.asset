@@ -267,6 +267,19 @@ MonoBehaviour:
       probability: 1
       minVariant: 1
       maxVariant: 1
+  chestSpawns:
+    enabled: 1
+    minDepth: 1
+    chancePerBlock: 0.012
+    entries:
+    - blockType: 18
+      weight: 48
+    - blockType: 19
+      weight: 28
+    - blockType: 20
+      weight: 16
+    - blockType: 21
+      weight: 8
   mineSize: 6
   yBlockSize: 1
   xBlockSize: 1

@@ -1,7 +1,8 @@
 
 public enum CurrencyType
 {
-    Coins
+    Coins,
+    Crystals
 }
 
 public enum BlockType 
@@ -24,6 +25,10 @@ public enum BlockType
     OreAmethyst,
     OreGreenDiamond,
     OreRuby,
+    WoodenBox,
+    WoodenChest,
+    SilverChest,
+    GoldenChest
 }
 
 public enum PickaxeType

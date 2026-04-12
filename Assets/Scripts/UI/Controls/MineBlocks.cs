@@ -81,9 +81,12 @@ public class MineBlocks : MonoBehaviour
         animator.SetTrigger("Attack");
         attackParticle.Play();
         yield return new WaitForSeconds(config.beforeHitCooldown / hitSpeed);
-        if (_currentBlock && !_currentBlock.IsDisabled && playerBlockInventory.HasSpace)
+        var canMine = _currentBlock && !_currentBlock.IsDisabled &&
+                      (playerBlockInventory.HasSpace ||
+                       MineChestRules.IgnoresBackpackCapacity(_currentBlock.InventoryBlockType));
+        if (canMine)
             _currentBlock.TakeDamage(playerPickaxe.CurrentPickaxeConfig.baseDamage);
-        else if (!playerBlockInventory.HasSpace)
+        else if (_currentBlock && !_currentBlock.IsDisabled && !playerBlockInventory.HasSpace)
             playerBlockInventory.ShowNotEnoughSpaceText();
         
         yield return new WaitForSeconds(config.afterHitCooldown / hitSpeed);

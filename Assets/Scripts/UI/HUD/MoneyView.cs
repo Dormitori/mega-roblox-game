@@ -5,6 +5,8 @@ using VContainer;
 public class MoneyView : MonoBehaviour
 {
     public TextMeshProUGUI CoinsText;
+    [Tooltip("Опционально: счётчик кристаллов (донат-валюта).")]
+    public TextMeshProUGUI CrystalsText;
 
     private Inventory _inventory;
     
@@ -19,5 +21,7 @@ public class MoneyView : MonoBehaviour
     private void OnInventoryChanged()
     {
         CoinsText.text = _inventory.GetCurrencyCount(CurrencyType.Coins).ToString();
+        if (CrystalsText != null)
+            CrystalsText.text = _inventory.GetCurrencyCount(CurrencyType.Crystals).ToString();
     }
 }

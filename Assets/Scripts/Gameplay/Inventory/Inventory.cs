@@ -43,6 +43,7 @@ public class Inventory
             EnsureAllBlockTypesPresent(_blockSellValueTotals);
             if (saveData.BlockSellValueTotals == null)
                 MigrateSellTotalsFromBlockConfigs();
+            EnsureAllCurrenciesPresent(_currencies);
             return;
         }
         
@@ -58,6 +59,13 @@ public class Inventory
         CurrentPickaxe = PickaxeType.PickaxeWood01;
         AddPickaxe(PickaxeType.PickaxeWood01);
         Save();
+    }
+
+    private static void EnsureAllCurrenciesPresent(Dictionary<CurrencyType, int> dict)
+    {
+        foreach (CurrencyType c in Enum.GetValues(typeof(CurrencyType)))
+            if (!dict.ContainsKey(c))
+                dict[c] = 0;
     }
 
     private static void EnsureAllBlockTypesPresent(Dictionary<BlockType, int> dict)

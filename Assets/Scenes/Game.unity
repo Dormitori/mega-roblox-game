@@ -512900,6 +512900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoneyView
   CoinsText: {fileID: 20967599253316155}
+  CrystalsText: {fileID: 228772570716763181}
 --- !u!1 &3848675203925657111
 GameObject:
   m_ObjectHideFlags: 0

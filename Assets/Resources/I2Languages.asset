@@ -65,6 +65,14 @@ MonoBehaviour:
       - "\u0423\u0440\u043E\u043D"
       Flags: 0000
       Languages_Touch: []
+    - Term: Crystals
+      TermType: 0
+      Description: 
+      Languages:
+      - Crystals
+      - "\u041A\u0440\u0438\u0441\u0442\u0430\u043B\u043B\u044B"
+      Flags: 0000
+      Languages_Touch: []
     - Term: Buy
       TermType: 0
       Description: 
@@ -8312,6 +8320,38 @@ MonoBehaviour:
       Languages:
       - Ruby
       - "\u0420\u0443\u0431\u0438\u043D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/WoodenBox
+      TermType: 0
+      Description: 
+      Languages:
+      - Wooden box
+      - "\u0414\u0435\u0440\u0435\u0432\u044F\u043D\u043D\u0430\u044F \u043A\u043E\u0440\u043E\u0431\u043A\u0430"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/WoodenChest
+      TermType: 0
+      Description: 
+      Languages:
+      - Wooden chest
+      - "\u0414\u0435\u0440\u0435\u0432\u044F\u043D\u043D\u044B\u0439 \u0441\u0443\u043D\u0434\u0443\u043A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/SilverChest
+      TermType: 0
+      Description: 
+      Languages:
+      - Silver chest
+      - "\u0421\u0435\u0440\u0435\u0431\u0440\u044F\u043D\u044B\u0439 \u0441\u0443\u043D\u0434\u0443\u043A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/GoldenChest
+      TermType: 0
+      Description: 
+      Languages:
+      - Gold chest
+      - "\u0417\u043E\u043B\u043E\u0442\u043E\u0439 \u0441\u0443\u043D\u0434\u0443\u043A"
       Flags: 0000
       Languages_Touch: []
     - Term: Pickaxes/PickaxeWood01

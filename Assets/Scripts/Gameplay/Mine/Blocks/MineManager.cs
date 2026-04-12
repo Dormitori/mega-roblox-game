@@ -114,7 +114,10 @@ public class MineManager : MonoBehaviour
     {
         block.Damaged -= OnBlockDamaged;
         _audioService?.PlaySfx(SoundId.BlockDestroy, 1f, 0.5f, 1.1f);
-        _inventory.AddBlock(block.InventoryBlockType, 1, block.RuntimeSellPrice);
+        if (MineChestRules.GrantsCrystalsOnly(block.InventoryBlockType))
+            _inventory.AddCurrency(CurrencyType.Crystals, 1);
+        else
+            _inventory.AddBlock(block.InventoryBlockType, 1, block.RuntimeSellPrice);
         _currentLevelDestroyedBlocks++;
         block.ResetHealth();
 
@@ -155,10 +158,58 @@ public class MineManager : MonoBehaviour
     private (BlockType logicalType, BlockType visualType, int variantId, int hp, int sellPrice, BlockConfig invConfig)
         ResolveBlockSpawn(int deepLevel)
     {
+        if (TryResolveChestSpawn(deepLevel,
+                out var cl, out var cv, out var cvar, out var chp, out var cprice, out var ccfg))
+            return (cl, cv, cvar, chp, cprice, ccfg);
+
         if (balanceConfig != null)
             return ResolveBlockSpawnBalanced(deepLevel);
 
         return ResolveBlockSpawnLegacy(deepLevel);
+    }
+
+    private bool TryResolveChestSpawn(int deepLevel,
+        out BlockType logical, out BlockType visual, out int variantId, out int hp, out int sellPrice, out BlockConfig invConfig)
+    {
+        logical = default;
+        visual = default;
+        variantId = 1;
+        hp = 1;
+        sellPrice = 0;
+        invConfig = null;
+
+        var cs = _config.chestSpawns;
+        if (cs == null || !cs.enabled || deepLevel < cs.minDepth || cs.entries == null || cs.entries.Length == 0)
+            return false;
+        if (Random.value >= cs.chancePerBlock)
+            return false;
+
+        var weights = new List<int>();
+        var types = new List<BlockType>();
+        foreach (var e in cs.entries)
+        {
+            if (e.weight <= 0)
+                continue;
+            var cfg = ConfigFor(e.blockType);
+            if (cfg == null)
+                continue;
+            weights.Add(e.weight);
+            types.Add(e.blockType);
+        }
+
+        if (types.Count == 0)
+            return false;
+
+        logical = RandomUtils.WeightedRandom(weights, types);
+        invConfig = ConfigFor(logical);
+        if (invConfig == null)
+            return false;
+
+        hp = Mathf.Max(1, Mathf.RoundToInt(invConfig.health));
+        sellPrice = invConfig.baseSellPrice;
+        visual = ResolveVisualBlockType(logical);
+        variantId = RandomVariantFor(visual);
+        return true;
     }
 
     private (BlockType logicalType, BlockType visualType, int variantId, int hp, int sellPrice, BlockConfig invConfig)

@@ -38,7 +38,7 @@ public class MineBlocks : MonoBehaviour
             if (hit.collider != _currentBlockHit.collider)
             {
                 ClearHighLight();
-                var block = hit.collider.GetComponent<Block>();
+                var block = hit.collider.GetComponentInParent<Block>();
                 if (block && !block.IsDisabled)
                 {
                     block.Highlight();
@@ -68,6 +68,7 @@ public class MineBlocks : MonoBehaviour
     private IEnumerator HitCoroutine()
     {
         _isHitting = true;
+        var targetBlock = _currentBlock;
         _audioService?.PlaySfx(SoundId.BlockHit, 1f, mineHitPitchJitterHalfRange);
 
         var hitSpeed = playerPickaxe.CurrentPickaxeConfig.baseSpeedMultiplier;
@@ -81,12 +82,13 @@ public class MineBlocks : MonoBehaviour
         animator.SetTrigger("Attack");
         attackParticle.Play();
         yield return new WaitForSeconds(config.beforeHitCooldown / hitSpeed);
-        var canMine = _currentBlock && !_currentBlock.IsDisabled &&
+        // Цель фиксируем в начале замаха: за время задержки прицел мог уйти, а _currentBlock обнулится — урон бы пропадал.
+        var canMine = targetBlock && !targetBlock.IsDisabled &&
                       (playerBlockInventory.HasSpace ||
-                       MineChestRules.IgnoresBackpackCapacity(_currentBlock.InventoryBlockType));
+                       MineChestRules.IgnoresBackpackCapacity(targetBlock.InventoryBlockType));
         if (canMine)
-            _currentBlock.TakeDamage(playerPickaxe.CurrentPickaxeConfig.baseDamage);
-        else if (_currentBlock && !_currentBlock.IsDisabled && !playerBlockInventory.HasSpace)
+            targetBlock.TakeDamage(playerPickaxe.CurrentPickaxeConfig.baseDamage);
+        else if (targetBlock && !targetBlock.IsDisabled && !playerBlockInventory.HasSpace)
             playerBlockInventory.ShowNotEnoughSpaceText();
         
         yield return new WaitForSeconds(config.afterHitCooldown / hitSpeed);

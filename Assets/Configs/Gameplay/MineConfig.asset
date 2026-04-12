@@ -48,6 +48,10 @@ MonoBehaviour:
   - {fileID: 676976630130926890, guid: 9135ac2da51324e70bc255b2e10cce2f, type: 3}
   - {fileID: 5785081300966840042, guid: 5a987a62cf2d146f18ab58e524223e62, type: 3}
   - {fileID: 2319974049778755863, guid: ae018b2eb36624054ae9341219f582e3, type: 3}
+  - {fileID: 1664374346748746770, guid: bb37fb90f96fc432fa4d9fd48471ae83, type: 3}
+  - {fileID: 528177866691514525, guid: 073a55ca28cee4bb9a96da3e4ea0d4a1, type: 3}
+  - {fileID: 1432366925450233643, guid: d6b4ee5200a5c41a8a50b71e0dc5891c, type: 3}
+  - {fileID: 2160171172313681698, guid: 8445bdb2fa13b4fc6ae130d50b7f4129, type: 3}
   mineLevelsConfig:
   - startLevel: 0
     endLevel: 0

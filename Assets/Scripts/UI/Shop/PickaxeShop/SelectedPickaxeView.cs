@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using I2.Loc;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -74,6 +76,19 @@ public class SelectedPickaxeView : MonoBehaviour
 
     private string MakeBuffList(PickaxeConfig pickaxeConfig)
     {
-        return $"• <indent=10%>Pickaxe speed: {pickaxeConfig.baseSpeedMultiplier}</indent>";
+        var attackSpeedLabel = LocalizationManager.GetTranslation("Attack speed");
+        var damageLabel = LocalizationManager.GetTranslation("Damage");
+        var speedText = FormatAttackSpeed(pickaxeConfig.baseSpeedMultiplier);
+        var damageText = pickaxeConfig.baseDamage.ToString(CultureInfo.InvariantCulture);
+        return
+            $"• <indent=10%>{attackSpeedLabel}: {speedText}</indent>\n" +
+            $"• <indent=10%>{damageLabel}: {damageText}</indent>";
+    }
+
+    private static string FormatAttackSpeed(float value)
+    {
+        if (Mathf.Approximately(value, Mathf.Round(value)))
+            return Mathf.RoundToInt(value).ToString(CultureInfo.InvariantCulture);
+        return value.ToString("0.##", CultureInfo.InvariantCulture);
     }
 }

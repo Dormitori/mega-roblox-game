@@ -297,7 +297,7 @@ MonoBehaviour:
   IsDisabled: 0
   blockType: 19
   variantId: 1
-  config: {fileID: 11400000, guid: 3cd929da0743340ce9c33a74467ed105, type: 2}
+  config: {fileID: 11400000, guid: 773490846ee3d4f5382953a947a8856b, type: 2}
   animationConfig: {fileID: 11400000, guid: 5bfdf4f3ee43e4fb8862ac377ff1f42b, type: 2}
   visualsTransform: {fileID: 2939173974538240645}
   defaultMaterial: {fileID: 2100000, guid: ab08612e63d71e8419000749e3c68d16, type: 2}

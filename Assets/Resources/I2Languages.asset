@@ -8194,6 +8194,110 @@ MonoBehaviour:
       - "\u041B\u0430\u0432\u0430"
       Flags: 0000
       Languages_Touch: []
+    - Term: Blocks/Obsidian
+      TermType: 0
+      Description: 
+      Languages:
+      - Obsidian
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/OreCoal
+      TermType: 0
+      Description: 
+      Languages:
+      - Coal ore
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/OreCopper
+      TermType: 0
+      Description: 
+      Languages:
+      - Copper ore
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/OreIron
+      TermType: 0
+      Description: 
+      Languages:
+      - Iron ore
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/OreBronze
+      TermType: 0
+      Description: 
+      Languages:
+      - Bronze ore
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/OreQuartz
+      TermType: 0
+      Description: 
+      Languages:
+      - Quartz ore
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/OreSilver
+      TermType: 0
+      Description: 
+      Languages:
+      - Silver ore
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/OreGold
+      TermType: 0
+      Description: 
+      Languages:
+      - Gold ore
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/OreLapis
+      TermType: 0
+      Description: 
+      Languages:
+      - Lapis ore
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/OreDiamond
+      TermType: 0
+      Description: 
+      Languages:
+      - Diamond ore
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/OreAmethyst
+      TermType: 0
+      Description: 
+      Languages:
+      - Amethyst ore
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/OreGreenDiamond
+      TermType: 0
+      Description: 
+      Languages:
+      - Green diamond ore
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Blocks/OreRuby
+      TermType: 0
+      Description: 
+      Languages:
+      - Ruby ore
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: Pickaxes/PickaxeWood01
       TermType: 0
       Description: 

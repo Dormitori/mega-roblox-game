@@ -6,18 +6,20 @@ using Core.Audio;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
-using Object = System.Object;
 using Random = UnityEngine.Random;
 
 public class MineManager : MonoBehaviour
 {
     public Transform blocksParent;
     public MineConfig mineConfig;
+    [Tooltip("Если не задан — используется старая генерация по mineLevelsConfig")]
+    public MineBalanceConfig balanceConfig;
     public ParticleSystem destroyParticles;
     public float destroyParticlesDuration;
     public BlockHpPopup hpPopupPrefab;
 
     private MineConfig _config;
+    private ConfigManager<BlockConfig> _blockConfigs;
     private Dictionary<BlockType, Dictionary<int, ObjectPool<Block>>> _blocksPools = new();
     private ObjectPool<ParticleSystem> _destroyParticlesPool;
     private ObjectPool<BlockHpPopup> _hpPopupPool;
@@ -35,11 +37,13 @@ public class MineManager : MonoBehaviour
     private List<Block> _nextLevelBlocks;
 
     [Inject]
-    public void Initialize(Inventory inventory, IAudioService audioService, ISaveService saveService)
+    public void Initialize(Inventory inventory, IAudioService audioService, ISaveService saveService,
+        ConfigManager<BlockConfig> blockConfigs)
     {
         _inventory = inventory;
         _audioService = audioService;
         _saveService = saveService;
+        _blockConfigs = blockConfigs;
         _config = mineConfig;
         _cubeRotations = GetUpwardRotations();
         _destroyParticlesPool = new ObjectPool<ParticleSystem>(destroyParticles, blocksParent);
@@ -76,12 +80,14 @@ public class MineManager : MonoBehaviour
         {
             for (var j = 0; j < _config.yBlockSize * _config.mineSize; j += _config.yBlockSize)
             {
-                var (blockType, variantId) = GetBlockInfo(_currentGeneratedDeepLevel);
-                var blockPool = _blocksPools[blockType][variantId];
+                var (logicalType, visualType, variantId, hp, sellPrice, invConfig) =
+                    ResolveBlockSpawn(_currentGeneratedDeepLevel);
+                var blockPool = _blocksPools[visualType][variantId];
                 var block = blockPool.Rent(false);
                 blocks.Add(block);
                 block.BlockDestroyed += OnBlockDestroy;
                 block.Damaged += OnBlockDamaged;
+                block.ApplyMineSpawn(invConfig, hp, sellPrice);
                 block.transform.localPosition = new Vector3(i, -_currentGeneratedDeepLevel * _config.zBlockSize, j);
                 block.transform.rotation = _cubeRotations[Random.Range(0, _cubeRotations.Count)];
                 block.gameObject.SetActive(true);
@@ -108,7 +114,7 @@ public class MineManager : MonoBehaviour
     {
         block.Damaged -= OnBlockDamaged;
         _audioService?.PlaySfx(SoundId.BlockDestroy, 1f, 0.5f, 1.1f);
-        _inventory.AddBlock(block.config.type, 1);
+        _inventory.AddBlock(block.InventoryBlockType, 1, block.RuntimeSellPrice);
         _currentLevelDestroyedBlocks++;
         block.ResetHealth();
 
@@ -143,7 +149,75 @@ public class MineManager : MonoBehaviour
         _destroyParticlesPool.Return(particle);
     }
 
-    private (BlockType blockType, int variantId) GetBlockInfo(int deepLevel)
+    private BlockConfig ConfigFor(BlockType type) =>
+        _blockConfigs.Configs.FirstOrDefault(c => c.type == type);
+
+    private (BlockType logicalType, BlockType visualType, int variantId, int hp, int sellPrice, BlockConfig invConfig)
+        ResolveBlockSpawn(int deepLevel)
+    {
+        if (balanceConfig != null)
+            return ResolveBlockSpawnBalanced(deepLevel);
+
+        return ResolveBlockSpawnLegacy(deepLevel);
+    }
+
+    private (BlockType logicalType, BlockType visualType, int variantId, int hp, int sellPrice, BlockConfig invConfig)
+        ResolveBlockSpawnBalanced(int deepLevel)
+    {
+        var isOre = false;
+        BlockType logical = default;
+
+        if (Random.value < balanceConfig.GetOreChance(deepLevel) &&
+            balanceConfig.TryPickOre(deepLevel, () => Random.value, t => ConfigFor(t) != null, out var orePick))
+        {
+            logical = orePick;
+            isOre = true;
+        }
+
+        if (!isOre)
+            logical = balanceConfig.PickTerrain(deepLevel, () => Random.value);
+
+        var oreEntry = isOre ? balanceConfig.GetOreEntry(logical) : null;
+        if (isOre && oreEntry == null)
+        {
+            isOre = false;
+            logical = balanceConfig.PickTerrain(deepLevel, () => Random.value);
+        }
+
+        var terrainEntry = !isOre ? balanceConfig.GetTerrainEntry(logical) : null;
+
+        var cfg = ConfigFor(logical);
+        if (cfg == null)
+        {
+            logical = BlockType.Sand;
+            terrainEntry = balanceConfig.GetTerrainEntry(logical);
+            cfg = ConfigFor(logical);
+        }
+
+        if (cfg == null)
+            throw new InvalidOperationException(
+                "Не найден BlockConfig для базового блока (Sand). Добавьте ассеты в Resources/BlockConfig.");
+
+        int hp;
+        int price;
+        if (isOre && oreEntry != null)
+        {
+            hp = balanceConfig.ComputeOreHp(deepLevel);
+            price = balanceConfig.ComputeOreSellPrice(deepLevel, oreEntry);
+        }
+        else
+        {
+            hp = balanceConfig.ComputeTerrainHp(deepLevel, terrainEntry);
+            price = balanceConfig.ComputeTerrainSellPrice(deepLevel, terrainEntry);
+        }
+
+        var visual = ResolveVisualBlockType(logical);
+        var variantId = RandomVariantFor(visual);
+        return (logical, visual, variantId, hp, price, cfg);
+    }
+
+    private (BlockType logicalType, BlockType visualType, int variantId, int hp, int sellPrice, BlockConfig invConfig)
+        ResolveBlockSpawnLegacy(int deepLevel)
     {
         var levelsConfig = _config.mineLevelsConfig;
         foreach (var levelConfig in levelsConfig)
@@ -154,16 +228,43 @@ public class MineManager : MonoBehaviour
                 var blockTypes = levelConfig.blockProbabilities.Select(x => x.blockType).ToList();
 
                 var selectedBlock = RandomUtils.WeightedRandom(probabilities, blockTypes);
-                foreach (var config in levelConfig.blockProbabilities)
+                foreach (var bp in levelConfig.blockProbabilities)
                 {
-                    if (config.blockType != selectedBlock) continue;
-                    var variantId = Random.Range(config.minVariant, config.maxVariant + 1);
-                    return (selectedBlock, variantId);
+                    if (bp.blockType != selectedBlock) continue;
+                    var variantId = Random.Range(bp.minVariant, bp.maxVariant + 1);
+                    var cfg = ConfigFor(selectedBlock);
+                    if (cfg == null)
+                        throw new Exception($"BlockConfig for {selectedBlock} not found");
+                    var hp = Mathf.Max(1, Mathf.RoundToInt(cfg.health));
+                    return (selectedBlock, selectedBlock, variantId, hp, cfg.baseSellPrice, cfg);
                 }
             }
         }
 
         throw new Exception($"Level {deepLevel} not found");
+    }
+
+    private BlockType ResolveVisualBlockType(BlockType logical)
+    {
+        if (_blocksPools.ContainsKey(logical) && _blocksPools[logical].Count > 0)
+            return logical;
+
+        if (balanceConfig != null)
+        {
+            var fb = balanceConfig.fallbackVisualBlockType;
+            if (_blocksPools.ContainsKey(fb) && _blocksPools[fb].Count > 0)
+                return fb;
+        }
+
+        return _blocksPools.Keys.First();
+    }
+
+    private int RandomVariantFor(BlockType visual)
+    {
+        if (!_blocksPools.TryGetValue(visual, out var byVariant) || byVariant.Count == 0)
+            return 1;
+        var keys = byVariant.Keys.ToList();
+        return keys[Random.Range(0, keys.Count)];
     }
 
     private List<Quaternion> GetUpwardRotations()

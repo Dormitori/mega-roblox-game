@@ -11,6 +11,19 @@ public enum BlockType
     Stone,
     Rock,
     Lava,
+    Obsidian,
+    OreCoal,
+    OreCopper,
+    OreIron,
+    OreBronze,
+    OreQuartz,
+    OreSilver,
+    OreGold,
+    OreLapis,
+    OreDiamond,
+    OreAmethyst,
+    OreGreenDiamond,
+    OreRuby,
 }
 
 public enum PickaxeType

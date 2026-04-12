@@ -410268,6 +410268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MineManager
   blocksParent: {fileID: 7120845110709595442}
   mineConfig: {fileID: 11400000, guid: 6bcf016bdf89c6c47bf6d6481dab7356, type: 2}
+  balanceConfig: {fileID: 11400000, guid: c8d1e4f72a9b4c6d8e0f1a2b3c4d5e6f, type: 2}
   destroyParticles: {fileID: 2380116440267008517, guid: cee16052834f04cc58b2abfc8fa348f7, type: 3}
   destroyParticlesDuration: 1
   hpPopupPrefab: {fileID: 8234567890123456787, guid: 7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b, type: 3}

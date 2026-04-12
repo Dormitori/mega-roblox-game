@@ -26,6 +26,28 @@ public class Block : MonoBehaviour
     private Tweener _scaleTween;
     private Sequence _hitSequence;
     private Vector3 _originalScale;
+
+    private int _runtimeMaxHealth;
+    private int _runtimeSellPrice;
+
+    public int RuntimeSellPrice => _runtimeSellPrice;
+
+    /// <summary>Тип для инвентаря и экономики (может отличаться от blockType префаба при подмене визуала).</summary>
+    public BlockType InventoryBlockType { get; private set; }
+
+    /// <summary>
+    /// Вызывается при спавне из шахты: HP/цена из MineBalance, конфиг — для иконки и локализации.
+    /// Поля blockType/variantId префаба не трогаем — нужны для возврата в ObjectPool.
+    /// </summary>
+    public void ApplyMineSpawn(BlockConfig inventoryConfig, int maxHealth, int unitSellPrice)
+    {
+        config = inventoryConfig;
+        InventoryBlockType = inventoryConfig.type;
+        _runtimeMaxHealth = Mathf.Max(1, maxHealth);
+        _runtimeSellPrice = Mathf.Max(0, unitSellPrice);
+        if (_health != null)
+            _health.SetHealth(_runtimeMaxHealth);
+    }
     
     private void Awake()
     {
@@ -36,7 +58,9 @@ public class Block : MonoBehaviour
         _originalScale = visualsTransform.localScale;
         meshRenderer.sharedMaterial = defaultMaterial;
         _health.Death += OnBlockDestroy;
-        _health.SetHealth(config.health);
+        _runtimeMaxHealth = Mathf.Max(1, Mathf.RoundToInt(config.health));
+        InventoryBlockType = config.type;
+        _health.SetHealth(_runtimeMaxHealth);
     }
 
     public void Highlight() 
@@ -101,7 +125,7 @@ public class Block : MonoBehaviour
         {
             PlayHitAnimation();
             var rem = Mathf.RoundToInt(_health.health);
-            var maxHp = Mathf.RoundToInt(config.health);
+            var maxHp = _runtimeMaxHealth;
             Damaged?.Invoke(this, rem, maxHp);
         }
     }
@@ -135,9 +159,7 @@ public class Block : MonoBehaviour
     public void ResetHealth()
     {
         if (_health != null && config != null)
-        {
-            _health.SetHealth(config.health);
-        }
+            _health.SetHealth(_runtimeMaxHealth);
     }
     
     private void OnBlockDestroy()

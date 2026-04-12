@@ -39,12 +39,14 @@ public class SellShop : PopUpWindow
             
             var shopEntry = Instantiate(shopEntryPrefab, Vector3.zero, Quaternion.identity, shopEntriesTransform);
 
+            var count = _inventory.GetBlockCount(blockConfig.type);
+            var total = (int)Mathf.Min(int.MaxValue, _inventory.GetSellValueTotal(blockConfig.type));
             shopEntry.SetResource(
                 blockConfig.type,
                 blockConfig.icon,
                 blockConfig.LocalizedName,
-                _inventory.GetBlockCount(blockConfig.type),
-                blockConfig.baseSellPrice
+                count,
+                total
             );
             _shopEntries.Add(shopEntry);
             shopEntry.Sell += OnSell;
@@ -54,7 +56,7 @@ public class SellShop : PopUpWindow
     private void OnSell(SellShopEntry shopEntry)
     {
         _inventory.TryRemoveBlock(shopEntry.BlockType, shopEntry.ResourceCount);
-        _inventory.AddCurrency(CurrencyType.Coins, shopEntry.ResourceCount * shopEntry.ResourcePrice);
+        _inventory.AddCurrency(CurrencyType.Coins, shopEntry.TotalSellValue);
         _audioService?.PlaySfx(SoundId.BuySell);
         shopEntry.Sell -= OnSell;
         _shopEntries.Remove(shopEntry);
@@ -69,7 +71,7 @@ public class SellShop : PopUpWindow
         foreach (var shopEntry in _shopEntries)
         {
             _inventory.TryRemoveBlock(shopEntry.BlockType, shopEntry.ResourceCount);
-            _inventory.AddCurrency(CurrencyType.Coins, shopEntry.ResourceCount * shopEntry.ResourcePrice);
+            _inventory.AddCurrency(CurrencyType.Coins, shopEntry.TotalSellValue);
             shopEntry.Sell -= OnSell;
             Destroy(shopEntry.gameObject);
         }

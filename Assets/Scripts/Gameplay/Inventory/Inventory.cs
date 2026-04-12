@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 using VContainer;
 
 public class Inventory
@@ -15,17 +14,20 @@ public class Inventory
 
     private Dictionary<CurrencyType, int> _currencies = new();
     private Dictionary<BlockType, int> _blocks = new();
+    private Dictionary<BlockType, long> _blockSellValueTotals = new();
     private HashSet<PickaxeType> _pickaxes = new();
 
     
     private int _backpackCapacity = 10;
 
     private ISaveService _saveService;
+    private ConfigManager<BlockConfig> _blockConfigs;
     
     [Inject]
-    public Inventory(ISaveService saveService)
+    public Inventory(ISaveService saveService, ConfigManager<BlockConfig> blockConfigs)
     {
         _saveService = saveService;
+        _blockConfigs = blockConfigs;
         SaveTrigger.OnSave += Save;
         
         if (saveService.HasKey(SaveKeys.Inventory))
@@ -36,6 +38,11 @@ public class Inventory
             _pickaxes = saveData.Pickaxes;
             SetBackpackCapacity(saveData.backpackCapacity);
             CurrentPickaxe = saveData.CurrentPickaxe;
+            EnsureAllBlockTypesPresent(_blocks);
+            _blockSellValueTotals = saveData.BlockSellValueTotals ?? new Dictionary<BlockType, long>();
+            EnsureAllBlockTypesPresent(_blockSellValueTotals);
+            if (saveData.BlockSellValueTotals == null)
+                MigrateSellTotalsFromBlockConfigs();
             return;
         }
         
@@ -43,11 +50,45 @@ public class Inventory
             _currencies.Add((CurrencyType)item, 0);
 
         foreach (var item in Enum.GetValues(typeof(BlockType)))
+        {
             _blocks.Add((BlockType)item, 0);
+            _blockSellValueTotals.Add((BlockType)item, 0);
+        }
 
         CurrentPickaxe = PickaxeType.PickaxeWood01;
         AddPickaxe(PickaxeType.PickaxeWood01);
         Save();
+    }
+
+    private static void EnsureAllBlockTypesPresent(Dictionary<BlockType, int> dict)
+    {
+        foreach (BlockType t in Enum.GetValues(typeof(BlockType)))
+            if (!dict.ContainsKey(t))
+                dict[t] = 0;
+    }
+
+    private static void EnsureAllBlockTypesPresent(Dictionary<BlockType, long> dict)
+    {
+        foreach (BlockType t in Enum.GetValues(typeof(BlockType)))
+            if (!dict.ContainsKey(t))
+                dict[t] = 0;
+    }
+
+    private void MigrateSellTotalsFromBlockConfigs()
+    {
+        foreach (BlockType t in Enum.GetValues(typeof(BlockType)))
+        {
+            var count = _blocks[t];
+            if (count <= 0)
+            {
+                _blockSellValueTotals[t] = 0;
+                continue;
+            }
+
+            var cfg = _blockConfigs.Configs.FirstOrDefault(c => c.type == t);
+            var unit = cfg != null ? cfg.baseSellPrice : 0;
+            _blockSellValueTotals[t] = (long)unit * count;
+        }
     }
 
     public void AddCurrency(CurrencyType currency, int amount)
@@ -72,9 +113,10 @@ public class Inventory
     }
 
 
-    public void AddBlock(BlockType block, int amount)
+    public void AddBlock(BlockType block, int amount, int unitSellPrice)
     {
         _blocks[block] += amount;
+        _blockSellValueTotals[block] += (long)unitSellPrice * amount;
         BlocksChanged?.Invoke(amount);
     }
 
@@ -83,9 +125,16 @@ public class Inventory
         if (_blocks[block] < amount)
             return false;
 
+        var removedValue = _blockSellValueTotals[block] * amount / _blocks[block];
         _blocks[block] -= amount;
+        _blockSellValueTotals[block] -= removedValue;
         BlocksChanged?.Invoke(-amount);
         return true;
+    }
+
+    public long GetSellValueTotal(BlockType block)
+    {
+        return _blockSellValueTotals[block];
     }
 
     public int GetBlockCount(BlockType block)
@@ -131,6 +180,7 @@ public class Inventory
             new InventorySaveData(
                 _currencies,
                 _blocks,
+                _blockSellValueTotals,
                 _pickaxes,
                 CurrentPickaxe,
                 _backpackCapacity
@@ -144,14 +194,22 @@ public class InventorySaveData
 {
     public Dictionary<CurrencyType, int> Currencies;
     public Dictionary<BlockType, int> Blocks;
+    public Dictionary<BlockType, long> BlockSellValueTotals;
     public HashSet<PickaxeType> Pickaxes;
     public PickaxeType CurrentPickaxe;
     public int backpackCapacity;
 
-    public InventorySaveData(Dictionary<CurrencyType, int> currencies, Dictionary<BlockType, int> blocks, HashSet<PickaxeType> pickaxes, PickaxeType currentPickaxe, int backpackCapacity)
+    public InventorySaveData(
+        Dictionary<CurrencyType, int> currencies,
+        Dictionary<BlockType, int> blocks,
+        Dictionary<BlockType, long> blockSellValueTotals,
+        HashSet<PickaxeType> pickaxes,
+        PickaxeType currentPickaxe,
+        int backpackCapacity)
     {
         Currencies = currencies;
         Blocks = blocks;
+        BlockSellValueTotals = blockSellValueTotals;
         Pickaxes = pickaxes;
         CurrentPickaxe = currentPickaxe;
         this.backpackCapacity = backpackCapacity;

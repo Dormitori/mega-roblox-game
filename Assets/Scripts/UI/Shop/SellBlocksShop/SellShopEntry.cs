@@ -10,6 +10,7 @@ public class SellShopEntry : MonoBehaviour
     public BlockType BlockType { get; private set; }
     public int ResourceCount { get; private set; }
     public int ResourcePrice { get; private set; }
+    public int TotalSellValue { get; private set; }
     
     public TextMeshProUGUI resourceText;
     public TextMeshProUGUI countText;
@@ -17,16 +18,17 @@ public class SellShopEntry : MonoBehaviour
     public TextMeshProUGUI priceText;
     public Button sellButton;
     
-    public void SetResource(BlockType blockType, Sprite icon, string resourceName, int resourceCount, int resourcePrice)
+    public void SetResource(BlockType blockType, Sprite icon, string resourceName, int resourceCount, int totalSellValue)
     {
         BlockType = blockType;
         ResourceCount = resourceCount;
-        ResourcePrice = resourcePrice;
+        TotalSellValue = totalSellValue;
+        ResourcePrice = resourceCount > 0 ? Mathf.Max(1, totalSellValue / resourceCount) : 0;
         resourceIcon.sprite = icon;
         
         resourceText.text = $"{resourceName}";
         countText.text = $"x{resourceCount}";
-        priceText.text = $"{resourcePrice * resourceCount}";
+        priceText.text = $"{totalSellValue}";
         sellButton.onClick.AddListener(() => Sell?.Invoke(this));
     }
 }

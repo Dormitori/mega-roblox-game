@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 4
   pickaxeIcon: {fileID: 21300000, guid: 706d678caac494496ae44dc8c33fe975, type: 3}
   pickaxePrefab: {fileID: 1378480028989246000, guid: 95c3066f5a33441e9bf60224d9da7db5, type: 3}
-  baseDamage: 5
-  baseSpeedMultiplier: 2.2
+  baseDamage: 20
+  baseSpeedMultiplier: 1.4
   price: 50
   requirements: []

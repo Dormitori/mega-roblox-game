@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1069336110660599251
+--- !u!1 &1126313362940953540
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,78 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5209556447322369208}
-  - component: {fileID: 8161442792360213924}
-  - component: {fileID: 6185322585962382128}
-  m_Layer: 0
-  m_Name: block_stone1_1_LOD1
+  - component: {fileID: 7477200772744819317}
+  m_Layer: 6
+  m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5209556447322369208
+--- !u!4 &7477200772744819317
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1069336110660599251}
+  m_GameObject: {fileID: 1126313362940953540}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2560894773202163364}
+  m_Father: {fileID: 1337508761551398372}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2404491174847484215
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2560894773202163364}
+  - component: {fileID: 1003690339109583528}
+  - component: {fileID: 6766469880157278767}
+  m_Layer: 6
+  m_Name: Diamond_Block
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2560894773202163364
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404491174847484215}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2760823842019809034}
+  m_Father: {fileID: 7477200772744819317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8161442792360213924
+--- !u!33 &1003690339109583528
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1069336110660599251}
-  m_Mesh: {fileID: 4300002, guid: 24d6fa72c19a4a74fa6087fd31b70da9, type: 3}
---- !u!23 &6185322585962382128
+  m_GameObject: {fileID: 2404491174847484215}
+  m_Mesh: {fileID: 7855999396796819764, guid: e8e5555bbd47e45faaf66d8db875a7d9, type: 3}
+--- !u!23 &6766469880157278767
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1069336110660599251}
+  m_GameObject: {fileID: 2404491174847484215}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -78,7 +110,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
+  m_StitchLightmapSeams: 1
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -90,7 +122,7 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &3576732282316357488
+--- !u!1 &3137254075060476388
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,65 +130,87 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2760823842019809034}
-  - component: {fileID: 2741748601647803550}
-  - component: {fileID: 4810119433235069066}
-  m_Layer: 0
-  m_Name: Stone_1
+  - component: {fileID: 1337508761551398372}
+  - component: {fileID: 4417331385186521673}
+  - component: {fileID: 5300737924859055261}
+  - component: {fileID: 3723753270484699576}
+  m_Layer: 6
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2760823842019809034
+--- !u!4 &1337508761551398372
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3576732282316357488}
+  m_GameObject: {fileID: 3137254075060476388}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.99, y: 1.0429885, z: 20.67}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.05, y: 1.82274, z: 17.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5209556447322369208}
+  - {fileID: 7477200772744819317}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2741748601647803550
+--- !u!65 &4417331385186521673
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3137254075060476388}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5300737924859055261
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3576732282316357488}
+  m_GameObject: {fileID: 3137254075060476388}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fffea6d7667469e8299649b64128cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   health: 0
---- !u!114 &4810119433235069066
+--- !u!114 &3723753270484699576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3576732282316357488}
+  m_GameObject: {fileID: 3137254075060476388}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 633f3da8d6f2463e9e12d61da2cb171e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Block
   IsDisabled: 0
-  blockType: 2
+  blockType: 14
   variantId: 1
-  config: {fileID: 11400000, guid: 07444c4db74e044b79f972b4ee7e810b, type: 2}
+  config: {fileID: 11400000, guid: 6845b223b2a91465fb3e6db1148c1dfd, type: 2}
   animationConfig: {fileID: 11400000, guid: 5bfdf4f3ee43e4fb8862ac377ff1f42b, type: 2}
-  visualsTransform: {fileID: 5209556447322369208}
+  visualsTransform: {fileID: 7477200772744819317}
   defaultMaterial: {fileID: 2100000, guid: ab08612e63d71e8419000749e3c68d16, type: 2}
   highlightMaterial: {fileID: 2100000, guid: a0cb24b2727d04ed8b9b50810e281a2a, type: 2}
   disabledMaterial: {fileID: 2100000, guid: b5f0631906fb9044082e5d4b7b53481d, type: 2}
-  destroyParticlesMaterial: {fileID: 2100000, guid: d207f2fdfd2614c42af8437596243e4d, type: 2}
-  meshRenderer: {fileID: 7808961319248883705, guid: dc2107fe0c3aa46fa97434cfed540a14, type: 3}
+  destroyParticlesMaterial: {fileID: 2100000, guid: e83b58f92558b42f888698cf8e3fb15b, type: 2}
+  meshRenderer: {fileID: 6766469880157278767}

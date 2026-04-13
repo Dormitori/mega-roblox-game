@@ -97219,6 +97219,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8340612475680846010, guid: 81312b73c1dfe4975963358f7356c01e, type: 3}
   m_PrefabInstance: {fileID: 2116322949}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &412508346 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8340612475695937258, guid: 81312b73c1dfe4975963358f7356c01e, type: 3}
+  m_PrefabInstance: {fileID: 2116322949}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &413916485
 GameObject:
   m_ObjectHideFlags: 0
@@ -355656,6 +355661,7 @@ GameObject:
   - component: {fileID: 1489626982}
   - component: {fileID: 1489626983}
   - component: {fileID: 1489626984}
+  - component: {fileID: 1489626985}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -355832,6 +355838,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBlockInventory
   notEnoughSpaceTextPrefab: {fileID: 4897661492527050404, guid: 538dd831cd436254581937e006415a30, type: 3}
   textParent: {fileID: 2054659346}
+--- !u!114 &1489626985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489626977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61fb8e404b126412baed590d0517bfc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GroundedTrailVfxController
+  characterController: {fileID: 1489626981}
+  trailParticles: {fileID: 412508346}
+  fadeSeconds: 0
+  airborneGraceSeconds: 0.05
 --- !u!1 &1490011082
 GameObject:
   m_ObjectHideFlags: 0
@@ -504411,6 +504433,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8340612475695937258, guid: 81312b73c1dfe4975963358f7356c01e, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8340612475695937258, guid: 81312b73c1dfe4975963358f7356c01e, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
       value: 0.56078434
       objectReference: {fileID: 0}
@@ -504441,6 +504467,10 @@ PrefabInstance:
     - target: {fileID: 8340612475695937258, guid: 81312b73c1dfe4975963358f7356c01e, type: 3}
       propertyPath: InitialModule.startColor.minColor.r
       value: 0.7735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 8340612475695937258, guid: 81312b73c1dfe4975963358f7356c01e, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

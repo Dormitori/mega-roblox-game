@@ -10,6 +10,8 @@ using Random = UnityEngine.Random;
 
 public class MineManager : MonoBehaviour
 {
+    public List<Vector2> BlocksGridPositions { get; } = new();
+
     public Transform blocksParent;
     public MineConfig mineConfig;
     [Tooltip("Если не задан — используется старая генерация по mineLevelsConfig")]
@@ -35,6 +37,7 @@ public class MineManager : MonoBehaviour
     private int _currentLevelBlocksCount;
     private int _currentGeneratedDeepLevel;
     private List<Block> _nextLevelBlocks;
+
 
     [Inject]
     public void Initialize(Inventory inventory, IAudioService audioService, ISaveService saveService,
@@ -70,6 +73,8 @@ public class MineManager : MonoBehaviour
     {
         _currentLevelBlocksCount = GenerateMineLevel().Count;
         _nextLevelBlocks = GenerateMineLevel();
+        foreach (var block in _nextLevelBlocks)
+            BlocksGridPositions.Add(new Vector2(block.transform.position.x, block.transform.position.z));
         DisableBlocks(_nextLevelBlocks);
     }
 

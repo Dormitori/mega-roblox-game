@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class InputControls : MonoBehaviour
+public class InputControls : MonoBehaviour, IPlayerControls
 {
     public bool CanMine { get; set; } = true;
     public bool CanLook { get; set; } = true;

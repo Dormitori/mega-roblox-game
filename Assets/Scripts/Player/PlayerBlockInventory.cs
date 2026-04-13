@@ -6,6 +6,7 @@ public class PlayerBlockInventory : MonoBehaviour
 {
     public event Action BlockCountChanged;
     public event Action CapacityChanged;
+    public event Action HasNoMoreSpace;
     
     public bool HasSpace => _currentCapacity > _currentBlockCount;
     public int CurrentCapacity => _currentCapacity;
@@ -37,12 +38,15 @@ public class PlayerBlockInventory : MonoBehaviour
 
     public void ShowNotEnoughSpaceText()
     {
+        HasNoMoreSpace?.Invoke();
         Instantiate(notEnoughSpaceTextPrefab, textParent);
     }
     
     private void OnBlocksChange(int amount)
     {
         _currentBlockCount += amount;
+        if (!HasSpace)
+            HasNoMoreSpace?.Invoke();
         BlockCountChanged?.Invoke();
     }
 }

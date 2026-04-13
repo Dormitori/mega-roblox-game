@@ -9,7 +9,7 @@ public class CharacterMovement : MonoBehaviour
     public CharacterMovementConfig moveConfig;
     public Animator animator;
     
-    public InputControls inputControls;
+    public ControlsProvider controlsProvider;
 
     public MineBlocks mineBlocks;
 
@@ -47,14 +47,22 @@ public class CharacterMovement : MonoBehaviour
     {
         _audioService = audioService;
     }
+    
 
     private void Update()
     {
         var groundedBeforeMove = characterController.isGrounded;
 
-        var value = inputControls.GetMoveDirection();
+        var value = controlsProvider.Controls.GetMoveDirection();
 
         cameraLook.GetHorizontalMoveAxes(out var forward, out var right);
+        if (controlsProvider.AutoMiningEnabled)
+        {
+            // игнорируем вращение камеры при автомайнинге
+            right = Vector3.right;
+            forward = Vector3.forward;
+        }
+
         var moveVector = forward * value.y + right * value.x;
         if (mineBlocks != null && mineBlocks.IsMiningAttacking)
             moveVector = Vector3.zero;
@@ -146,7 +154,7 @@ public class CharacterMovement : MonoBehaviour
         HandleCoyoteTime();
 
         var miningBlocksMove = mineBlocks != null && mineBlocks.IsMiningAttacking;
-        if (!miningBlocksMove && (characterController.isGrounded || _hasCoyote) && (inputControls.JumpIsPressed() || _jumpIsBuffered))
+        if (!miningBlocksMove && (characterController.isGrounded || _hasCoyote) && (controlsProvider.Controls.JumpIsPressed() || _jumpIsBuffered))
         {
             if (playJumpLandSounds && _audioService != null)
                 _audioService.PlaySfx(SoundId.Jump, jumpVolume, jumpPitchJitterHalfRange);
@@ -169,7 +177,7 @@ public class CharacterMovement : MonoBehaviour
                 _jumpIsBuffered = false;
         }
 
-        if (!characterController.isGrounded && (inputControls.JumpedThisFrame()) && !_jumpIsBuffered)
+        if (!characterController.isGrounded && (controlsProvider.Controls.JumpedThisFrame()) && !_jumpIsBuffered)
         {
             _jumpIsBuffered = true;
             _jumpBufferTime = 0;

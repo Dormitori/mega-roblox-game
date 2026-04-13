@@ -5,24 +5,25 @@ using VContainer;
 
 public class MineBlocks : MonoBehaviour
 {
+    public Block CurrentBlock { get; private set; }
+
     public CharacterMovementConfig config;
     public LayerMask blockLayer;
     public PlayerPickaxe playerPickaxe;
     public PlayerBlockInventory playerBlockInventory;
     public Transform minePoint;
-    public InputControls inputControls;
+    public ControlsProvider controlsProvider;
     public Animator animator;
     public ParticleSystem attackParticle;
     public float mineDistance;
 
     [SerializeField, Range(0f, 0.2f)] private float mineHitPitchJitterHalfRange = 0.06f;
-
+    
     public bool IsMiningAttacking => _isHitting;
 
     private IAudioService _audioService;
 
     private RaycastHit _currentBlockHit;
-    private Block _currentBlock;
     private bool _isHitting;
 
     [Inject]
@@ -30,7 +31,6 @@ public class MineBlocks : MonoBehaviour
     {
         _audioService = audioService;
     }
-
     private void Update()
     {
         if (GetHit(out RaycastHit hit))
@@ -38,17 +38,17 @@ public class MineBlocks : MonoBehaviour
             if (hit.collider != _currentBlockHit.collider)
             {
                 ClearHighLight();
-                var block = hit.collider.GetComponentInParent<Block>();
+                var block = hit.collider.GetComponent<Block>();
                 if (block && !block.IsDisabled)
                 {
                     block.Highlight();
                     _currentBlockHit = hit;
-                    _currentBlock = block;
+                    CurrentBlock = block;
                 }
                 else
                 {
                     _currentBlockHit = default;
-                    _currentBlock = null;
+                    CurrentBlock = null;
                 }
             }
         }
@@ -56,10 +56,10 @@ public class MineBlocks : MonoBehaviour
         {
             ClearHighLight();
             _currentBlockHit = default;
-            _currentBlock = null;
+            CurrentBlock = null;
         }
         
-        if (inputControls.MineIsPressed() && !_isHitting)
+        if (controlsProvider.Controls.MineIsPressed() && !_isHitting)
         {
             StartCoroutine(HitCoroutine());
         }
@@ -68,7 +68,7 @@ public class MineBlocks : MonoBehaviour
     private IEnumerator HitCoroutine()
     {
         _isHitting = true;
-        var targetBlock = _currentBlock;
+        var targetBlock = CurrentBlock;
         _audioService?.PlaySfx(SoundId.BlockHit, 1f, mineHitPitchJitterHalfRange);
 
         var hitSpeed = playerPickaxe.CurrentPickaxeConfig.baseSpeedMultiplier;
@@ -116,9 +116,9 @@ public class MineBlocks : MonoBehaviour
 
     private void ClearHighLight()
     {
-        if (_currentBlock&& !_currentBlock.IsDisabled)
+        if (CurrentBlock&& !CurrentBlock.IsDisabled)
         {
-            _currentBlock.Unhighlight();
+            CurrentBlock.Unhighlight();
         }
     }
 }

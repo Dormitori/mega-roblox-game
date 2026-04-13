@@ -103,7 +103,6 @@ GameObject:
   - component: {fileID: 7796186265349502490}
   - component: {fileID: 1763867750551291074}
   - component: {fileID: 5638821580463615726}
-  - component: {fileID: 5459218337553694985}
   m_Layer: 6
   m_Name: block_stone1_2_LOD1
   m_TagString: Untagged
@@ -183,27 +182,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5459218337553694985
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3860470353068640061}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.0859774, y: 1.0867765, z: 1.0859774}
-  m_Center: {x: 0, y: 0.00039952993, z: 0.0010752678}
 --- !u!1 &4424090694960272129
 GameObject:
   m_ObjectHideFlags: 0

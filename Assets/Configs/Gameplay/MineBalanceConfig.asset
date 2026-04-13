@@ -20,7 +20,7 @@ MonoBehaviour:
   oreChanceBase: 0.1
   oreChancePerDepth: 0.0001
   oreChanceMax: 0.25
-  spawnCenterFalloffWidth: 100
+  spawnCenterFalloffWidth: 110
   terrainEntries:
   - blockType: 0
     depthCenter: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
     hpMultiplier: 1.2
     sellPriceMultiplier: 1.2
   - blockType: 2
-    depthCenter: 180
+    depthCenter: 145
     hpMultiplier: 1.5
     sellPriceMultiplier: 1.6
   - blockType: 3

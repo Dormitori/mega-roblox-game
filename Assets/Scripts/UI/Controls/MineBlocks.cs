@@ -82,14 +82,22 @@ public class MineBlocks : MonoBehaviour
         animator.SetTrigger("Attack");
         attackParticle.Play();
         yield return new WaitForSeconds(config.beforeHitCooldown / hitSpeed);
-        // Цель фиксируем в начале замаха: за время задержки прицел мог уйти, а _currentBlock обнулится — урон бы пропадал.
-        var canMine = targetBlock && !targetBlock.IsDisabled &&
-                      (playerBlockInventory.HasSpace ||
-                       MineChestRules.IgnoresBackpackCapacity(targetBlock.InventoryBlockType));
-        if (canMine)
-            targetBlock.TakeDamage(playerPickaxe.CurrentPickaxeConfig.baseDamage);
-        else if (targetBlock && !targetBlock.IsDisabled && !playerBlockInventory.HasSpace)
-            playerBlockInventory.ShowNotEnoughSpaceText();
+        var isStillTargeting = false;
+        if (targetBlock != null && GetHit(out var hitNow) && hitNow.collider != null)
+        {
+            var blockNow = hitNow.collider.GetComponentInParent<Block>();
+            isStillTargeting = blockNow == targetBlock;
+        }
+
+        if (targetBlock && !targetBlock.IsDisabled && isStillTargeting)
+        {
+            var canMine = playerBlockInventory.HasSpace ||
+                          MineChestRules.IgnoresBackpackCapacity(targetBlock.InventoryBlockType);
+            if (canMine)
+                targetBlock.TakeDamage(playerPickaxe.CurrentPickaxeConfig.baseDamage);
+            else
+                playerBlockInventory.ShowNotEnoughSpaceText();
+        }
         
         yield return new WaitForSeconds(config.afterHitCooldown / hitSpeed);
         if (config.miningAttackMovementTail > 0f)

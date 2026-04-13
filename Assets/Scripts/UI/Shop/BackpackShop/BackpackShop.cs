@@ -64,7 +64,8 @@ public class BackpackShop : PopUpWindow
         var stepsOver = level - (backpackShopConfig.upgradeSteps.Count - 1);
 
         var generatedCapacity = lastStep.capacity + 10 * stepsOver;
-        var generatedPrice = (int)(lastStep.price * Mathf.Pow(2, stepsOver));
+        var growth = Mathf.Max(1.01f, backpackShopConfig.tailPriceGrowth);
+        var generatedPrice = (int)(lastStep.price * Mathf.Pow(growth, stepsOver));
 
         return new BackpackUpgradeStep
         {

@@ -18,7 +18,7 @@ public class Inventory
     private HashSet<PickaxeType> _pickaxes = new();
 
     
-    private int _backpackCapacity = 10;
+    private int _backpackCapacity = 30;
 
     private ISaveService _saveService;
     private ConfigManager<BlockConfig> _blockConfigs;

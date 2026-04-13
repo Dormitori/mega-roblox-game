@@ -15,7 +15,7 @@ public class PlayerBlockInventory : MonoBehaviour
     public Transform textParent;
     
     private Inventory _inventory;
-    private int _currentCapacity = 10;
+    private int _currentCapacity = 30;
     private int _currentBlockCount;
     
     

@@ -6,6 +6,8 @@ using UnityEngine;
 public class BackpackShopConfig : ScriptableObject
 {
     public List<BackpackUpgradeStep> upgradeSteps;
+
+    public float tailPriceGrowth = 1.45f;
 }
 
 [Serializable]

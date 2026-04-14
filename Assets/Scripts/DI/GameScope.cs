@@ -20,6 +20,7 @@ namespace DI
             builder.RegisterComponentInHierarchy<BackpackShop>();
             builder.RegisterComponentInHierarchy<PlayerBlockInventory>();
             builder.RegisterComponentInHierarchy<MoneyView>();
+            builder.RegisterComponentInHierarchy<MineLootToastController>();
             builder.RegisterComponentInHierarchy<SellShop>();
             builder.RegisterComponentInHierarchy<PickaxeShop>();
             builder.RegisterComponentInHierarchy<SettingsPanel>();

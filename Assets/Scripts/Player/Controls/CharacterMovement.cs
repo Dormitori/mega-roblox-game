@@ -64,8 +64,6 @@ public class CharacterMovement : MonoBehaviour
         }
 
         var moveVector = forward * value.y + right * value.x;
-        if (mineBlocks != null && mineBlocks.IsMiningAttacking)
-            moveVector = Vector3.zero;
 
         HandleGravity();
 
@@ -101,8 +99,6 @@ public class CharacterMovement : MonoBehaviour
         if (!playFootsteps || _audioService == null)
             return;
         if (!characterController.isGrounded)
-            return;
-        if (mineBlocks != null && mineBlocks.IsMiningAttacking)
             return;
         if (moveVector.sqrMagnitude <= Mathf.Epsilon)
             return;
@@ -153,8 +149,7 @@ public class CharacterMovement : MonoBehaviour
         HandleJumpBuffer();
         HandleCoyoteTime();
 
-        var miningBlocksMove = mineBlocks != null && mineBlocks.IsMiningAttacking;
-        if (!miningBlocksMove && (characterController.isGrounded || _hasCoyote) && (controlsProvider.Controls.JumpIsPressed() || _jumpIsBuffered))
+        if ((characterController.isGrounded || _hasCoyote) && (controlsProvider.Controls.JumpIsPressed() || _jumpIsBuffered))
         {
             if (playJumpLandSounds && _audioService != null)
                 _audioService.PlaySfx(SoundId.Jump, jumpVolume, jumpPitchJitterHalfRange);

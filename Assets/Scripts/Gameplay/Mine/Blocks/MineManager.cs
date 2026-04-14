@@ -14,8 +14,10 @@ public class MineManager : MonoBehaviour
 
     public Transform blocksParent;
     public MineConfig mineConfig;
+
     [Tooltip("Если не задан — используется старая генерация по mineLevelsConfig")]
     public MineBalanceConfig balanceConfig;
+
     public ParticleSystem destroyParticles;
     public float destroyParticlesDuration;
     public BlockHpPopup hpPopupPrefab;
@@ -28,6 +30,7 @@ public class MineManager : MonoBehaviour
     private Inventory _inventory;
     private IAudioService _audioService;
     private ISaveService _saveService;
+    private MineLootToastController _lootToast;
 
     private List<Quaternion> _cubeRotations = new();
     private int _curBlocks = 0;
@@ -41,18 +44,20 @@ public class MineManager : MonoBehaviour
 
     [Inject]
     public void Initialize(Inventory inventory, IAudioService audioService, ISaveService saveService,
-        ConfigManager<BlockConfig> blockConfigs)
+        ConfigManager<BlockConfig> blockConfigs,
+        MineLootToastController lootToast)
     {
         _inventory = inventory;
         _audioService = audioService;
         _saveService = saveService;
         _blockConfigs = blockConfigs;
+        _lootToast = lootToast;
         _config = mineConfig;
         _cubeRotations = GetUpwardRotations();
         _destroyParticlesPool = new ObjectPool<ParticleSystem>(destroyParticles, blocksParent);
 
         _hpPopupPool = new ObjectPool<BlockHpPopup>(hpPopupPrefab, blocksParent, prewarm: 4);
-        
+
         if (saveService.HasKey(SaveKeys.MineDeepLevel))
             _currentGeneratedDeepLevel = saveService.Load<int>(SaveKeys.MineDeepLevel);
 
@@ -120,9 +125,16 @@ public class MineManager : MonoBehaviour
         block.Damaged -= OnBlockDamaged;
         _audioService?.PlaySfx(SoundId.BlockDestroy, 1f, 0.5f, 1.1f);
         if (MineChestRules.GrantsCrystalsOnly(block.InventoryBlockType))
+        {
             _inventory.AddCurrency(CurrencyType.Crystals, 1);
+            _lootToast?.ShowText($"+1 {I2.Loc.LocalizationManager.GetTranslation("Crystals")}", null);
+        }
         else
+        {
             _inventory.AddBlock(block.InventoryBlockType, 1, block.RuntimeSellPrice);
+            _lootToast?.ShowBlock(ConfigFor(block.InventoryBlockType), 1);
+        }
+
         _currentLevelDestroyedBlocks++;
         block.ResetHealth();
 
@@ -174,7 +186,8 @@ public class MineManager : MonoBehaviour
     }
 
     private bool TryResolveChestSpawn(int deepLevel,
-        out BlockType logical, out BlockType visual, out int variantId, out int hp, out int sellPrice, out BlockConfig invConfig)
+        out BlockType logical, out BlockType visual, out int variantId, out int hp, out int sellPrice,
+        out BlockConfig invConfig)
     {
         logical = default;
         visual = default;

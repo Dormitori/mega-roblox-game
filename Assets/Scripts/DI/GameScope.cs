@@ -12,6 +12,7 @@ namespace DI
             
             builder.Register<ConfigManager<BlockConfig>>(Lifetime.Singleton);
             builder.Register<ConfigManager<PickaxeConfig>>(Lifetime.Singleton);
+            builder.Register<ConfigManager<PetConfig>>(Lifetime.Singleton);
             
             builder.RegisterComponentInHierarchy<MineManager>();
             builder.RegisterComponentInHierarchy<MineBlocks>();
@@ -21,6 +22,7 @@ namespace DI
             builder.RegisterComponentInHierarchy<PlayerBlockInventory>();
             builder.RegisterComponentInHierarchy<MoneyView>();
             builder.RegisterComponentInHierarchy<MineLootToastController>();
+            builder.RegisterComponentInHierarchy<CompanionPetController>();
             builder.RegisterComponentInHierarchy<SellShop>();
             builder.RegisterComponentInHierarchy<PickaxeShop>();
             builder.RegisterComponentInHierarchy<SettingsPanel>();

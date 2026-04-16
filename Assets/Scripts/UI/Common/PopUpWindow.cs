@@ -32,11 +32,21 @@ public class PopUpWindow : MonoBehaviour
 
     public virtual void OnWindowShow()
     {
+        DisableControls();
+    }
+
+    public virtual void OnWindowHide()
+    {
+        EnableControls();
+    }
+
+    public void DisableControls()
+    {
         characterControls.CanMine = false;
         characterControls.CanCameraScroll = false;
     }
 
-    public virtual void OnWindowHide()
+    public void EnableControls()
     {
         characterControls.CanMine = true;
         characterControls.CanCameraScroll = true;
@@ -65,6 +75,7 @@ public class PopUpWindow : MonoBehaviour
     {
         OnWindowShow();
         _canvasGroup.blocksRaycasts = true;
+        _canvasGroup.transform.localPosition = _initialPos;
         _canvasGroup.alpha = 1;
     }
     
@@ -72,6 +83,7 @@ public class PopUpWindow : MonoBehaviour
     {
         OnWindowHide();
         _canvasGroup.blocksRaycasts = false;
+        _canvasGroup.transform.localPosition = _initialPos;
         _canvasGroup.alpha = 0;
     }
     

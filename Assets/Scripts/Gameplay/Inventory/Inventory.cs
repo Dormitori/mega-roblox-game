@@ -11,17 +11,25 @@ public class Inventory
     public event Action BackpackCapacityChanged;
 
     public PickaxeType CurrentPickaxe { get; private set; }
+    public HashSet<BlockType> UnlockedBuyableBlocks { get; } = new(); 
 
     private Dictionary<CurrencyType, int> _currencies = new();
     private Dictionary<BlockType, int> _blocks = new();
     private Dictionary<BlockType, long> _blockSellValueTotals = new();
     private HashSet<PickaxeType> _pickaxes = new();
-
     
     private int _backpackCapacity = 30;
 
     private ISaveService _saveService;
     private ConfigManager<BlockConfig> _blockConfigs;
+    
+    private readonly HashSet<BlockType> _buyableBlocks = new()
+    {
+        BlockType.Sand, BlockType.Ground, BlockType.Stone, BlockType.Rock, BlockType.Lava, BlockType.Obsidian, 
+        BlockType.OreCoal, BlockType.OreCopper, BlockType.OreIron, BlockType.OreBronze, BlockType.OreQuartz, 
+        BlockType.OreSilver, BlockType.OreGold, BlockType.OreLapis, BlockType.OreDiamond, BlockType.OreAmethyst, 
+        BlockType.OreGreenDiamond, BlockType.OreRuby,
+    };
     
     [Inject]
     public Inventory(ISaveService saveService, ConfigManager<BlockConfig> blockConfigs)
@@ -41,6 +49,8 @@ public class Inventory
             EnsureAllBlockTypesPresent(_blocks);
             _blockSellValueTotals = saveData.BlockSellValueTotals ?? new Dictionary<BlockType, long>();
             EnsureAllBlockTypesPresent(_blockSellValueTotals);
+            if (saveData.UnlockedBuyableBlocks != null)
+                UnlockedBuyableBlocks = saveData.UnlockedBuyableBlocks;
             if (saveData.BlockSellValueTotals == null)
                 MigrateSellTotalsFromBlockConfigs();
             EnsureAllCurrenciesPresent(_currencies);
@@ -123,6 +133,9 @@ public class Inventory
 
     public void AddBlock(BlockType block, int amount, int unitSellPrice)
     {
+        if (_buyableBlocks.Contains(block))
+            UnlockedBuyableBlocks.Add(block);
+
         _blocks[block] += amount;
         _blockSellValueTotals[block] += (long)unitSellPrice * amount;
         BlocksChanged?.Invoke(amount);
@@ -153,6 +166,11 @@ public class Inventory
     public int GetAllBlockCount()
     {
         return _blocks.Values.Sum();
+    }
+
+    public int GetSpaceLeft()
+    {
+        return _backpackCapacity - GetAllBlockCount();
     }
 
     public void AddPickaxe(PickaxeType pickaxe)
@@ -190,6 +208,7 @@ public class Inventory
                 _blocks,
                 _blockSellValueTotals,
                 _pickaxes,
+                UnlockedBuyableBlocks,
                 CurrentPickaxe,
                 _backpackCapacity
             )
@@ -204,6 +223,7 @@ public class InventorySaveData
     public Dictionary<BlockType, int> Blocks;
     public Dictionary<BlockType, long> BlockSellValueTotals;
     public HashSet<PickaxeType> Pickaxes;
+    public HashSet<BlockType> UnlockedBuyableBlocks;
     public PickaxeType CurrentPickaxe;
     public int backpackCapacity;
 
@@ -212,6 +232,7 @@ public class InventorySaveData
         Dictionary<BlockType, int> blocks,
         Dictionary<BlockType, long> blockSellValueTotals,
         HashSet<PickaxeType> pickaxes,
+        HashSet<BlockType> unlockedBuyableBlocks,
         PickaxeType currentPickaxe,
         int backpackCapacity)
     {
@@ -220,6 +241,7 @@ public class InventorySaveData
         BlockSellValueTotals = blockSellValueTotals;
         Pickaxes = pickaxes;
         CurrentPickaxe = currentPickaxe;
+        UnlockedBuyableBlocks = unlockedBuyableBlocks;
         this.backpackCapacity = backpackCapacity;
     }
 }

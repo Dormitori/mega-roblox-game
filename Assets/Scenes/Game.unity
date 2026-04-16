@@ -485759,7 +485759,7 @@ Transform:
   m_GameObject: {fileID: 2030791933}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.400721, y: 0.48, z: 12.137316}
+  m_LocalPosition: {x: -2.400721, y: 0.494, z: 12.137316}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -485817,13 +485817,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 1
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &2030791937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515542,6 +515542,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1836486241675123216, guid: f5028f00c55ea457ba5eedfb5d62ba8f, type: 3}
+      propertyPath: m_text
+      value: "\u0411\u041B\u041E\u041A\u0418"
+      objectReference: {fileID: 0}
     - target: {fileID: 2259347540711418747, guid: f5028f00c55ea457ba5eedfb5d62ba8f, type: 3}
       propertyPath: mLocalizeTarget
       value: 
@@ -515558,6 +515562,15 @@ PrefabInstance:
       propertyPath: mLocalizeTarget
       value: 
       objectReference: {fileID: 1426882560}
+    - target: {fileID: 4638126696705949312, guid: f5028f00c55ea457ba5eedfb5d62ba8f, type: 3}
+      propertyPath: m_text
+      value: "\u041A\u0438\u0440\u043A\u0438"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5121752870135388169, guid: f5028f00c55ea457ba5eedfb5d62ba8f, type: 3}
+      propertyPath: m_text
+      value: "\u041E\u0442\u043A\u0440\u044B\u0432\u0430\u0435\u0442\u0441\u044F\n\u043A\u043E\u0440\u043E\u043B\u044E
+        \u044D\u0442\u043E\u0439\n\u0448\u0430\u0445\u0442\u044B"
+      objectReference: {fileID: 0}
     - target: {fileID: 7709342242496135360, guid: f5028f00c55ea457ba5eedfb5d62ba8f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -515602,6 +515615,10 @@ PrefabInstance:
       propertyPath: mLocalizeTarget
       value: 
       objectReference: {fileID: 113909116}
+    - target: {fileID: 8328082620050394526, guid: f5028f00c55ea457ba5eedfb5d62ba8f, type: 3}
+      propertyPath: m_text
+      value: "\u0421\u0423\u041C\u041A\u0418"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -515616,6 +515633,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 910358586524418404, guid: f5028f00c55ea457ba5eedfb5d62ba8f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7315087682166706096, guid: f5028f00c55ea457ba5eedfb5d62ba8f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: f5028f00c55ea457ba5eedfb5d62ba8f, type: 3}

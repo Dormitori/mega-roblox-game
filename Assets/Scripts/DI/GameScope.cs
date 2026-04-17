@@ -28,6 +28,7 @@ namespace DI
             builder.RegisterComponentInHierarchy<MineLootToastController>();
             builder.RegisterComponentInHierarchy<CompanionPetController>();
             builder.RegisterComponentInHierarchy<SellShop>();
+            builder.RegisterComponentInHierarchy<BuyShop>();
             builder.RegisterComponentInHierarchy<PickaxeShop>();
             builder.RegisterComponentInHierarchy<SettingsPanel>();
             builder.RegisterEntryPoint<GameInit>();

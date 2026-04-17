@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65d127ea93244e33b143a7ac12ab5e0, type: 3}
+  m_Name: Elephant
+  m_EditorClassIdentifier: Assembly-CSharp::PetConfig
+  id: Elephant
+  nameTerm: Pets/Elephant
+  icon: {fileID: 21300000, guid: ed9d96d905379460ca7b7fab01a446d5, type: 3}
+  rarity: 3
+  statType: 0
+  bonusPercent: 16
+  visualPrefab: {fileID: 4890746122148144334, guid: d9af33de9b45a4890b2ce1a0787d980c, type: 3}

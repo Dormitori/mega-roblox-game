@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65d127ea93244e33b143a7ac12ab5e0, type: 3}
+  m_Name: Beaver
+  m_EditorClassIdentifier: Assembly-CSharp::PetConfig
+  id: Beaver
+  nameTerm: Pets/Beaver
+  icon: {fileID: 21300000, guid: 3b8229670bca44cada0b0b3c503f8b08, type: 3}
+  rarity: 0
+  statType: 1
+  bonusPercent: 5
+  visualPrefab: {fileID: 6766251972764562914, guid: d04cfa54cf00041f08c1efaeb76cf029, type: 3}

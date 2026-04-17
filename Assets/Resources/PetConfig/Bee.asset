@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65d127ea93244e33b143a7ac12ab5e0, type: 3}
+  m_Name: Bee
+  m_EditorClassIdentifier: Assembly-CSharp::PetConfig
+  id: Bee
+  nameTerm: Pets/Bee
+  icon: {fileID: 21300000, guid: 0a6e05777a8fe4328be1e54406cc0d6d, type: 3}
+  rarity: 0
+  statType: 2
+  bonusPercent: 5
+  visualPrefab: {fileID: 1270474986239275984, guid: f95c04f2a08ad46c796fc35b1be7bbf5, type: 3}

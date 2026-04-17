@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65d127ea93244e33b143a7ac12ab5e0, type: 3}
+  m_Name: Giraffe
+  m_EditorClassIdentifier: Assembly-CSharp::PetConfig
+  id: Giraffe
+  nameTerm: Pets/Giraffe
+  icon: {fileID: 21300000, guid: 4f1d6222e21fe47538fcbd74186e434f, type: 3}
+  rarity: 4
+  statType: 2
+  bonusPercent: 20
+  visualPrefab: {fileID: 6814264773326860603, guid: b28268ae0f9944ce18ef908a05c8376f, type: 3}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65d127ea93244e33b143a7ac12ab5e0, type: 3}
+  m_Name: Bear
+  m_EditorClassIdentifier: Assembly-CSharp::PetConfig
+  id: Bear
+  nameTerm: Pets/Bear
+  icon: {fileID: 21300000, guid: c9cde6bab323b4bb3aa7877b042bbee4, type: 3}
+  rarity: 2
+  statType: 3
+  bonusPercent: 12
+  visualPrefab: {fileID: 4998553610324760094, guid: 792d4ff52e81247b7a588a03a511716e, type: 3}

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7da9193923574cd698ac951a250d385, type: 3}
+  m_Name: Rare
+  m_EditorClassIdentifier: Assembly-CSharp::EggConfig
+  id: Rare
+  nameTerm: Eggs/Rare
+  icon: {fileID: 0}
+  priceCoins: 15000
+  priceCrystals: 75
+  hatchDurationSeconds: 1800
+  eggWorldPrefab: {fileID: 0}
+  rarityChances:
+  - rarity: 0
+    percent: 35
+  - rarity: 1
+    percent: 30
+  - rarity: 2
+    percent: 20
+  - rarity: 3
+    percent: 10
+  - rarity: 4
+    percent: 4.5
+  - rarity: 5
+    percent: 0.5

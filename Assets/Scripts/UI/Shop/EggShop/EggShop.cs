@@ -52,6 +52,7 @@ public class EggShop : PopUpWindow
         _petConfigs = petConfigs.Configs;
 
         BuildOnce();
+        SubscribeEvents();
     }
 
     public override void Awake()
@@ -59,18 +60,24 @@ public class EggShop : PopUpWindow
         base.Awake();
     }
 
-    private void OnEnable()
+    private void SubscribeEvents()
     {
+        UnsubscribeEvents();
         if (_inventory != null) _inventory.CurrencyChanged += Refresh;
         if (_incubator != null) _incubator.Changed += Refresh;
         if (_petProgress != null) _petProgress.Changed += Refresh;
     }
 
-    private void OnDisable()
+    private void UnsubscribeEvents()
     {
         if (_inventory != null) _inventory.CurrencyChanged -= Refresh;
         if (_incubator != null) _incubator.Changed -= Refresh;
         if (_petProgress != null) _petProgress.Changed -= Refresh;
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
     }
 
     public override void OnWindowShow()

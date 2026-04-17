@@ -30,6 +30,7 @@ namespace DI
             builder.RegisterComponentInHierarchy<SellShop>();
             builder.RegisterComponentInHierarchy<BuyShop>();
             builder.RegisterComponentInHierarchy<PickaxeShop>();
+            builder.RegisterComponentInHierarchy<EggShop>();
             builder.RegisterComponentInHierarchy<SettingsPanel>();
             builder.RegisterEntryPoint<GameInit>();
         }

@@ -7,7 +7,16 @@ public enum PetRarity
     Uncommon,
     Rare,
     Epic,
-    Legendary
+    Legendary,
+    Mythic
+}
+
+public enum PetStatType
+{
+    GoldPricePercent,
+    BlockDamagePercent,
+    AttackSpeedPercent,
+    RareOreChancePercent
 }
 
 [CreateAssetMenu(fileName = "PetConfig", menuName = "Config/Pet/PetConfig")]
@@ -21,8 +30,11 @@ public class PetConfig : ScriptableObject
 
     public Sprite icon;
     public PetRarity rarity;
-    public int price;
-    public CurrencyType currency = CurrencyType.Coins;
+
+    [Header("Bonus")]
+    public PetStatType statType;
+    [Tooltip("Например 5/8/12/16/20/25")]
+    public float bonusPercent;
 
     [Tooltip("Префаб визуала с Animator (на корне или в детях)")]
     public GameObject visualPrefab;

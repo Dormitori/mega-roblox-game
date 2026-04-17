@@ -9,10 +9,14 @@ namespace DI
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<Inventory>(Lifetime.Singleton);
+            builder.Register<PetProgressService>(Lifetime.Singleton);
+            builder.Register<EggIncubatorService>(Lifetime.Singleton);
+            builder.Register<PetEquipService>(Lifetime.Singleton);
             
             builder.Register<ConfigManager<BlockConfig>>(Lifetime.Singleton);
             builder.Register<ConfigManager<PickaxeConfig>>(Lifetime.Singleton);
             builder.Register<ConfigManager<PetConfig>>(Lifetime.Singleton);
+            builder.Register<ConfigManager<EggConfig>>(Lifetime.Singleton);
             
             builder.RegisterComponentInHierarchy<MineManager>();
             builder.RegisterComponentInHierarchy<MineBlocks>();

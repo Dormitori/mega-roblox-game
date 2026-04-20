@@ -11,7 +11,11 @@ public class EggShopEggView : MonoBehaviour
     public Image iconImage;
     public TextMeshProUGUI titleText;
 
-    [Header("Buy buttons (no text)")]
+    public Image rowPlateBackground;
+    public Sprite plateBackgroundSimple;
+    public Sprite plateBackgroundRare;
+    public Sprite plateBackgroundEpic;
+
     public Button buyCoinsButton;
     public TextMeshProUGUI buyCoinsPriceText;
     public Button buyCrystalsButton;
@@ -34,6 +38,7 @@ public class EggShopEggView : MonoBehaviour
 
         if (iconImage != null) iconImage.sprite = _cfg.icon;
         if (titleText != null) titleText.text = _cfg.LocalizedName;
+        ApplyRowPlate();
         if (buyCoinsPriceText != null) buyCoinsPriceText.text = _cfg.priceCoins.ToString();
         if (buyCrystalsPriceText != null) buyCrystalsPriceText.text = _cfg.priceCrystals.ToString();
     }
@@ -42,6 +47,23 @@ public class EggShopEggView : MonoBehaviour
     {
         if (buyCoinsButton != null) buyCoinsButton.interactable = coins;
         if (buyCrystalsButton != null) buyCrystalsButton.interactable = crystals;
+    }
+
+    private void ApplyRowPlate()
+    {
+        if (rowPlateBackground == null) return;
+        var s = PlateSpriteForEggId(_cfg.id);
+        if (s != null) rowPlateBackground.sprite = s;
+    }
+
+    private Sprite PlateSpriteForEggId(string eggId)
+    {
+        return eggId switch
+        {
+            "Rare" => plateBackgroundRare != null ? plateBackgroundRare : plateBackgroundSimple,
+            "Epic" => plateBackgroundEpic != null ? plateBackgroundEpic : plateBackgroundSimple,
+            _ => plateBackgroundSimple
+        };
     }
 }
 

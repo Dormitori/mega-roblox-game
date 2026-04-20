@@ -31,7 +31,7 @@ namespace DI
             builder.RegisterComponentInHierarchy<BuyShop>();
             builder.RegisterComponentInHierarchy<PickaxeShop>();
             builder.RegisterComponentInHierarchy<EggShop>();
-            builder.RegisterComponentInHierarchy<PetHatchRevealPopup>();
+         //   builder.RegisterComponentInHierarchy<PetHatchRevealPopup>();
             builder.RegisterComponentInHierarchy<PetEggIncubatorWorldController>();
             builder.RegisterComponentInHierarchy<SettingsPanel>();
             builder.RegisterEntryPoint<GameInit>();

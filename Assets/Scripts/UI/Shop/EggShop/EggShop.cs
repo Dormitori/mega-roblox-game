@@ -17,9 +17,6 @@ public class EggShop : PopUpWindow
     [Header("Selected (right)")]
     public SelectedPetView selectedPetView;
 
-    [Header("Incubator (3 slots)")]
-    public EggIncubatorSlotView[] incubatorSlots = new EggIncubatorSlotView[EggIncubatorService.SlotCount];
-
     private Inventory _inventory;
     private IAudioService _audio;
     private EggIncubatorService _incubator;
@@ -64,14 +61,12 @@ public class EggShop : PopUpWindow
     {
         UnsubscribeEvents();
         if (_inventory != null) _inventory.CurrencyChanged += Refresh;
-        if (_incubator != null) _incubator.Changed += Refresh;
         if (_petProgress != null) _petProgress.Changed += Refresh;
     }
 
     private void UnsubscribeEvents()
     {
         if (_inventory != null) _inventory.CurrencyChanged -= Refresh;
-        if (_incubator != null) _incubator.Changed -= Refresh;
         if (_petProgress != null) _petProgress.Changed -= Refresh;
     }
 
@@ -126,17 +121,13 @@ public class EggShop : PopUpWindow
             };
         }
 
-        for (var i = 0; i < incubatorSlots.Length; i++)
-            if (incubatorSlots[i] != null)
-                incubatorSlots[i].Initialize(_incubator, i, _inventory, _eggConfigs, _audio);
-
         _selectedPet ??= _petProgress?.GetEquippedPetConfig() ?? _petConfigs.FirstOrDefault();
     }
 
     private void TryBuyEgg(EggConfig egg, CurrencyType currency)
     {
         if (_incubator == null || egg == null) return;
-        if (_incubator.TryBuyAndPlace(egg, currency))
+        if (_incubator.TryPurchaseEgg(egg, currency))
         {
             _audio?.PlaySfx(SoundId.BuySell);
             Refresh();
@@ -173,9 +164,6 @@ public class EggShop : PopUpWindow
             var equipped = _selectedPet != null && _selectedPet.id == equippedId;
             selectedPetView.UpdateView(_selectedPet, ownedCount, equipped);
         }
-
-        for (var i = 0; i < incubatorSlots.Length; i++)
-            incubatorSlots[i]?.Refresh();
     }
 }
 

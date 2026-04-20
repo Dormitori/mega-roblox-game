@@ -64,6 +64,7 @@ public class PetProgressService
         _data.ownedPetCounts.TryGetValue(petId, out var current);
         _data.ownedPetCounts[petId] = Mathf.Max(0, current + amount);
         Changed?.Invoke();
+        Persist();
     }
 
     public bool CanEquip(string petId) => GetOwnedCount(petId) > 0;
@@ -75,10 +76,16 @@ public class PetProgressService
 
         _data.equippedPetId = petId;
         Changed?.Invoke();
+        Persist();
         return true;
     }
 
     private void Save()
+    {
+        Persist();
+    }
+
+    private void Persist()
     {
         _saveService.Save(SaveKeys.PetProgress, _data);
     }

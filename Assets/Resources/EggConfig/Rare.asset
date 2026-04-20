@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EggConfig
   id: Rare
   nameTerm: Eggs/Rare
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 6a485532ebd154ac5a1091d396783caa, type: 3}
   priceCoins: 15000
   priceCrystals: 75
   hatchDurationSeconds: 1800
-  eggWorldPrefab: {fileID: 0}
+  adTimeSkipSeconds: 180
+  eggWorldPrefab: {fileID: 7619996784890134856, guid: fc619112fd7a44e4db27840df60947c6, type: 3}
   rarityChances:
   - rarity: 0
     percent: 35

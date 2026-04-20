@@ -16,6 +16,7 @@ public class EggIncubatorService
     private readonly ConfigManager<EggConfig> _eggConfigs;
     private readonly ConfigManager<PetConfig> _petConfigs;
     private readonly PetProgressService _petProgress;
+    private readonly PetEquipService _petEquip;
 
     private EggIncubatorSaveData _data;
 
@@ -25,13 +26,15 @@ public class EggIncubatorService
         Inventory inventory,
         ConfigManager<EggConfig> eggConfigs,
         ConfigManager<PetConfig> petConfigs,
-        PetProgressService petProgress)
+        PetProgressService petProgress,
+        PetEquipService petEquip)
     {
         _saveService = saveService;
         _inventory = inventory;
         _eggConfigs = eggConfigs;
         _petConfigs = petConfigs;
         _petProgress = petProgress;
+        _petEquip = petEquip;
 
         LoadOrInit();
         SaveTrigger.OnSave += Save;
@@ -43,12 +46,17 @@ public class EggIncubatorService
         {
             _data = _saveService.Load<EggIncubatorSaveData>(SaveKeys.EggIncubator) ?? new EggIncubatorSaveData();
             _data.slots ??= new EggSlotSaveData[SlotCount];
+            _data.eggInventory ??= new Dictionary<string, int>();
             if (_data.slots.Length != SlotCount)
                 Array.Resize(ref _data.slots, SlotCount);
             return;
         }
 
-        _data = new EggIncubatorSaveData { slots = new EggSlotSaveData[SlotCount] };
+        _data = new EggIncubatorSaveData
+        {
+            slots = new EggSlotSaveData[SlotCount],
+            eggInventory = new Dictionary<string, int>()
+        };
         Save();
     }
 
@@ -60,15 +68,16 @@ public class EggIncubatorService
 
     public IReadOnlyList<EggSlotSaveData> GetSlots() => _data.slots;
 
-    public bool HasFreeSlot()
+    public int GetEggInventoryCount(string eggId)
     {
-        for (var i = 0; i < SlotCount; i++)
-            if (_data.slots[i] == null || string.IsNullOrEmpty(_data.slots[i].eggId))
-                return true;
-        return false;
+        if (string.IsNullOrEmpty(eggId)) return 0;
+        return _data.eggInventory.TryGetValue(eggId, out var c) ? c : 0;
     }
 
-    public bool TryBuyAndPlace(EggConfig egg, CurrencyType currency)
+    public bool HasAnyEggsInInventory() => _data.eggInventory.Values.Any(v => v > 0);
+
+    /// <summary>Покупка яйца в магазине — только в инвентарь, без установки в слот.</summary>
+    public bool TryPurchaseEgg(EggConfig egg, CurrencyType currency)
     {
         if (egg == null) return false;
 
@@ -76,39 +85,29 @@ public class EggIncubatorService
         if (price <= 0) return false;
         if (!_inventory.TryRemoveCurrency(currency, price)) return false;
 
-        var placed = TryPlaceEgg(egg);
-        if (!placed)
-        {
-            // вернуть валюту, если не удалось поставить
-            _inventory.AddCurrency(currency, price);
-            return false;
-        }
-
+        _data.eggInventory.TryGetValue(egg.id, out var n);
+        _data.eggInventory[egg.id] = n + 1;
         Changed?.Invoke();
         return true;
     }
 
-    public bool TryPlaceEgg(EggConfig egg)
+    /// <summary>Пустой слот: кладёт самое «крутое» яйцо из инвентаря (дольше инкубация = выше тир).</summary>
+    public bool TryPlaceBestEggInSlot(int slotIndex)
     {
-        if (egg == null) return false;
+        if (slotIndex < 0 || slotIndex >= SlotCount) return false;
 
-        var freeIndex = FindFreeSlotIndex();
-        if (freeIndex >= 0)
-        {
-            PutEggToSlot(freeIndex, egg);
-            return true;
-        }
-
-        var weakest = FindWeakestSlotIndex();
-        if (weakest < 0) return false;
-
-        var weakestEgg = ResolveEgg(_data.slots[weakest]?.eggId);
-        if (weakestEgg == null) return false;
-
-        if (!IsEggStronger(egg, weakestEgg))
+        var slot = GetSlot(slotIndex);
+        if (slot != null && !string.IsNullOrEmpty(slot.eggId))
             return false;
 
-        PutEggToSlot(weakest, egg);
+        var best = GetBestEggConfigFromInventory();
+        if (best == null) return false;
+
+        if (!TryConsumeEggFromInventory(best.id, 1))
+            return false;
+
+        PutEggToSlot(slotIndex, best);
+        Changed?.Invoke();
         return true;
     }
 
@@ -121,29 +120,56 @@ public class EggIncubatorService
         return remain > TimeSpan.Zero ? remain : TimeSpan.Zero;
     }
 
-    public bool CanClaim(int slotIndex, DateTime utcNow)
+    public bool IsSlotEmpty(int slotIndex)
+    {
+        var s = GetSlot(slotIndex);
+        return s == null || string.IsNullOrEmpty(s.eggId);
+    }
+
+    /// <summary>Таймер закончился, ролл выполнен — можно открывать UI вылупления.</summary>
+    public bool IsReadyForHatchUi(int slotIndex, DateTime utcNow)
     {
         var s = GetSlot(slotIndex);
         if (s == null || string.IsNullOrEmpty(s.eggId)) return false;
-        if (s.claimed) return false;
-        return GetRemaining(slotIndex, utcNow) <= TimeSpan.Zero;
+        if (GetRemaining(slotIndex, utcNow) > TimeSpan.Zero) return false;
+        EnsureRolledPetForSlot(slotIndex);
+        return !string.IsNullOrEmpty(s.rolledPetId);
     }
 
-    public bool TryClaim(int slotIndex)
+    public string GetRolledPetId(int slotIndex)
     {
-        var now = DateTime.UtcNow;
-        if (!CanClaim(slotIndex, now)) return false;
+        EnsureRolledPetForSlot(slotIndex);
+        return GetSlot(slotIndex)?.rolledPetId;
+    }
 
+    /// <summary>Когда время вышло — один раз роллим пета (сохраняем до получения награды).</summary>
+    public void EnsureRolledPetForSlot(int slotIndex)
+    {
         var s = GetSlot(slotIndex);
+        if (s == null || string.IsNullOrEmpty(s.eggId)) return;
+        if (GetRemaining(slotIndex, DateTime.UtcNow) > TimeSpan.Zero) return;
+        if (!string.IsNullOrEmpty(s.rolledPetId)) return;
+
         var egg = ResolveEgg(s.eggId);
-        if (egg == null) return false;
-
         var pet = RollPetFromEgg(egg);
-        if (pet == null) return false;
+        if (pet == null) return;
 
-        _petProgress.AddPet(pet.id, 1);
+        s.rolledPetId = pet.id;
+        _data.slots[slotIndex] = s;
+        Changed?.Invoke();
+    }
 
-        // очистить слот
+    /// <summary>После UI вылупления: выдать пета в коллекцию; при equip — сделать текущим и обновить визуал.</summary>
+    public bool TryFinalizeHatch(int slotIndex, bool equipAsCurrent)
+    {
+        var s = GetSlot(slotIndex);
+        if (s == null || string.IsNullOrEmpty(s.rolledPetId)) return false;
+
+        var petId = s.rolledPetId;
+        _petProgress.AddPet(petId, 1);
+        if (equipAsCurrent)
+            _petEquip.TryEquip(petId);
+
         _data.slots[slotIndex] = null;
         Changed?.Invoke();
         return true;
@@ -153,6 +179,7 @@ public class EggIncubatorService
     {
         var s = GetSlot(slotIndex);
         if (s == null || string.IsNullOrEmpty(s.eggId)) return false;
+        if (!string.IsNullOrEmpty(s.rolledPetId)) return false;
 
         var egg = ResolveEgg(s.eggId);
         if (egg == null) return false;
@@ -161,7 +188,8 @@ public class EggIncubatorService
         if (cost <= 0) return false;
         if (!_inventory.TryRemoveCurrency(CurrencyType.Crystals, cost)) return false;
 
-        ApplyTimeReduction(slotIndex, TimeSpan.FromDays(9999)); // моментально
+        ApplyTimeReduction(slotIndex, TimeSpan.FromDays(9999));
+        EnsureRolledPetForSlot(slotIndex);
         Changed?.Invoke();
         return true;
     }
@@ -170,17 +198,19 @@ public class EggIncubatorService
     {
         var s = GetSlot(slotIndex);
         if (s == null || string.IsNullOrEmpty(s.eggId)) return;
+        if (!string.IsNullOrEmpty(s.rolledPetId)) return;
 
-        if (!GP_Ads.IsRewardedAvailable())
-        {
-            // В эмуляторе availability может быть false — всё равно позволим, GP_Ads в редакторе отдаёт reward сразу.
-        }
+        var egg = ResolveEgg(s.eggId);
+        var skip = egg != null && egg.adTimeSkipSeconds > 0
+            ? TimeSpan.FromSeconds(egg.adTimeSkipSeconds)
+            : TimeSpan.FromMinutes(3);
 
         GP_Ads.ShowRewarded(
-            idOrTag: "HATCH_SKIP_5MIN",
+            idOrTag: "HATCH_SKIP_TIME",
             onRewardedReward: _ =>
             {
-                ApplyTimeReduction(slotIndex, TimeSpan.FromMinutes(5));
+                ApplyTimeReduction(slotIndex, skip);
+                EnsureRolledPetForSlot(slotIndex);
                 Changed?.Invoke();
             }
         );
@@ -200,46 +230,40 @@ public class EggIncubatorService
 
     private static int GetSpeedUpCrystalCost(EggConfig egg)
     {
-        // По требованиям: simple=5, rare=20, epic=50. Отличаем по hatchDuration.
         if (egg == null) return 0;
         if (egg.hatchDurationSeconds <= 5 * 60) return 5;
         if (egg.hatchDurationSeconds <= 30 * 60) return 20;
         return 50;
     }
 
-    private int FindFreeSlotIndex()
+    private EggConfig GetBestEggConfigFromInventory()
     {
-        for (var i = 0; i < SlotCount; i++)
-            if (_data.slots[i] == null || string.IsNullOrEmpty(_data.slots[i].eggId))
-                return i;
-        return -1;
+        EggConfig best = null;
+        foreach (var kv in _data.eggInventory)
+        {
+            if (kv.Value <= 0) continue;
+            var cfg = ResolveEgg(kv.Key);
+            if (cfg == null) continue;
+            if (best == null || IsEggStronger(cfg, best))
+                best = cfg;
+        }
+        return best;
     }
 
-    private int FindWeakestSlotIndex()
+    private bool TryConsumeEggFromInventory(string eggId, int amount)
     {
-        var weakestIndex = -1;
-        EggConfig weakestEgg = null;
-
-        for (var i = 0; i < SlotCount; i++)
-        {
-            var id = _data.slots[i]?.eggId;
-            if (string.IsNullOrEmpty(id)) continue;
-            var egg = ResolveEgg(id);
-            if (egg == null) continue;
-
-            if (weakestEgg == null || IsEggStronger(weakestEgg, egg))
-            {
-                weakestEgg = egg;
-                weakestIndex = i;
-            }
-        }
-
-        return weakestIndex;
+        if (!_data.eggInventory.TryGetValue(eggId, out var c) || c < amount)
+            return false;
+        c -= amount;
+        if (c <= 0)
+            _data.eggInventory.Remove(eggId);
+        else
+            _data.eggInventory[eggId] = c;
+        return true;
     }
 
     private static bool IsEggStronger(EggConfig a, EggConfig b)
     {
-        // Базовое сравнение по времени (Simple 5m < Rare 30m < Epic 2h).
         return a.hatchDurationSeconds > b.hatchDurationSeconds;
     }
 
@@ -252,7 +276,7 @@ public class EggIncubatorService
             eggId = egg.id,
             startUtcTicks = now.Ticks,
             finishUtcTicks = finish.Ticks,
-            claimed = false
+            rolledPetId = null
         };
     }
 
@@ -307,6 +331,7 @@ public class EggIncubatorService
 [Serializable]
 public class EggIncubatorSaveData
 {
+    public Dictionary<string, int> eggInventory;
     public EggSlotSaveData[] slots;
 }
 
@@ -316,6 +341,6 @@ public class EggSlotSaveData
     public string eggId;
     public long startUtcTicks;
     public long finishUtcTicks;
-    public bool claimed;
+    /// <summary>Заполняется когда инкубация закончилась; награда выдаётся только через TryFinalizeHatch.</summary>
+    public string rolledPetId;
 }
-

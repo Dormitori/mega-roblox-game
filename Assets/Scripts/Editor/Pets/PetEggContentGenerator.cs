@@ -83,6 +83,7 @@ public static class PetEggContentGenerator
             asset.priceCoins = e.priceCoins;
             asset.priceCrystals = e.priceCrystals;
             asset.hatchDurationSeconds = e.hatchSeconds;
+            asset.adTimeSkipSeconds = 180;
             asset.rarityChances = new List<EggConfig.RarityChance>(e.chances);
 
             EditorUtility.SetDirty(asset);

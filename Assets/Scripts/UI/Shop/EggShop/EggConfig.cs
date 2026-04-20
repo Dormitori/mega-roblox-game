@@ -19,6 +19,9 @@ public class EggConfig : ScriptableObject
     [Header("Hatching")]
     public int hatchDurationSeconds;
 
+    [Tooltip("Сколько секунд снимает rewarded-реклама с таймера (по ТЗ ~3 минуты).")]
+    public int adTimeSkipSeconds = 180;
+
     public GameObject eggWorldPrefab;
 
     [Header("Drop chances by rarity (percent, sum = 100)")]

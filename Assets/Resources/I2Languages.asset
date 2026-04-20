@@ -8738,6 +8738,14 @@ MonoBehaviour:
       - "\u0422\u0438\u0433\u0440"
       Flags: 0000
       Languages_Touch: []
+    - Term: Eggs
+      TermType: 0
+      Description: 
+      Languages:
+      - Buy eggs
+      - "\u041A\u0443\u043F\u0438\u0442\u044C \u044F\u0439\u0446\u043E"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

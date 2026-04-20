@@ -13,6 +13,9 @@ public class SelectedPetView : MonoBehaviour
     public TextMeshProUGUI bonusText;
     public TextMeshProUGUI ownedCountText;
 
+    [Tooltip("Крупная иконка пета (опционально)")]
+    public Image petIconImage;
+
     public Button takeButton;
     public GameObject equippedBadge;
 
@@ -30,11 +33,17 @@ public class SelectedPetView : MonoBehaviour
             if (rarityText != null) rarityText.text = string.Empty;
             if (bonusText != null) bonusText.text = string.Empty;
             if (ownedCountText != null) ownedCountText.text = string.Empty;
+            if (petIconImage != null)
+            {
+                petIconImage.sprite = null;
+                petIconImage.enabled = false;
+            }
             if (takeButton != null) takeButton.interactable = false;
             if (equippedBadge != null) equippedBadge.SetActive(false);
             return;
         }
 
+        if (petIconImage != null) petIconImage.sprite = cfg.icon;
         if (petNameText != null) petNameText.text = cfg.LocalizedName;
         if (rarityText != null) rarityText.text = cfg.rarity.ToString();
         if (bonusText != null) bonusText.text = MakeBonusLine(cfg);

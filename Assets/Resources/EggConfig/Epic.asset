@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EggConfig
   id: Epic
   nameTerm: Eggs/Epic
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 747e924974688453f85a6c05e9953ffb, type: 3}
   priceCoins: 70000
   priceCrystals: 200
   hatchDurationSeconds: 7200
-  eggWorldPrefab: {fileID: 0}
+  adTimeSkipSeconds: 180
+  eggWorldPrefab: {fileID: 4348802829318957818, guid: e6a8f9fe32720471eafb029aa55f7976, type: 3}
   rarityChances:
   - rarity: 0
     percent: 15

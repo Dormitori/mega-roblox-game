@@ -12,8 +12,7 @@ public class SelectedPetView : MonoBehaviour
     public TextMeshProUGUI rarityText;
     public TextMeshProUGUI bonusText;
     public TextMeshProUGUI ownedCountText;
-
-    [Tooltip("Крупная иконка пета (опционально)")]
+    
     public Image petIconImage;
 
     public Button takeButton;
@@ -21,38 +20,32 @@ public class SelectedPetView : MonoBehaviour
 
     private void Awake()
     {
-        if (takeButton != null)
-            takeButton.onClick.AddListener(() => Take?.Invoke());
+        takeButton.onClick.AddListener(() => Take?.Invoke());
     }
 
     public void UpdateView(PetConfig cfg, int ownedCount, bool equipped)
     {
         if (cfg == null)
         {
-            if (petNameText != null) petNameText.text = string.Empty;
-            if (rarityText != null) rarityText.text = string.Empty;
-            if (bonusText != null) bonusText.text = string.Empty;
-            if (ownedCountText != null) ownedCountText.text = string.Empty;
-            if (petIconImage != null)
-            {
-                petIconImage.sprite = null;
-                petIconImage.enabled = false;
-            }
-            if (takeButton != null) takeButton.interactable = false;
-            if (equippedBadge != null) equippedBadge.SetActive(false);
+            petNameText.text = string.Empty;
+            rarityText.text = string.Empty;
+            bonusText.text = string.Empty;
+            ownedCountText.text = string.Empty;
+            petIconImage.sprite = null;
+            takeButton.interactable = false;
+            equippedBadge.SetActive(false);
             return;
         }
 
-        if (petIconImage != null) petIconImage.sprite = cfg.icon;
-        if (petNameText != null) petNameText.text = cfg.LocalizedName;
-        if (rarityText != null) rarityText.text = cfg.rarity.ToString();
-        if (bonusText != null) bonusText.text = MakeBonusLine(cfg);
-        if (ownedCountText != null) ownedCountText.text = ownedCount.ToString();
+        petIconImage.sprite = cfg.icon;
+        petNameText.text = cfg.LocalizedName;
+        rarityText.text = cfg.rarity.ToString();
+        bonusText.text = MakeBonusLine(cfg);
+        ownedCountText.text = ownedCount.ToString();
 
-        if (equippedBadge != null) equippedBadge.SetActive(equipped);
+        equippedBadge.SetActive(equipped);
 
-        if (takeButton != null)
-            takeButton.interactable = ownedCount > 0 && !equipped;
+        takeButton.interactable = ownedCount > 0 && !equipped;
     }
 
     private static string MakeBonusLine(PetConfig cfg)

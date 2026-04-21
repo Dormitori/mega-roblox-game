@@ -8746,6 +8746,22 @@ MonoBehaviour:
       - "\u041A\u0443\u043F\u0438\u0442\u044C \u044F\u0439\u0446\u043E"
       Flags: 0000
       Languages_Touch: []
+    - Term: Pets
+      TermType: 0
+      Description: 
+      Languages:
+      - PETS
+      - "\u041F\u0418\u0422\u041E\u041C\u0426\u042B"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Take
+      TermType: 0
+      Description: 
+      Languages:
+      - Take
+      - "\u0412\u0437\u044F\u0442\u044C"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

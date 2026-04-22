@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 562924965396948035}
   - component: {fileID: 5691195266361868227}
   - component: {fileID: 9088091974513122620}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 572141672851541294}
   - component: {fileID: 717577777205490250}
   - component: {fileID: 4593887215746401342}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 8153046390106759552}
   - component: {fileID: 958865364940864936}
   - component: {fileID: 4811419185012749752}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 6431088584232457261}
   - component: {fileID: 6083560390669517069}
   - component: {fileID: 5828176048998514353}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wing-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9215904382633438965}
   - component: {fileID: 684500541606803637}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: animal-parrot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 7651455035962115830}
   - component: {fileID: 6102527490672635220}
   - component: {fileID: 20709691341944659}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -520,7 +520,7 @@ GameObject:
   - component: {fileID: 3959837679014133882}
   - component: {fileID: 8422741928560318763}
   - component: {fileID: 1808429101872090214}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -610,7 +610,7 @@ GameObject:
   - component: {fileID: 1603766291453934131}
   - component: {fileID: 5565665819590972470}
   - component: {fileID: 4061515274382514501}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wing-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -698,7 +698,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7609902540128362268}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}

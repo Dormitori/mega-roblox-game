@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 737857587255142804}
   - component: {fileID: 2047741933563675121}
   - component: {fileID: 922384924315965431}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 2158159050456379324}
   - component: {fileID: 1472167498462235944}
   - component: {fileID: 4382700576156872733}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 3117386466918879808}
   - component: {fileID: 2687329170889390570}
   - component: {fileID: 2552130694420719143}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 2205460545290990340}
   - component: {fileID: 3128977285003255014}
   - component: {fileID: 8847563062054365876}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4466302503618272821}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 154168579489652957}
   - component: {fileID: 2578760804290818253}
   - component: {fileID: 8931848062555675862}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,7 +498,7 @@ GameObject:
   - component: {fileID: 6613153425334832509}
   - component: {fileID: 4760606496810018558}
   - component: {fileID: 4273774083972225683}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -587,7 +587,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2704316447747453851}
   - component: {fileID: 9111258880544219196}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: animal-pig
   m_TagString: Untagged
   m_Icon: {fileID: 0}

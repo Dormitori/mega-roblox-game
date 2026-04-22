@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4559661150302264706}
   - component: {fileID: 4519891361399936846}
   - component: {fileID: 7855962194568461713}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 7040256451566273535}
   - component: {fileID: 1942014746804878629}
   - component: {fileID: 4230518480096977910}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 6663924498008174637}
   - component: {fileID: 2343977831112213498}
   - component: {fileID: 2597144127565015526}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 2861044600411347546}
   - component: {fileID: 5310666796824219199}
   - component: {fileID: 962763982874293446}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3520067571545637278}
   - component: {fileID: 2740944117167599474}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: animal-bunny
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 486378200261898573}
   - component: {fileID: 2792398047920804921}
   - component: {fileID: 3217149273503023160}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -514,7 +514,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4450402353509673641}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}

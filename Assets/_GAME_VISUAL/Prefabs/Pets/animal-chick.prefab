@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2158132693387794166}
   - component: {fileID: 3770130483190513403}
   - component: {fileID: 816317493067382037}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8699078012882958215}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 945941704147225059}
   - component: {fileID: 3038342552784623766}
   - component: {fileID: 4377826374356163790}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wing-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 7000459107160398311}
   - component: {fileID: 8050347951189084902}
   - component: {fileID: 5195592751762305617}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2971848435044322761}
   - component: {fileID: 6734269466086512451}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: animal-chick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 6850214897325071237}
   - component: {fileID: 3024808445100451156}
   - component: {fileID: 7694471343281460292}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wing-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 32639458564467206}
   - component: {fileID: 8148229495288737814}
   - component: {fileID: 1750999998066569581}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

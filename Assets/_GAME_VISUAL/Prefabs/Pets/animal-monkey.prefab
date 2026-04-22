@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 12573302068696346}
   - component: {fileID: 5618382574556961269}
   - component: {fileID: 5018506157901283561}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 1081604979731258782}
   - component: {fileID: 8308147148446610363}
   - component: {fileID: 4486398348923247100}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 753191588352622390}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 5009246703057013196}
   - component: {fileID: 4417554828746248406}
   - component: {fileID: 4720706703614803113}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4492589337688025531}
   - component: {fileID: 6905190724608091708}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: animal-monkey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 8371245991724053344}
   - component: {fileID: 8404826878582741253}
   - component: {fileID: 7005023030195629281}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 1733582936734458334}
   - component: {fileID: 5878683852427011782}
   - component: {fileID: 6719038538955090203}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 4684841790533781904}
   - component: {fileID: 5494814631021569698}
   - component: {fileID: 1352052203543320785}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

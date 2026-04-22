@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2833775740809006886}
   - component: {fileID: 3075959833918781476}
   - component: {fileID: 5129885928619507885}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 8179865049341648921}
   - component: {fileID: 4900147610571505750}
   - component: {fileID: 9221095011288939073}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6017612849925179940}
   - component: {fileID: 6008371415316946676}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: animal-hog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 268950540383263722}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 1070575949639370717}
   - component: {fileID: 5476534946711511856}
   - component: {fileID: 8635579735943210252}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 6559375221981419949}
   - component: {fileID: 3054445785162195170}
   - component: {fileID: 5548451425643960784}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 1969030226500824172}
   - component: {fileID: 8443715687370610284}
   - component: {fileID: 5942822685111948881}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

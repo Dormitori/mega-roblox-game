@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3677773713764538613}
   - component: {fileID: 8394983564131296232}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: animal-crab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 8007534592624120391}
   - component: {fileID: 5280045986118806246}
   - component: {fileID: 1461529781627227187}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 2749080340933269730}
   - component: {fileID: 5490929318925486381}
   - component: {fileID: 464388891582795352}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 1484505001807879093}
   - component: {fileID: 5787795545475600577}
   - component: {fileID: 8384746781534942923}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 4601523417841021418}
   - component: {fileID: 3331816118615988804}
   - component: {fileID: 1086660754189216091}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 3253858396260820664}
   - component: {fileID: 4603960609538805927}
   - component: {fileID: 9079621851727616809}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -515,7 +515,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8983265143609623251}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 7096189647442572346}
   - component: {fileID: 7245285332236320657}
   - component: {fileID: 7769056087810485693}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}

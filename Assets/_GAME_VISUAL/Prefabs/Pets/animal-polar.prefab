@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8995602880578406697}
   - component: {fileID: 4094449149107065728}
   - component: {fileID: 114974045005249363}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 6155317349507186631}
   - component: {fileID: 663710825211479529}
   - component: {fileID: 1707476757942397606}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 8060368937786624208}
   - component: {fileID: 1138835411565822834}
   - component: {fileID: 7647221789320199663}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 1155194355041121550}
   - component: {fileID: 3303679464726624239}
   - component: {fileID: 7064419006203165090}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 533188802320614621}
   - component: {fileID: 4508443613529768958}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: animal-polar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 3342313994531150242}
   - component: {fileID: 4218009911054240501}
   - component: {fileID: 4282789645774556475}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -514,7 +514,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3082024112260003788}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}

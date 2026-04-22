@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2839184566806140437}
   - component: {fileID: 7021993605212708485}
   - component: {fileID: 4920683078505972050}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 6998857113118783313}
   - component: {fileID: 4427799220593770687}
   - component: {fileID: 7386840796942857391}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 7609485216341618400}
   - component: {fileID: 216207324338500901}
   - component: {fileID: 5060358550960812163}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3652031122259556290}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 4030060854439331435}
   - component: {fileID: 4527648031042282379}
   - component: {fileID: 1460616447633918230}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 7602334666334805068}
   - component: {fileID: 4933730339634673324}
   - component: {fileID: 8740114110349117536}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -497,7 +497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5081036532908853439}
   - component: {fileID: 6888377669768855285}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: animal-tiger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 8427121955374867960}
   - component: {fileID: 8436547214768526581}
   - component: {fileID: 6214431322690702086}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2807353679968687217}
   - component: {fileID: 6815385700334944387}
   - component: {fileID: 5803219490810246109}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 3639234943092940154}
   - component: {fileID: 2861287251363618687}
   - component: {fileID: 5916618018847088137}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 5596967509157055969}
   - component: {fileID: 7270058818622750086}
   - component: {fileID: 780393217127931201}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4875433797596004238}
   - component: {fileID: 5955779970089750341}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: animal-cow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 7091702259406529144}
   - component: {fileID: 4917569284944908738}
   - component: {fileID: 7426626906620842602}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 5043164827647138539}
   - component: {fileID: 810852065402937077}
   - component: {fileID: 7617871037788648199}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -517,7 +517,7 @@ GameObject:
   - component: {fileID: 4796552525825650721}
   - component: {fileID: 5168662106198109671}
   - component: {fileID: 5123225681846516839}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -605,7 +605,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1148923138529562909}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}

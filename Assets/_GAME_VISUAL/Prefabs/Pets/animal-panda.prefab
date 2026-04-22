@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 492204340188476923}
   - component: {fileID: 8789369573501016498}
   - component: {fileID: 4582771383175615855}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 8391050234622871080}
   - component: {fileID: 4661206945979752846}
   - component: {fileID: 889536673514100097}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 906659541369355541}
   - component: {fileID: 9039930679837532078}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: animal-panda
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 874486400743902486}
   - component: {fileID: 8540010758610644134}
   - component: {fileID: 2836432742717622733}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7378041895168725774}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 5102724251068570568}
   - component: {fileID: 3717869826828991462}
   - component: {fileID: 1152863475184200148}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 869922232767009543}
   - component: {fileID: 7009212633740268625}
   - component: {fileID: 2153765764208102621}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

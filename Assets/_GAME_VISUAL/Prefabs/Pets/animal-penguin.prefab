@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3743406172490951073}
   - component: {fileID: 9087687355476522805}
   - component: {fileID: 7288703667849289402}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 3185099612222281432}
   - component: {fileID: 4427616938613310301}
   - component: {fileID: 1907031912776314475}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4997979307002676734}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 5716589107307456260}
   - component: {fileID: 6870873381964877191}
   - component: {fileID: 1781478215976113515}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 986494291130992138}
   - component: {fileID: 6887082555783492565}
   - component: {fileID: 6098376452082771354}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wing-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 855260319168346869}
   - component: {fileID: 1813915302086367699}
   - component: {fileID: 2977819397793219258}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wing-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -496,7 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 241981345343372760}
   - component: {fileID: 2395614287965685344}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: animal-penguin
   m_TagString: Untagged
   m_Icon: {fileID: 0}

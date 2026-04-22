@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6414550180037029780}
   - component: {fileID: 83064457810353823}
   - component: {fileID: 6678928857322683557}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5609259966994234015}
   - component: {fileID: 4322464950081823255}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: animal-koala
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 4363609323680125636}
   - component: {fileID: 7844814205678196560}
   - component: {fileID: 1411985465005907593}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 2931516536273682440}
   - component: {fileID: 516617564706113229}
   - component: {fileID: 4850336565315671433}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 2099338909702886973}
   - component: {fileID: 5803431262621016956}
   - component: {fileID: 5263991689045658991}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -424,7 +424,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3934309923875406425}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 8573290539944677372}
   - component: {fileID: 1375358588892144533}
   - component: {fileID: 2665982631053615903}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

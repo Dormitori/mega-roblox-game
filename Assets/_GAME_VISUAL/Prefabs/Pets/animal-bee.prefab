@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7305755138216031697}
   - component: {fileID: 490059507837643744}
   - component: {fileID: 6694506153447663824}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5805247196495845891}
   - component: {fileID: 5213093914319182499}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: animal-bee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 2324774199458759741}
   - component: {fileID: 3117267165912525888}
   - component: {fileID: 1496318360519969111}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wing-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 1937956239567857721}
   - component: {fileID: 949875916111313093}
   - component: {fileID: 4779432236532333656}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wing-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5323592407332393803}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 5097867025166372925}
   - component: {fileID: 8784989983865225425}
   - component: {fileID: 5998030586713670312}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-back-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 3703821972199545953}
   - component: {fileID: 6987883754367952619}
   - component: {fileID: 5278654661148528559}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 6642788798075411370}
   - component: {fileID: 1714863088967672637}
   - component: {fileID: 7727589085787576402}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leg-front-right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -642,7 +642,7 @@ GameObject:
   - component: {fileID: 1253232255952826548}
   - component: {fileID: 4132797250894023193}
   - component: {fileID: 3920680511034965199}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

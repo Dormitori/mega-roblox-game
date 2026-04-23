@@ -11,5 +11,6 @@ namespace Core.Audio
         BuySell,
         MenuMusic,
         GameMusic,
+        TutorialObjectiveComplete
     }
 }

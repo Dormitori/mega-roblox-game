@@ -7,8 +7,10 @@ using VContainer;
 public class Inventory
 {
     public event Action CurrencyChanged;
-    public event Action<int> BlocksChanged;
+    public event Action BlocksChanged;
     public event Action BackpackCapacityChanged;
+    public event Action PickaxeBuy;
+    public event Action PickaxeEquip;
 
     public PickaxeType CurrentPickaxe { get; private set; }
     public HashSet<BlockType> UnlockedBuyableBlocks { get; } = new(); 
@@ -18,7 +20,7 @@ public class Inventory
     private Dictionary<BlockType, long> _blockSellValueTotals = new();
     private HashSet<PickaxeType> _pickaxes = new();
     
-    private int _backpackCapacity = 30;
+    private int _backpackCapacity = 40;
 
     private ISaveService _saveService;
     private ConfigManager<BlockConfig> _blockConfigs;
@@ -138,7 +140,7 @@ public class Inventory
 
         _blocks[block] += amount;
         _blockSellValueTotals[block] += (long)unitSellPrice * amount;
-        BlocksChanged?.Invoke(amount);
+        BlocksChanged?.Invoke();
     }
 
     public bool TryRemoveBlock(BlockType block, int amount)
@@ -149,7 +151,7 @@ public class Inventory
         var removedValue = _blockSellValueTotals[block] * amount / _blocks[block];
         _blocks[block] -= amount;
         _blockSellValueTotals[block] -= removedValue;
-        BlocksChanged?.Invoke(-amount);
+        BlocksChanged?.Invoke();
         return true;
     }
 
@@ -176,6 +178,7 @@ public class Inventory
     public void AddPickaxe(PickaxeType pickaxe)
     {
         _pickaxes.Add(pickaxe);
+        PickaxeBuy?.Invoke();
     }
 
     public bool HasPickaxe(PickaxeType pickaxe)
@@ -186,6 +189,7 @@ public class Inventory
     public void EquipPickaxe(PickaxeType pickaxe)
     {
         CurrentPickaxe = pickaxe;
+        PickaxeEquip?.Invoke();
     }
     
     public void SetBackpackCapacity(int capacity)

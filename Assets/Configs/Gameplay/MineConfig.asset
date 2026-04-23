@@ -75,14 +75,6 @@ MonoBehaviour:
       probability: 3
       minVariant: 1
       maxVariant: 5
-    - blockType: 3
-      probability: 2
-      minVariant: 1
-      maxVariant: 4
-    - blockType: 6
-      probability: 1
-      minVariant: 1
-      maxVariant: 1
   - startLevel: 100
     endLevel: 199
     blockProbabilities:

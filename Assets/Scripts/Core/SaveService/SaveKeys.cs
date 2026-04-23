@@ -10,4 +10,7 @@ public static class SaveKeys
     // Pets / Eggs
     public static string PetProgress = "pet_progress";
     public static string EggIncubator = "egg_incubator";
+    
+    // Tutorial
+    public static string CurrentTutorialStep = "current_tutorial_step";
 }

@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BackpackShopConfig
   upgradeSteps:
   - price: 0
-    capacity: 30
-  - price: 250
     capacity: 40
-  - price: 600
+  - price: 20
     capacity: 50
+  - price: 600
+    capacity: 60
   - price: 1400
     capacity: 60
   - price: 3200
     capacity: 70
   - price: 7000
     capacity: 80
+  tailPriceGrowth: 1.45

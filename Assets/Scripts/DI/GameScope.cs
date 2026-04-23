@@ -27,6 +27,8 @@ namespace DI
             builder.RegisterComponentInHierarchy<MoneyView>();
             builder.RegisterComponentInHierarchy<MineLootToastController>();
             builder.RegisterComponentInHierarchy<CompanionPetController>();
+            builder.RegisterComponentInHierarchy<TutorialManager>();
+            builder.RegisterComponentInHierarchy<TutorialView>();
             builder.RegisterComponentInHierarchy<SellShop>();
             builder.RegisterComponentInHierarchy<BuyShop>();
             builder.RegisterComponentInHierarchy<PickaxeShop>();

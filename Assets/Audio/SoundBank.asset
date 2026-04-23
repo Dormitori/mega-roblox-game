@@ -43,3 +43,6 @@ MonoBehaviour:
   - id: 6
     clips:
     - {fileID: 8300000, guid: 906436d5d2a6c4550abfe1540a720ff8, type: 3}
+  - id: 9
+    clips:
+    - {fileID: 8300000, guid: a74ecc11445c00e448ea1eed6a6bea9a, type: 3}

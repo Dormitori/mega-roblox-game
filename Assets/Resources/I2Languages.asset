@@ -242,14 +242,6 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: Term 10
-      TermType: 0
-      Description: 
-      Languages:
-      - 
-      - 
-      Flags: 0000
-      Languages_Touch: []
     - Term: Term 11
       TermType: 0
       Description: 
@@ -8736,6 +8728,124 @@ MonoBehaviour:
       Languages:
       - Tiger
       - "\u0422\u0438\u0433\u0440"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tutorial/ReachMine
+      TermType: 0
+      Description: 
+      Languages:
+      - Head to the Mine
+      - "\u041E\u0442\u043F\u0440\u0430\u0432\u043B\u044F\u0439\u0442\u0435\u0441\u044C
+        \u0432 \u0448\u0430\u0445\u0442\u0443"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tutorial/MineSand
+      TermType: 0
+      Description: 
+      Languages:
+      - Mine {0}/10 Sand
+      - "\u041E\u0442\u043B\u0438\u0447\u043D\u043E! \u0422\u0435\u043F\u0435\u0440\u044C
+        \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u044F\u0439\u0442\u0435\u0441\u044C
+        \u0432 \u043C\u0430\u0433\u0430\u0437\u0438\u043D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tutorial/GoToShop
+      TermType: 0
+      Description: 
+      Languages:
+      - Great! Now head to the Shop
+      - "\u041E\u0442\u043B\u0438\u0447\u043D\u043E! \u0422\u0435\u043F\u0435\u0440\u044C
+        \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u044F\u0439\u0442\u0435\u0441\u044C
+        \u0432 \u043C\u0430\u0433\u0430\u0437\u0438\u043D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tutorial/SellSand
+      TermType: 0
+      Description: 
+      Languages:
+      - Sell your Sand to earn Coins
+      - "\u041F\u0440\u043E\u0434\u0430\u0439\u0442\u0435 \u043F\u0435\u0441\u043E\u043A,
+        \u0447\u0442\u043E\u0431\u044B \u0437\u0430\u0440\u0430\u0431\u043E\u0442\u0430\u0442\u044C
+        \u043C\u043E\u043D\u0435\u0442\u044B"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tutorial/UpgradeInventory
+      TermType: 0
+      Description: 
+      Languages:
+      - Upgrade your Inventory
+      - "\u0423\u043B\u0443\u0447\u0448\u0438\u0442\u0435 \u0441\u0432\u043E\u0439
+        \u0438\u043D\u0432\u0435\u043D\u0442\u0430\u0440\u044C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tutorial/CollectGround
+      TermType: 0
+      Description: 
+      Languages:
+      - Collect {0}/5 Ground
+      - "\u0421\u043E\u0431\u0435\u0440\u0438\u0442\u0435 {0}/5 \u0437\u0435\u043C\u043B\u0438"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tutorial/CollectStone
+      TermType: 0
+      Description: 
+      Languages:
+      - Collect {0}/5 Stone
+      - "\u0421\u043E\u0431\u0435\u0440\u0438\u0442\u0435 {0}/5 \u043A\u0430\u043C\u043D\u044F"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tutorial/EarnCoins
+      TermType: 0
+      Description: 
+      Languages:
+      - Earn {0}/100 Coins
+      - "\u0417\u0430\u0440\u0430\u0431\u043E\u0442\u0430\u0439\u0442\u0435 {0}/100
+        \u043C\u043E\u043D\u0435\u0442"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tutorial/GoToPickaxeShop
+      TermType: 0
+      Description: 
+      Languages:
+      - Nice! Now head to the Pickaxe Shop
+      - "\u041E\u0442\u043B\u0438\u0447\u043D\u043E! \u0422\u0435\u043F\u0435\u0440\u044C
+        \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u044F\u0439\u0442\u0435\u0441\u044C
+        \u0432 \u043C\u0430\u0433\u0430\u0437\u0438\u043D \u043A\u0438\u0440\u043E\u043A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tutorial/BuyStonePickaxe
+      TermType: 0
+      Description: 
+      Languages:
+      - Buy the Stone Pickaxe
+      - "\u041A\u0443\u043F\u0438\u0442\u0435 \u043A\u0430\u043C\u0435\u043D\u043D\u0443\u044E
+        \u043A\u0438\u0440\u043A\u0443"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tutorial/EquipStonePickaxe
+      TermType: 0
+      Description: 
+      Languages:
+      - Equip the Stone Pickaxe
+      - "\u042D\u043A\u0438\u043F\u0438\u0440\u0443\u0439\u0442\u0435 \u043A\u0430\u043C\u0435\u043D\u043D\u0443\u044E
+        \u043A\u0438\u0440\u043A\u0443"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tasks
+      TermType: 0
+      Description: 
+      Languages:
+      - Tasks
+      - "\u0417\u0430\u0434\u0430\u043D\u0438\u044F"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tutorial/TutorialComplete
+      TermType: 0
+      Description: 
+      Languages:
+      - "Great job! You\u2019ve learned the basics."
+      - "\u041E\u0442\u043B\u0438\u0447\u043D\u0430\u044F \u0440\u0430\u0431\u043E\u0442\u0430!
+        \u0412\u044B \u043E\u0441\u0432\u043E\u0438\u043B\u0438 \u043E\u0441\u043D\u043E\u0432\u044B."
       Flags: 0000
       Languages_Touch: []
     - Term: Eggs

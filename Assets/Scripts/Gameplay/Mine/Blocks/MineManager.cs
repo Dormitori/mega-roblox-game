@@ -39,6 +39,7 @@ public class MineManager : MonoBehaviour
     private int _currentLevelDestroyedBlocks;
     private int _currentLevelBlocksCount;
     private int _currentGeneratedDeepLevel;
+    private int _currentDeepLevel;
     private List<Block> _nextLevelBlocks;
 
 
@@ -59,7 +60,9 @@ public class MineManager : MonoBehaviour
         _hpPopupPool = new ObjectPool<BlockHpPopup>(hpPopupPrefab, blocksParent, prewarm: 4);
 
         if (saveService.HasKey(SaveKeys.MineDeepLevel))
-            _currentGeneratedDeepLevel = saveService.Load<int>(SaveKeys.MineDeepLevel);
+            _currentDeepLevel = saveService.Load<int>(SaveKeys.MineDeepLevel);
+
+        _currentGeneratedDeepLevel = _currentDeepLevel;
 
         SaveTrigger.OnSave += SaveCurrentDeepLevel;
 
@@ -154,6 +157,7 @@ public class MineManager : MonoBehaviour
             _nextLevelBlocks = GenerateMineLevel();
             DisableBlocks(_nextLevelBlocks);
             _currentLevelDestroyedBlocks = 0;
+            _currentDeepLevel++;
         }
     }
 
@@ -356,6 +360,6 @@ public class MineManager : MonoBehaviour
 
     private void SaveCurrentDeepLevel()
     {
-        _saveService.Save(SaveKeys.MineDeepLevel, _currentGeneratedDeepLevel - 2);
+        _saveService.Save(SaveKeys.MineDeepLevel, _currentDeepLevel);
     }
 }

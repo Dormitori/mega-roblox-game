@@ -42,9 +42,9 @@ public class PlayerBlockInventory : MonoBehaviour
         Instantiate(notEnoughSpaceTextPrefab, textParent);
     }
     
-    private void OnBlocksChange(int amount)
+    private void OnBlocksChange()
     {
-        _currentBlockCount += amount;
+        _currentBlockCount = _inventory.GetAllBlockCount();
         if (!HasSpace)
             HasNoMoreSpace?.Invoke();
         BlockCountChanged?.Invoke();

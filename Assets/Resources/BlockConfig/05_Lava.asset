@@ -15,5 +15,6 @@ MonoBehaviour:
   type: 4
   icon: {fileID: 21300000, guid: 1d77cf5cf569d436e86023786006b336, type: 3}
   rarity: 
-  baseSellPrice: 32
+  baseSellPrice: 64
+  buyPriceMultiplier: 4
   health: 32

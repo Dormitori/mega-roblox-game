@@ -68,8 +68,6 @@ public class MineBlocks : MonoBehaviour
     private IEnumerator HitCoroutine()
     {
         _isHitting = true;
-        var targetBlock = CurrentBlock;
-        _audioService?.PlaySfx(SoundId.BlockHit, 1f, mineHitPitchJitterHalfRange);
 
         var hitSpeed = playerPickaxe.CurrentPickaxeConfig.baseSpeedMultiplier;
         var attackDuration = (config.beforeHitCooldown + config.afterHitCooldown) / hitSpeed;
@@ -82,19 +80,16 @@ public class MineBlocks : MonoBehaviour
         animator.SetTrigger("Attack");
         attackParticle.Play();
         yield return new WaitForSeconds(config.beforeHitCooldown / hitSpeed);
-        var isStillTargeting = false;
-        if (targetBlock != null && GetHit(out var hitNow) && hitNow.collider != null)
-        {
-            var blockNow = hitNow.collider.GetComponentInParent<Block>();
-            isStillTargeting = blockNow == targetBlock;
-        }
-
-        if (targetBlock && !targetBlock.IsDisabled && isStillTargeting)
+        
+        if (CurrentBlock != null)
         {
             var canMine = playerBlockInventory.HasSpace ||
-                          MineChestRules.IgnoresBackpackCapacity(targetBlock.InventoryBlockType);
+                          MineChestRules.IgnoresBackpackCapacity(CurrentBlock.InventoryBlockType);
             if (canMine)
-                targetBlock.TakeDamage(playerPickaxe.CurrentPickaxeConfig.baseDamage);
+            {
+                CurrentBlock.TakeDamage(playerPickaxe.CurrentPickaxeConfig.baseDamage);
+                _audioService?.PlaySfx(SoundId.BlockHit, 1f, mineHitPitchJitterHalfRange);
+            }
             else
                 playerBlockInventory.ShowNotEnoughSpaceText();
         }

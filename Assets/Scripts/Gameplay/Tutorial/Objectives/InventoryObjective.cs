@@ -43,6 +43,7 @@ public class InventoryObjective : ITutorialObjective
 
     public void Activate()
     {
+        CheckObjective();
         _inventory.BlocksChanged += CheckObjective;
         _inventory.BlocksChanged += OnObjectiveUpdate;
         _inventory.CurrencyChanged += CheckObjective;

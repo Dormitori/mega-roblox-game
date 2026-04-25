@@ -21,11 +21,15 @@ public class PickaxeObjective : ITutorialObjective
         return "• " + LocalizationManager.GetTranslation(_objectiveText);
     }
 
-    public void Activate() => _inventory.PickaxeBuy += CompleteObjective;
+    public void Activate()
+    {
+        TryCompleteObjective();
+        _inventory.PickaxeBuy += TryCompleteObjective;
+    }
 
-    public void Deactivate() => _inventory.PickaxeBuy -= CompleteObjective;
+    public void Deactivate() => _inventory.PickaxeBuy -= TryCompleteObjective;
 
-    private void CompleteObjective()
+    private void TryCompleteObjective()
     {
         if (_inventory.HasPickaxe(PickaxeType.PickaxeStone02))
             ObjectiveComplete?.Invoke();

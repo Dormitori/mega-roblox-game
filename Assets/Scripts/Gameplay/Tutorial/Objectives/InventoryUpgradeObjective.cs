@@ -22,15 +22,16 @@ public class InventoryUpgradeObjective : ITutorialObjective
 
     public void Activate()
     {
-        _inventory.BackpackCapacityChanged += CompleteObjective;
+        TryCompleteObjective();
+        _inventory.BackpackCapacityChanged += TryCompleteObjective;
     }
 
     public void Deactivate()
     {
-        _inventory.BackpackCapacityChanged -= CompleteObjective;
+        _inventory.BackpackCapacityChanged -= TryCompleteObjective;
     }
 
-    private void CompleteObjective()
+    private void TryCompleteObjective()
     {
         if (_inventory.GetBackpackCapacity() > 40)
             ObjectiveComplete?.Invoke();

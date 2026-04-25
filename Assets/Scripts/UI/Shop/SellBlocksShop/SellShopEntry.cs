@@ -18,7 +18,7 @@ public class SellShopEntry : MonoBehaviour
     public TextMeshProUGUI priceText;
     public Button sellButton;
     
-    public void SetResource(BlockType blockType, Sprite icon, string resourceName, int resourceCount, int totalSellValue)
+    public void SetResource(BlockType blockType, Sprite icon, string resourceName, int resourceCount, int totalSellValue, bool sellEnabled = true)
     {
         BlockType = blockType;
         ResourceCount = resourceCount;
@@ -29,6 +29,8 @@ public class SellShopEntry : MonoBehaviour
         resourceText.text = $"{resourceName}";
         countText.text = $"x{resourceCount}";
         priceText.text = $"{totalSellValue}";
+        
+        sellButton.interactable = sellEnabled;
         sellButton.onClick.AddListener(() => Sell?.Invoke(this));
     }
 }

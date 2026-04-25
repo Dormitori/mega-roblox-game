@@ -24,12 +24,14 @@ public class ReachDestinationObjective : ITutorialObjective
     {
         _reachDestinationTrigger.Reached += CompleteObjective;
         _reachDestinationTrigger.ShowFloatingArrow();
+        _reachDestinationTrigger.ShowGuideLine();
     }
 
     public void Deactivate()
     {
         _reachDestinationTrigger.Reached -= CompleteObjective;
         _reachDestinationTrigger.HideFloatingArrow();
+        _reachDestinationTrigger.HideGuideLine();
     }
 
     private void CompleteObjective()

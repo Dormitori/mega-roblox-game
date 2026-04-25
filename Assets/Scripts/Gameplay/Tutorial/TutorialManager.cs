@@ -13,6 +13,8 @@ public class TutorialManager : MonoBehaviour
 
     public List<ReachDestinationTrigger> ReachDestinationTriggers;
 
+    public bool TutorialIsCompleted { get; private set; }
+
     private int _currentObjectiveIndex;
     private List<ITutorialObjective> _tutorialObjectives;
     private Inventory _inventory;
@@ -58,7 +60,10 @@ public class TutorialManager : MonoBehaviour
             {
                 _currentObjectiveIndex = _saveService.Load<int>(SaveKeys.CurrentTutorialStep);
                 if (_currentObjectiveIndex >= _tutorialObjectives.Count)
+                {
+                    TutorialIsCompleted = true;
                     return;
+                }
             }
             else
                 _currentObjectiveIndex = 0;
@@ -83,16 +88,17 @@ public class TutorialManager : MonoBehaviour
 
         if (_currentObjectiveIndex >= _tutorialObjectives.Count)
         {
+            TutorialIsCompleted = true;
             TutorialCompleted?.Invoke();
             return;
         }
 
         CurrentObjective = _tutorialObjectives[_currentObjectiveIndex];
-        CurrentObjective.Activate();
-
         CurrentObjective.ObjectiveComplete += CompleteObjective;
         CurrentObjective.ObjectiveUpdated += UpdateObjective;
+
         ObjectiveComplete?.Invoke();
+        CurrentObjective.Activate();
     }
 
     private void UpdateObjective()

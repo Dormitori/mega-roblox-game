@@ -17,7 +17,7 @@ public class TutorialView : MonoBehaviour
 
     private readonly Queue<Action> _animationQueue = new();
     private bool _isPlayingAnimation = false;
-    
+
     private IAudioService _audioService;
 
     [Inject]
@@ -25,7 +25,7 @@ public class TutorialView : MonoBehaviour
     {
         _audioService = audioService;
     }
-    
+
     private void Start()
     {
         if (tutorialManager.CurrentObjective == null)
@@ -57,7 +57,7 @@ public class TutorialView : MonoBehaviour
             inventoryPointingImage.DOFade(1f, 0.5f);
         else
             inventoryPointingImage.DOFade(0f, 0.5f);
-        
+
         var nextObjectiveText = tutorialManager.CurrentObjective.GetObjectiveText();
         EnqueueAnimation(() => PlayObjectiveComplete(nextObjectiveText));
     }

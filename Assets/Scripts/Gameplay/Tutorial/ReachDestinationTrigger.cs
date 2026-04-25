@@ -7,6 +7,7 @@ public class ReachDestinationTrigger : MonoBehaviour
     
     public GameObject floatingArrowPrefab;
     public Transform floatingArrowTransform;
+    public GuideLine guideLine;
 
     private GameObject _floatingArrow;
     
@@ -25,5 +26,16 @@ public class ReachDestinationTrigger : MonoBehaviour
     {
         if (_floatingArrow != null)
             Destroy(_floatingArrow);
+    }
+
+    public void ShowGuideLine()
+    {
+        guideLine.SetTarget(transform);
+        guideLine.ShowGuideLine();
+    }
+
+    public void HideGuideLine()
+    {
+        guideLine.HideGuideLine();
     }
 }

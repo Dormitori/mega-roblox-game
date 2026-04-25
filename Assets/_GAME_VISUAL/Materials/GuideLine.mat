@@ -96,9 +96,9 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _ArrowHeight: 1.5
-    - _ArrowSize: 0.786
-    - _ArrowWidth: 0.905
+    - _ArrowHeight: 0.21
+    - _ArrowSize: 0.644
+    - _ArrowWidth: 0.694
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -108,7 +108,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _Direction: -1
+    - _Direction: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EdgeSoftness: 0.001
@@ -118,11 +118,11 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _Opacity: 1
+    - _Opacity: 0.638
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _ScrollSpeed: 4
+    - _ScrollSpeed: -0.7
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -139,3 +139,4 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1

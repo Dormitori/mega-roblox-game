@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core.Audio;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class SellShop : PopUpWindow
     public SellShopEntry shopEntryPrefab;
     public Transform shopEntriesTransform;
     public Button sellAllButton;
+    public TutorialManager tutorialManager;
 
     private List<BlockConfig> _blockConfigs;
     private Inventory _inventory;
@@ -41,12 +43,19 @@ public class SellShop : PopUpWindow
 
             var count = _inventory.GetBlockCount(blockConfig.type);
             var total = (int)Mathf.Min(int.MaxValue, _inventory.GetSellValueTotal(blockConfig.type));
+
+            var sellEnabled = true;
+            if (!tutorialManager.TutorialIsCompleted && new[] {BlockType.Ground, BlockType.Stone}.Contains(blockConfig.type))
+                sellEnabled = false;
+            
+            sellAllButton.interactable = sellEnabled;
             shopEntry.SetResource(
                 blockConfig.type,
                 blockConfig.icon,
                 blockConfig.LocalizedName,
                 count,
-                total
+                total,
+                sellEnabled
             );
             _shopEntries.Add(shopEntry);
             shopEntry.Sell += OnSell;

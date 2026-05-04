@@ -130,7 +130,7 @@ public class MineManager : MonoBehaviour
         if (MineChestRules.GrantsCrystalsOnly(block.InventoryBlockType))
         {
             _inventory.AddCurrency(CurrencyType.Crystals, 1);
-            _lootToast?.ShowText($"+1 {I2.Loc.LocalizationManager.GetTranslation("Crystals")}", null);
+            _lootToast?.AddCrystals(1);
         }
         else
         {

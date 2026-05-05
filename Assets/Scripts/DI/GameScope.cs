@@ -6,8 +6,14 @@ namespace DI
 {
     public class GameScope : LifetimeScope
     {
+        [UnityEngine.Header("Dev")]
+        [UnityEngine.SerializeField] private bool devGiveMinStartCoins = true;
+        [UnityEngine.SerializeField] private int devMinStartCoins = 5000;
+
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.RegisterInstance(new DevStartupSettings(devGiveMinStartCoins, devMinStartCoins));
+
             builder.Register<Inventory>(Lifetime.Singleton);
             builder.Register<PetProgressService>(Lifetime.Singleton);
             builder.Register<EggIncubatorService>(Lifetime.Singleton);

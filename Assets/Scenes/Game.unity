@@ -509870,7 +509870,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 441450610}
-  devGiveMinStartCoins: 1
+  devGiveMinStartCoins: 0
   devMinStartCoins: 5000
 --- !u!1 &2114872879
 GameObject:

@@ -13,7 +13,7 @@ public class MineBalanceConfig : ScriptableObject
     [Tooltip("HP = baseSandHp * pow(hpPerLevelMultiplier, depth)")]
     public float hpPerLevelMultiplier = 1.03f;
 
-    [Tooltip("Цена = baseSandSellPrice * pow(pricePerLevelMultiplier, depth)")]
+    [Tooltip("Цена руды = baseSandSellPrice * pow(pricePerLevelMultiplier, depth)")]
     public float pricePerLevelMultiplier = 1.045f;
 
     [Header("Руда")]
@@ -46,7 +46,7 @@ public class MineBalanceConfig : ScriptableObject
         return baseSandHp * Mathf.Pow(hpPerLevelMultiplier, depth);
     }
 
-    public float GetBaseSellPrice(int depth)
+    public float GetOreBaseSellPrice(int depth)
     {
         return baseSandSellPrice * Mathf.Pow(pricePerLevelMultiplier, depth);
     }
@@ -72,20 +72,27 @@ public class MineBalanceConfig : ScriptableObject
         if (terrainEntries == null || terrainEntries.Length == 0)
             return BlockType.Sand;
 
-        var weights = new float[terrainEntries.Length];
+        var eligible = terrainEntries
+            .Where(e => e != null && depth >= e.minDepth && (e.maxDepth <= 0 || depth <= e.maxDepth))
+            .ToArray();
+
+        if (eligible.Length == 0)
+            return BlockType.Sand;
+
+        var weights = new float[eligible.Length];
         var w = Mathf.Max(1f, spawnCenterFalloffWidth);
         float sum = 0f;
-        for (var i = 0; i < terrainEntries.Length; i++)
+        for (var i = 0; i < eligible.Length; i++)
         {
-            var d = Mathf.Abs(depth - terrainEntries[i].depthCenter);
+            var d = Mathf.Abs(depth - eligible[i].depthCenter);
             weights[i] = Mathf.Max(0f, 1f - d / w);
             sum += weights[i];
         }
 
         if (sum < 1e-6f)
         {
-            var ri = Mathf.Clamp(Mathf.FloorToInt(rng() * terrainEntries.Length), 0, terrainEntries.Length - 1);
-            return terrainEntries[ri].blockType;
+            var ri = Mathf.Clamp(Mathf.FloorToInt(rng() * eligible.Length), 0, eligible.Length - 1);
+            return eligible[ri].blockType;
         }
 
         var r = rng() * sum;
@@ -94,10 +101,10 @@ public class MineBalanceConfig : ScriptableObject
         {
             acc += weights[i];
             if (r <= acc)
-                return terrainEntries[i].blockType;
+                return eligible[i].blockType;
         }
 
-        return terrainEntries[^1].blockType;
+        return eligible[^1].blockType;
     }
 
     public bool TryPickOre(int depth, Func<float> rng, Predicate<BlockType> typeAllowed, out BlockType oreType)
@@ -124,9 +131,12 @@ public class MineBalanceConfig : ScriptableObject
         return Mathf.Max(1, Mathf.RoundToInt(hp));
     }
 
-    public int ComputeTerrainSellPrice(int depth, TerrainSpawnEntry terrain)
+    public int ComputeTerrainSellPrice(BlockConfig cfg, TerrainSpawnEntry terrain)
     {
-        var price = GetBaseSellPrice(depth) * (terrain != null ? terrain.sellPriceMultiplier : 1f);
+        // Обычная порода (sand/ground/stone/...) не растёт в цене от глубины.
+        // Чтобы темп экономики был похож на "как раньше", используем базовую цену из BlockConfig.
+        var basePrice = cfg != null ? cfg.baseSellPrice : baseSandSellPrice;
+        var price = basePrice * (terrain != null ? terrain.sellPriceMultiplier : 1f);
         return Mathf.Max(1, Mathf.RoundToInt(price));
     }
 
@@ -139,7 +149,7 @@ public class MineBalanceConfig : ScriptableObject
     public int ComputeOreSellPrice(int depth, OreSpawnEntry ore)
     {
         var mult = ore != null ? ore.sellPriceMultiplier : 1f;
-        var price = GetBaseSellPrice(depth) * mult;
+        var price = GetOreBaseSellPrice(depth) * mult;
         return Mathf.Max(1, Mathf.RoundToInt(price));
     }
 }
@@ -148,6 +158,9 @@ public class MineBalanceConfig : ScriptableObject
 public class TerrainSpawnEntry
 {
     public BlockType blockType;
+    public int minDepth;
+    [Tooltip("0 = без верхней границы")]
+    public int maxDepth;
     public float depthCenter;
     public float hpMultiplier = 1f;
     public float sellPriceMultiplier = 1f;

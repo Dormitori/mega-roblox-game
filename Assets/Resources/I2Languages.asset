@@ -8872,6 +8872,22 @@ MonoBehaviour:
       - "\u0412\u0437\u044F\u0442\u044C"
       Flags: 0000
       Languages_Touch: []
+    - Term: Tutorial/CollectSand
+      TermType: 0
+      Description: 
+      Languages:
+      - Collect sand {0}/10
+      - "\u0421\u043E\u0431\u0435\u0440\u0438 \u043F\u0435\u0441\u043E\u043A {0}/10"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tutorial/CollectCoal
+      TermType: 0
+      Description: 
+      Languages:
+      - Collect coal {0}/5
+      - "\u0421\u043E\u0431\u0435\u0440\u0438 \u0443\u0433\u043E\u043B\u044C {0}/5"
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

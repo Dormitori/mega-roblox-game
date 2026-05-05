@@ -54,6 +54,202 @@ public class PetEggIncubatorWorldController : MonoBehaviour
     private readonly string[] _lastEggId = new string[EggIncubatorService.SlotCount];
     private readonly bool[] _readyFxPlayed = new bool[EggIncubatorService.SlotCount];
 
+#if UNITY_EDITOR
+    [ContextMenu("Auto setup nests UI (create + wire)")]
+    private void Editor_AutoSetupNestsUi()
+    {
+        const int slotCount = EggIncubatorService.SlotCount;
+
+        UnityEditor.Undo.RecordObject(this, "Auto setup incubator nests UI");
+
+        if (nests == null || nests.Length != slotCount)
+        {
+            var prev = nests ?? Array.Empty<NestSlot>();
+            nests = new NestSlot[slotCount];
+            for (var i = 0; i < slotCount; i++)
+                nests[i] = i < prev.Length && prev[i] != null ? prev[i] : new NestSlot();
+        }
+
+        if (hatchRevealPopup == null)
+            hatchRevealPopup = FindFirstObjectByType<PetHatchRevealPopup>();
+
+        // World-space Canvas for prompts/buttons (so UI is actually visible)
+        var canvasT = transform.Find("IncubatorWorldCanvas");
+        GameObject canvasGo;
+        if (canvasT != null)
+            canvasGo = canvasT.gameObject;
+        else
+        {
+            canvasGo = new GameObject("IncubatorWorldCanvas", typeof(RectTransform));
+            UnityEditor.Undo.RegisterCreatedObjectUndo(canvasGo, "Create incubator world canvas");
+            canvasGo.transform.SetParent(transform, false);
+        }
+
+        var canvas = canvasGo.GetComponent<Canvas>();
+        if (canvas == null) canvas = UnityEditor.Undo.AddComponent<Canvas>(canvasGo);
+        canvas.renderMode = RenderMode.WorldSpace;
+
+        var raycaster = canvasGo.GetComponent<GraphicRaycaster>();
+        if (raycaster == null) raycaster = UnityEditor.Undo.AddComponent<GraphicRaycaster>(canvasGo);
+
+        var canvasRt = canvasGo.GetComponent<RectTransform>();
+        canvasRt.sizeDelta = new Vector2(600f, 600f);
+        if (canvasRt.localScale.sqrMagnitude < 1e-6f)
+            canvasRt.localScale = Vector3.one * 0.01f;
+
+        for (var i = 0; i < slotCount; i++)
+        {
+            var n = nests[i] ??= new NestSlot();
+            if (n.slotIndex < 0 || n.slotIndex >= slotCount) n.slotIndex = i;
+            if (n.interactRadius <= 0.01f) n.interactRadius = 2.8f;
+
+            var root = FindOrCreateChild(canvasGo.transform, $"Nest{i}_UI");
+            var rootRt = root.GetComponent<RectTransform>();
+            if (rootRt == null) rootRt = UnityEditor.Undo.AddComponent<RectTransform>(root.gameObject);
+            rootRt.sizeDelta = new Vector2(240f, 120f);
+
+            // If eggAnchor is set, place UI near it for convenience
+            if (root != null && n.eggAnchor != null)
+            {
+                try
+                {
+                    root.position = n.eggAnchor.position + Vector3.up * 0.35f;
+                    root.rotation = Quaternion.identity;
+                }
+                catch (MissingReferenceException)
+                {
+                    // В nests мог остаться "битый" Transform (удалённый объект в сцене).
+                    // Не мешаем автосетапу — просто сбрасываем ссылку.
+                    n.eggAnchor = null;
+                }
+            }
+            var place = FindOrCreateChild(root, "PlacePromptRoot");
+            var incubating = FindOrCreateChild(root, "IncubatingRoot");
+            var ready = FindOrCreateChild(root, "ReadyRoot");
+
+            n.placePromptRoot = place.gameObject;
+            n.incubatingRoot = incubating.gameObject;
+            n.readyRoot = ready.gameObject;
+
+            // Place prompt
+            var placeBtn = FindOrCreateUIButton(place, "PlaceEggButton", "PLACE");
+            n.placeEggButton = placeBtn;
+
+            // Incubating
+            var timer = FindOrCreateTmp(incubating, "TimerText", "00:00");
+            n.timerText = timer;
+
+            var speedRoot = FindOrCreateChild(incubating, "SpeedUpsRoot");
+            n.speedUpsRoot = speedRoot.gameObject;
+
+            var adBtn = FindOrCreateUIButton(speedRoot, "AdSpeedButton", "AD");
+            var crBtn = FindOrCreateUIButton(speedRoot, "CrystalSpeedButton", "CRYSTAL");
+            n.adSpeedButton = adBtn;
+            n.crystalSpeedButton = crBtn;
+
+            // Ready
+            var readyText = FindOrCreateTmp(ready, "ReadyText", "Готово");
+            n.readyText = readyText;
+            var openBtn = FindOrCreateUIButton(ready, "OpenHatchUiButton", "OPEN");
+            n.openHatchUiButton = openBtn;
+
+            // Default visibility (не обязательно, но удобно)
+            place.gameObject.SetActive(false);
+            incubating.gameObject.SetActive(false);
+            ready.gameObject.SetActive(false);
+        }
+
+        UnityEditor.EditorUtility.SetDirty(this);
+    }
+
+    private static Transform FindOrCreateChild(Transform parent, string name)
+    {
+        // parent может быть "Missing" (уничтоженный объект в сцене, но ссылка осталась).
+        // В этом случае просто создаём объект без parent, чтобы не падать.
+        if (parent == null)
+            return new GameObject(name).transform;
+
+        var t = parent.Find(name);
+        if (t != null) return t;
+
+        var go = new GameObject(name);
+        UnityEditor.Undo.RegisterCreatedObjectUndo(go, "Create incubator UI object");
+        go.transform.SetParent(parent, false);
+        return go.transform;
+    }
+
+    private static Button FindOrCreateUIButton(Transform parent, string name, string label)
+    {
+        if (parent == null)
+        {
+            var orphan = new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button));
+            var tmpOrphan = orphan.AddComponent<TextMeshProUGUI>();
+            tmpOrphan.text = label;
+            tmpOrphan.alignment = TextAlignmentOptions.Center;
+            return orphan.GetComponent<Button>();
+        }
+
+        var t = parent.Find(name);
+        GameObject go;
+        if (t != null)
+            go = t.gameObject;
+        else
+        {
+            go = new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button));
+            UnityEditor.Undo.RegisterCreatedObjectUndo(go, "Create incubator UI button");
+            go.transform.SetParent(parent, false);
+        }
+
+        var img = go.GetComponent<Image>();
+        if (img != null && img.color.a < 0.1f) img.color = new Color(1f, 1f, 1f, 0.15f);
+
+        // Label (TMP)
+        var labelT = go.transform.Find("Label");
+        if (labelT == null)
+        {
+            var labelGo = new GameObject("Label", typeof(RectTransform));
+            UnityEditor.Undo.RegisterCreatedObjectUndo(labelGo, "Create incubator UI label");
+            labelGo.transform.SetParent(go.transform, false);
+            labelT = labelGo.transform;
+        }
+        var tmp = labelT.GetComponent<TextMeshProUGUI>();
+        if (tmp == null) tmp = UnityEditor.Undo.AddComponent<TextMeshProUGUI>(labelT.gameObject);
+        tmp.text = label;
+        tmp.alignment = TextAlignmentOptions.Center;
+
+        return go.GetComponent<Button>();
+    }
+
+    private static TextMeshProUGUI FindOrCreateTmp(Transform parent, string name, string text)
+    {
+        if (parent == null)
+        {
+            var orphan = new GameObject(name, typeof(RectTransform));
+            var tmpOrphan = orphan.AddComponent<TextMeshProUGUI>();
+            tmpOrphan.text = text;
+            tmpOrphan.alignment = TextAlignmentOptions.Center;
+            return tmpOrphan;
+        }
+
+        var t = parent.Find(name);
+        GameObject go;
+        if (t != null)
+            go = t.gameObject;
+        else
+        {
+            go = new GameObject(name, typeof(RectTransform));
+            UnityEditor.Undo.RegisterCreatedObjectUndo(go, "Create incubator TMP text");
+            go.transform.SetParent(parent, false);
+        }
+
+        var tmp = go.GetComponent<TextMeshProUGUI>();
+        if (tmp == null) tmp = UnityEditor.Undo.AddComponent<TextMeshProUGUI>(go);
+        tmp.text = text;
+        tmp.alignment = TextAlignmentOptions.Center;
+        return tmp;
+    }
+#endif
+
     [Inject]
     public void Construct(
         EggIncubatorService incubator,

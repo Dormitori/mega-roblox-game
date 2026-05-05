@@ -42,10 +42,10 @@ public class TutorialManager : MonoBehaviour
             new InventoryObjective(
                 new()
                 {
-                    [BlockType.Ground] = "Tutorial/CollectGround",
-                    [BlockType.Stone] = "Tutorial/CollectStone"
+                    [BlockType.Sand] = "Tutorial/CollectSand",
+                    [BlockType.OreCoal] = "Tutorial/CollectCoal"
                 },
-                new() { [BlockType.Ground] = 5, [BlockType.Stone] = 5 },
+                new() { [BlockType.Sand] = 10, [BlockType.OreCoal] = 5 },
                 new() { [CurrencyType.Coins] = "Tutorial/EarnCoins" },
                 new() { [CurrencyType.Coins] = 100 }, _inventory
             ),

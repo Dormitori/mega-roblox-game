@@ -19,8 +19,8 @@ MonoBehaviour:
   jumpBufferTime: 0.15
   coyoteTime: 0.1
   rotationSpeed: 10
-  beforeHitCooldown: 0.4
-  afterHitCooldown: 0.5
+  beforeHitCooldown: 0.25
+  afterHitCooldown: 0.25
   attackAnimationClipLengthSeconds: 0.967
   attackAnimatorStateSpeedMultiplier: 1.5
   miningAttackMovementTail: 0

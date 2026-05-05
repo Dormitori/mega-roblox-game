@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a9f3e84c7d4156a8b9c0d1e2f3a4b5, type: 3}
   m_Name: MineBalanceConfig
   m_EditorClassIdentifier: Assembly-CSharp::MineBalanceConfig
-  baseSandHp: 3
+  baseSandHp: 10
   baseSandSellPrice: 2
   hpPerLevelMultiplier: 1.03
   pricePerLevelMultiplier: 1.045
@@ -23,26 +23,38 @@ MonoBehaviour:
   spawnCenterFalloffWidth: 110
   terrainEntries:
   - blockType: 0
+    minDepth: 0
+    maxDepth: 60
     depthCenter: 0
     hpMultiplier: 1
     sellPriceMultiplier: 1
   - blockType: 1
+    minDepth: 61
+    maxDepth: 120
     depthCenter: 80
     hpMultiplier: 1.2
     sellPriceMultiplier: 1.2
   - blockType: 2
+    minDepth: 121
+    maxDepth: 220
     depthCenter: 145
     hpMultiplier: 1.5
     sellPriceMultiplier: 1.6
   - blockType: 3
+    minDepth: 221
+    maxDepth: 340
     depthCenter: 280
     hpMultiplier: 1.9
     sellPriceMultiplier: 2.1
   - blockType: 4
+    minDepth: 341
+    maxDepth: 420
     depthCenter: 380
     hpMultiplier: 2.4
     sellPriceMultiplier: 2.8
   - blockType: 5
+    minDepth: 421
+    maxDepth: 0
     depthCenter: 460
     hpMultiplier: 3
     sellPriceMultiplier: 4

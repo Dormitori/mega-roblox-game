@@ -25,6 +25,7 @@ public class MineManager : MonoBehaviour
     private MineConfig _config;
     private ConfigManager<BlockConfig> _blockConfigs;
     private Dictionary<BlockType, Dictionary<int, ObjectPool<Block>>> _blocksPools = new();
+    private readonly HashSet<BlockType> _loggedVisualFallback = new();
     private ObjectPool<ParticleSystem> _destroyParticlesPool;
     private ObjectPool<BlockHpPopup> _hpPopupPool;
     private Inventory _inventory;
@@ -281,7 +282,7 @@ public class MineManager : MonoBehaviour
         else
         {
             hp = balanceConfig.ComputeTerrainHp(deepLevel, terrainEntry);
-            price = balanceConfig.ComputeTerrainSellPrice(deepLevel, terrainEntry);
+            price = balanceConfig.ComputeTerrainSellPrice(cfg, terrainEntry);
         }
 
         var visual = ResolveVisualBlockType(logical);
@@ -326,9 +327,19 @@ public class MineManager : MonoBehaviour
         {
             var fb = balanceConfig.fallbackVisualBlockType;
             if (_blocksPools.ContainsKey(fb) && _blocksPools[fb].Count > 0)
+            {
+#if UNITY_EDITOR
+                if (_loggedVisualFallback.Add(logical))
+                    Debug.LogWarning($"[MineManager] Visual fallback: no prefab pool for {logical}, using {fb} (fallbackVisualBlockType).");
+#endif
                 return fb;
+            }
         }
 
+#if UNITY_EDITOR
+        if (_loggedVisualFallback.Add(logical))
+            Debug.LogWarning($"[MineManager] Visual fallback: no prefab pool for {logical}, using first available: {_blocksPools.Keys.FirstOrDefault()}.");
+#endif
         return _blocksPools.Keys.First();
     }
 

@@ -19,7 +19,7 @@ MonoBehaviour:
   baseSpeedMultiplier: 1.1
   price: 100
   requirements:
-  - blockType: 1
+  - blockType: 0
+    count: 10
+  - blockType: 6
     count: 5
-  - blockType: 2
-    count: 4

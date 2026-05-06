@@ -109,7 +109,7 @@ public static class PetEggContentGenerator
         EnsureTerm(src, "SPEED_UP", "Speed up", "Ускорить", en, ru);
 
         EnsureTerm(src, "Tutorial/CollectSand", "Collect sand {0}/10", "Собери песок {0}/10", en, ru);
-        EnsureTerm(src, "Tutorial/CollectCoal", "Collect coal {0}/5", "Собери уголь {0}/5", en, ru);
+        EnsureTerm(src, "Tutorial/CollectCoal", "Collect coal {0}/2", "Собери уголь {0}/2", en, ru);
 
         EnsureTerm(src, "Eggs/Simple", "Simple egg", "Простое яйцо", en, ru);
         EnsureTerm(src, "Eggs/Rare", "Rare egg", "Редкое яйцо", en, ru);

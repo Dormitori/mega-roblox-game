@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -120,8 +121,17 @@ public class MineBalanceConfig : ScriptableObject
         if (eligible.Length == 0)
             return false;
 
-        var idx = Mathf.Clamp(Mathf.FloorToInt(rng() * eligible.Length), 0, eligible.Length - 1);
-        oreType = eligible[idx].blockType;
+        var weights = new List<int>(eligible.Length);
+        var types = new List<BlockType>(eligible.Length);
+        foreach (var e in eligible)
+        {
+            var w = e != null ? e.weight : 0;
+            if (w <= 0) w = 1;
+            weights.Add(w);
+            types.Add(e.blockType);
+        }
+
+        oreType = RandomUtils.WeightedRandom(weights, types);
         return true;
     }
 
@@ -171,5 +181,6 @@ public class OreSpawnEntry
 {
     public BlockType blockType;
     public int minDepth;
+    public int weight = 10;
     public float sellPriceMultiplier = 3f;
 }

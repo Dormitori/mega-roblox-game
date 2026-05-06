@@ -17,82 +17,94 @@ MonoBehaviour:
   hpPerLevelMultiplier: 1.03
   pricePerLevelMultiplier: 1.045
   oreHpMultiplierVsDepthBase: 1.8
-  oreChanceBase: 0.1
+  oreChanceBase: 0.13
   oreChancePerDepth: 0.0001
-  oreChanceMax: 0.25
+  oreChanceMax: 0.3
   spawnCenterFalloffWidth: 110
   terrainEntries:
   - blockType: 0
     minDepth: 0
-    maxDepth: 60
+    maxDepth: 20
     depthCenter: 0
     hpMultiplier: 1
     sellPriceMultiplier: 1
   - blockType: 1
-    minDepth: 61
-    maxDepth: 120
-    depthCenter: 80
+    minDepth: 21
+    maxDepth: 40
+    depthCenter: 30
     hpMultiplier: 1.2
     sellPriceMultiplier: 1.2
   - blockType: 2
-    minDepth: 121
-    maxDepth: 220
-    depthCenter: 145
+    minDepth: 41
+    maxDepth: 70
+    depthCenter: 55
     hpMultiplier: 1.5
     sellPriceMultiplier: 1.6
   - blockType: 3
-    minDepth: 221
-    maxDepth: 340
-    depthCenter: 280
+    minDepth: 71
+    maxDepth: 100
+    depthCenter: 85
     hpMultiplier: 1.9
     sellPriceMultiplier: 2.1
   - blockType: 4
-    minDepth: 341
-    maxDepth: 420
-    depthCenter: 380
+    minDepth: 101
+    maxDepth: 130
+    depthCenter: 115
     hpMultiplier: 2.4
     sellPriceMultiplier: 2.8
   - blockType: 5
-    minDepth: 421
+    minDepth: 131
     maxDepth: 0
-    depthCenter: 460
+    depthCenter: 145
     hpMultiplier: 3
     sellPriceMultiplier: 4
   oreEntries:
   - blockType: 6
     minDepth: 0
+    weight: 45
     sellPriceMultiplier: 3
   - blockType: 7
-    minDepth: 30
+    minDepth: 2
+    weight: 35
     sellPriceMultiplier: 4
   - blockType: 8
-    minDepth: 70
+    minDepth: 8
+    weight: 28
     sellPriceMultiplier: 5
   - blockType: 9
-    minDepth: 120
+    minDepth: 20
+    weight: 24
     sellPriceMultiplier: 6
   - blockType: 10
-    minDepth: 180
+    minDepth: 30
+    weight: 22
     sellPriceMultiplier: 8
   - blockType: 11
-    minDepth: 240
+    minDepth: 45
+    weight: 20
     sellPriceMultiplier: 10
   - blockType: 12
-    minDepth: 300
+    minDepth: 60
+    weight: 18
     sellPriceMultiplier: 13
   - blockType: 13
-    minDepth: 350
+    minDepth: 75
+    weight: 16
     sellPriceMultiplier: 16
   - blockType: 14
-    minDepth: 400
+    minDepth: 90
+    weight: 14
     sellPriceMultiplier: 20
   - blockType: 15
-    minDepth: 430
+    minDepth: 105
+    weight: 12
     sellPriceMultiplier: 25
   - blockType: 16
-    minDepth: 460
+    minDepth: 120
+    weight: 10
     sellPriceMultiplier: 32
   - blockType: 17
-    minDepth: 480
+    minDepth: 135
+    weight: 8
     sellPriceMultiplier: 40
   fallbackVisualBlockType: 2

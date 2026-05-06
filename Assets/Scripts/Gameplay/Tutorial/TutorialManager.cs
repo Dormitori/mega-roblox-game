@@ -45,7 +45,7 @@ public class TutorialManager : MonoBehaviour
                     [BlockType.Sand] = "Tutorial/CollectSand",
                     [BlockType.OreCoal] = "Tutorial/CollectCoal"
                 },
-                new() { [BlockType.Sand] = 10, [BlockType.OreCoal] = 5 },
+                new() { [BlockType.Sand] = 10, [BlockType.OreCoal] = 2 },
                 new() { [CurrencyType.Coins] = "Tutorial/EarnCoins" },
                 new() { [CurrencyType.Coins] = 100 }, _inventory
             ),

@@ -20,6 +20,6 @@ MonoBehaviour:
   price: 1500000
   requirements:
   - blockType: 17
-    count: 25
+    count: 9
   - blockType: 16
-    count: 20
+    count: 18

@@ -8882,8 +8882,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Collect coal {0}/5
-      - "\u0421\u043E\u0431\u0435\u0440\u0438 \u0443\u0433\u043E\u043B\u044C {0}/5"
+      - Collect coal {0}/2
+      - "\u0421\u043E\u0431\u0435\u0440\u0438 \u0443\u0433\u043E\u043B\u044C {0}/2"
       Flags: 0000
       Languages_Touch: []
     CaseInsensitiveTerms: 0

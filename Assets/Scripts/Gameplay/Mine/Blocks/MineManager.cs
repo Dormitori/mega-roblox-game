@@ -20,6 +20,8 @@ public class MineManager : MonoBehaviour
 
     public ParticleSystem destroyParticles;
     public float destroyParticlesDuration;
+    public ParticleSystem hitParticles;
+    public float hitParticlesDuration = 0.25f;
     public BlockHpPopup hpPopupPrefab;
 
     private MineConfig _config;
@@ -27,6 +29,7 @@ public class MineManager : MonoBehaviour
     private Dictionary<BlockType, Dictionary<int, ObjectPool<Block>>> _blocksPools = new();
     private readonly HashSet<BlockType> _loggedVisualFallback = new();
     private ObjectPool<ParticleSystem> _destroyParticlesPool;
+    private ObjectPool<ParticleSystem> _hitParticlesPool;
     private ObjectPool<BlockHpPopup> _hpPopupPool;
     private Inventory _inventory;
     private IAudioService _audioService;
@@ -57,6 +60,8 @@ public class MineManager : MonoBehaviour
         _config = mineConfig;
         _cubeRotations = GetUpwardRotations();
         _destroyParticlesPool = new ObjectPool<ParticleSystem>(destroyParticles, blocksParent);
+        if (hitParticles != null)
+            _hitParticlesPool = new ObjectPool<ParticleSystem>(hitParticles, blocksParent, prewarm: 6);
 
         _hpPopupPool = new ObjectPool<BlockHpPopup>(hpPopupPrefab, blocksParent, prewarm: 4);
 
@@ -118,6 +123,9 @@ public class MineManager : MonoBehaviour
 
     private void OnBlockDamaged(Block block, int remaining, int maxHp)
     {
+        if (_hitParticlesPool != null)
+            StartCoroutine(PlayAndKillHitParticle(block.transform.position));
+
         if (_hpPopupPool == null) return;
         var popup = _hpPopupPool.Rent();
         if (popup == null) return;
@@ -172,6 +180,16 @@ public class MineManager : MonoBehaviour
         yield return new WaitForSeconds(destroyParticlesDuration);
         particle.Stop();
         _destroyParticlesPool.Return(particle);
+    }
+
+    private IEnumerator PlayAndKillHitParticle(Vector3 worldPos)
+    {
+        var particle = _hitParticlesPool.Rent();
+        particle.transform.position = worldPos;
+        particle.Play();
+        yield return new WaitForSeconds(Mathf.Max(0.01f, hitParticlesDuration));
+        particle.Stop();
+        _hitParticlesPool.Return(particle);
     }
 
     private BlockConfig ConfigFor(BlockType type) =>

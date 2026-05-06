@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a9f3e84c7d4156a8b9c0d1e2f3a4b5, type: 3}
   m_Name: MineBalanceConfig
   m_EditorClassIdentifier: Assembly-CSharp::MineBalanceConfig
-  baseSandHp: 10
+  baseSandHp: 8
   baseSandSellPrice: 2
   hpPerLevelMultiplier: 1.03
   pricePerLevelMultiplier: 1.045

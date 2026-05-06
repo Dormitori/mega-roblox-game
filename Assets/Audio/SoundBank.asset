@@ -33,7 +33,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: a9bb5afabdbe843548d3421375ef008e, type: 3}
   - id: 7
     clips:
-    - {fileID: 8300000, guid: c7cea3c5c612c134c8ec98d4e58b7ac6, type: 3}
+    - {fileID: 8300000, guid: 8b8329e212823424fa62a0899abd3e3b, type: 3}
   - id: 3
     clips:
     - {fileID: 8300000, guid: 38038726f12f54b02b32184389ac139e, type: 3}

@@ -33,6 +33,7 @@ public class ReturnButton : MonoBehaviour
         playerTransform.transform.position = respawnTransform.position;
         playerTransform.transform.rotation = respawnTransform.rotation;
         characterController.enabled = true;
+        PlayerTeleportBus.Raise(respawnTransform.position, respawnTransform.rotation);
         HideButton();
     }
 }

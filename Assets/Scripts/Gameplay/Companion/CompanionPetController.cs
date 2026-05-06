@@ -15,6 +15,13 @@ public class CompanionPetController : MonoBehaviour
     [SerializeField] private float stopDistanceNearPlayer = 1.2f;
     [SerializeField] private float stopDistanceNearAnchor = 0.35f;
     [SerializeField] private float gravity = -25f;
+
+    [Header("Failsafe warp")]
+    [SerializeField] private bool enableFailsafeWarp = true;
+    [SerializeField] private float warpDistance = 14f;
+    [SerializeField] private float warpVerticalDelta = 6f;
+    [SerializeField] private float warpAfterSeconds = 1.25f;
+    [SerializeField] private float warpGroundSnapRay = 6f;
     
     [SerializeField] private LayerMask obstacleLayers = ~0;
     [SerializeField, Range(0.05f, 0.5f)] private float obstacleProbeRadius = 0.25f;
@@ -36,6 +43,7 @@ public class CompanionPetController : MonoBehaviour
         animator = newAnimator;
     }
     private float _verticalVelocity;
+    private float _farTimer;
 
     [Inject]
     private void Construct(CharacterMovement playerMovement)
@@ -47,6 +55,16 @@ public class CompanionPetController : MonoBehaviour
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
+    }
+
+    private void OnEnable()
+    {
+        PlayerTeleportBus.Teleported += OnPlayerTeleported;
+    }
+
+    private void OnDisable()
+    {
+        PlayerTeleportBus.Teleported -= OnPlayerTeleported;
     }
 
     private void Start()
@@ -62,6 +80,9 @@ public class CompanionPetController : MonoBehaviour
         if (!followTarget)
             return;
 
+        if (enableFailsafeWarp)
+            UpdateFailsafeWarp();
+
         UpdateVerticalVelocity();
 
         var inMine = CompanionMineState.OverlapCount > 0;
@@ -73,6 +94,57 @@ public class CompanionPetController : MonoBehaviour
         MoveTowards(targetPos, stopDist);
         UpdateAnimator();
         SnapToGroundIfClose();
+    }
+
+    private void OnPlayerTeleported(Vector3 pos, Quaternion rot)
+    {
+        WarpNearFollowTarget();
+    }
+
+    private void UpdateFailsafeWarp()
+    {
+        if (followTarget == null)
+            return;
+
+        var playerPos = followTarget.position;
+        var petPos = transform.position;
+
+        var planarDist = Vector3.Distance(new Vector3(petPos.x, 0f, petPos.z), new Vector3(playerPos.x, 0f, playerPos.z));
+        var verticalDelta = playerPos.y - petPos.y;
+
+        var tooFar = planarDist > warpDistance || verticalDelta > warpVerticalDelta;
+        if (!tooFar)
+        {
+            _farTimer = 0f;
+            return;
+        }
+
+        _farTimer += Time.deltaTime;
+        if (_farTimer >= warpAfterSeconds)
+        {
+            _farTimer = 0f;
+            WarpNearFollowTarget();
+        }
+    }
+
+    private void WarpNearFollowTarget()
+    {
+        if (followTarget == null || _characterController == null)
+            return;
+
+        var dst = GetFollowWorldPosition();
+
+        // Snap to ground to avoid warping mid-air.
+        if (Physics.Raycast(dst + Vector3.up * 2f, Vector3.down, out var hit, warpGroundSnapRay, groundLayers,
+                QueryTriggerInteraction.Ignore))
+        {
+            dst.y = hit.point.y + groundSkin;
+        }
+
+        _characterController.enabled = false;
+        transform.SetPositionAndRotation(dst, transform.rotation);
+        _characterController.enabled = true;
+        _verticalVelocity = -2f;
     }
 
     private void UpdateAnimator()

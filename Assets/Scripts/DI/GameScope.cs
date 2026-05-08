@@ -18,6 +18,7 @@ namespace DI
             builder.Register<PetProgressService>(Lifetime.Singleton);
             builder.Register<EggIncubatorService>(Lifetime.Singleton);
             builder.Register<PetEquipService>(Lifetime.Singleton);
+            builder.Register<PetStatService>(Lifetime.Singleton);
             
             builder.Register<ConfigManager<BlockConfig>>(Lifetime.Singleton);
             builder.Register<ConfigManager<PickaxeConfig>>(Lifetime.Singleton);

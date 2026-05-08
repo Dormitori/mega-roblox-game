@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da5bf97458c46ca83c93bd97ef0f035, type: 3}
+  m_Name: MineConfig
+  m_EditorClassIdentifier: Assembly-CSharp::MineConfig
+  blockPrefabs:
+  - {fileID: 4298407955942950256, guid: 7352e9e4e300ae34bae5be5828840ef6, type: 3}
+  - {fileID: 7219410739516017933, guid: c27a3a01668fea640b28323333f6edac, type: 3}
+  - {fileID: 4345492621026120539, guid: c5f37fb58ad694119ba0485362db33e5, type: 3}
+  - {fileID: 8061760928387110963, guid: 9b2949e47ab524c2092487a8517f129e, type: 3}
+  - {fileID: 8982875132992817383, guid: dc2107fe0c3aa46fa97434cfed540a14, type: 3}
+  - {fileID: 5838325090604995398, guid: 4dc81f1a1ef814005ab10d2907c0ac6d, type: 3}
+  - {fileID: -8166843958664593278, guid: a1376f40ddc7a451486b1dd75931e955, type: 3}
+  - {fileID: -4912222688529255258, guid: 30a9ff00cddf048ce87584b2c22c0e5e, type: 3}
+  - {fileID: -1554140835062457918, guid: 4a7dafd9829d245ad9ef127661f79faf, type: 3}
+  - {fileID: 4080043920325624243, guid: 4f4d24421ec954db6ae47aebcc8a783c, type: 3}
+  - {fileID: 2232334685638009533, guid: 7d37894329a8140309a8e2b4deb06b5d, type: 3}
+  - {fileID: 778580903184476282, guid: 641d50295c52940f1a1a5f5ff20cf5cb, type: 3}
+  - {fileID: 4437489390464133370, guid: 8603b569a120b4a198d1719c1bba5dc8, type: 3}
+  - {fileID: 933495771361224171, guid: 9ddd2716f6b9a401ea34c8c7fe598103, type: 3}
+  - {fileID: 6294172704446801590, guid: 8d9f4910dfae6468b972abad147d795b, type: 3}
+  - {fileID: 3723753270484699576, guid: a1f63dbc071de43998fa1e86233d0b05, type: 3}
+  - {fileID: 2029623362778841167, guid: 0e60fe4eb94f44d56961381d279e18c0, type: 3}
+  - {fileID: 5887528091558731250, guid: 24370bee7ccb14afebf843fba5670638, type: 3}
+  - {fileID: 5217370106509174287, guid: 9ba69931f37f44689b01aac75677d749, type: 3}
+  - {fileID: 1512317364817109391, guid: 0105d153d6b6f4042ba2eae72a28e027, type: 3}
+  - {fileID: 7378795883727244253, guid: 3f647608c19304ee7a5709ce88c0770a, type: 3}
+  - {fileID: 1667052078055350961, guid: 20361b5b370ff4526aa1ede6fc5850a1, type: 3}
+  - {fileID: 870273763806565802, guid: 0f52756bb8e5f4e70b6a63fda1f65fd4, type: 3}
+  - {fileID: 3699938531686935631, guid: 59d954b9753ea4b64a574edf0a0ffd24, type: 3}
+  - {fileID: 8471399360740957489, guid: e1a3833d3a6c548d4ad9a7aa118a6cc0, type: 3}
+  - {fileID: 712329893665006890, guid: 7d0b71ab7b0b14cb8a2f8520ed6b20b9, type: 3}
+  - {fileID: 2975077666122581284, guid: e4c6775c402a4450191de8395b4296ab, type: 3}
+  - {fileID: 2444910640988099978, guid: 22b6147d01c5b402aba21b94f839dda7, type: 3}
+  - {fileID: 610306916543790232, guid: a6f5ec693f50a4ee29798e5f8d716483, type: 3}
+  - {fileID: 8533546324355382945, guid: 6a9c22c6f71ee4216b13aeeb77478926, type: 3}
+  - {fileID: 1504223104033806641, guid: 14ad418de7a004b89afb8da84dfa2016, type: 3}
+  - {fileID: 719476859906496100, guid: 21054aa0e0d874c699f434c569c2a768, type: 3}
+  - {fileID: 676976630130926890, guid: 9135ac2da51324e70bc255b2e10cce2f, type: 3}
+  - {fileID: 5785081300966840042, guid: 5a987a62cf2d146f18ab58e524223e62, type: 3}
+  - {fileID: 2319974049778755863, guid: ae018b2eb36624054ae9341219f582e3, type: 3}
+  - {fileID: 1664374346748746770, guid: bb37fb90f96fc432fa4d9fd48471ae83, type: 3}
+  - {fileID: 528177866691514525, guid: 073a55ca28cee4bb9a96da3e4ea0d4a1, type: 3}
+  - {fileID: 1432366925450233643, guid: d6b4ee5200a5c41a8a50b71e0dc5891c, type: 3}
+  - {fileID: 2160171172313681698, guid: 8445bdb2fa13b4fc6ae130d50b7f4129, type: 3}
+  mineLevelsConfig:
+  - startLevel: 0
+    endLevel: 5
+    blockProbabilities:
+    - blockType: 0
+      probability: 80
+      minVariant: 1
+      maxVariant: 5
+    - blockType: 6
+      probability: 20
+      minVariant: 1
+      maxVariant: 1
+  - startLevel: 6
+    endLevel: 10
+    blockProbabilities:
+    - blockType: 0
+      probability: 90
+      minVariant: 1
+      maxVariant: 5
+    - blockType: 7
+      probability: 10
+      minVariant: 1
+      maxVariant: 1
+  chestSpawns:
+    enabled: 1
+    minDepth: 1
+    chancePerBlock: 0.012
+    entries:
+    - blockType: 18
+      weight: 48
+    - blockType: 19
+      weight: 28
+    - blockType: 20
+      weight: 16
+    - blockType: 21
+      weight: 8
+  mineSize: 6
+  yBlockSize: 1
+  xBlockSize: 1
+  zBlockSize: 1

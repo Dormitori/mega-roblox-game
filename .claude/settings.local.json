@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem *)",
+      "mcp__unity-mcp__manage_gameobject",
+      "mcp__unity-mcp__manage_prefabs",
+      "mcp__unity-mcp__read_console"
+    ]
+  }
+}

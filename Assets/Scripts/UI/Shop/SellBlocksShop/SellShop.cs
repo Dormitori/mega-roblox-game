@@ -15,6 +15,7 @@ public class SellShop : PopUpWindow
     private List<BlockConfig> _blockConfigs;
     private Inventory _inventory;
     private IAudioService _audioService;
+    private PetStatService _petStatService;
     private List<SellShopEntry> _shopEntries = new();
 
     public override void Awake()
@@ -24,11 +25,12 @@ public class SellShop : PopUpWindow
     }
 
     [Inject]
-    public void Initialize(Inventory inventory, ConfigManager<BlockConfig> configManager, IAudioService audioService)
+    public void Initialize(Inventory inventory, ConfigManager<BlockConfig> configManager, IAudioService audioService, PetStatService petStatService)
     {
         _inventory = inventory;
         _blockConfigs = configManager.Configs;
         _audioService = audioService;
+        _petStatService = petStatService;
     }
 
     public override void OnWindowShow()
@@ -42,7 +44,8 @@ public class SellShop : PopUpWindow
             var shopEntry = Instantiate(shopEntryPrefab, Vector3.zero, Quaternion.identity, shopEntriesTransform);
 
             var count = _inventory.GetBlockCount(blockConfig.type);
-            var total = (int)Mathf.Min(int.MaxValue, _inventory.GetSellValueTotal(blockConfig.type));
+            var goldMul = _petStatService.GetMultiplier(PetStatType.GoldPricePercent);
+            var total = (int)Mathf.Min(int.MaxValue, _inventory.GetSellValueTotal(blockConfig.type) * goldMul);
 
             var sellEnabled = true;
             if (!tutorialManager.TutorialIsCompleted && new[] {BlockType.Ground, BlockType.Stone}.Contains(blockConfig.type))

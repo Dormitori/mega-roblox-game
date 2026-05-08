@@ -22,14 +22,16 @@ public class MineBlocks : MonoBehaviour
     public bool IsMiningAttacking => _isHitting;
 
     private IAudioService _audioService;
+    private PetStatService _petStatService;
 
     private RaycastHit _currentBlockHit;
     private bool _isHitting;
 
     [Inject]
-    private void Construct(IAudioService audioService)
+    private void Construct(IAudioService audioService, PetStatService petStatService)
     {
         _audioService = audioService;
+        _petStatService = petStatService;
     }
     private void Update()
     {
@@ -69,7 +71,8 @@ public class MineBlocks : MonoBehaviour
     {
         _isHitting = true;
 
-        var hitSpeed = playerPickaxe.CurrentPickaxeConfig.baseSpeedMultiplier;
+        var hitSpeed = playerPickaxe.CurrentPickaxeConfig.baseSpeedMultiplier
+            * _petStatService.GetMultiplier(PetStatType.AttackSpeedPercent);
         var attackDuration = (config.beforeHitCooldown + config.afterHitCooldown) / hitSpeed;
         var clipLen = config.attackAnimationClipLengthSeconds;
         var stateMul = config.attackAnimatorStateSpeedMultiplier;
@@ -87,7 +90,9 @@ public class MineBlocks : MonoBehaviour
                           MineChestRules.IgnoresBackpackCapacity(CurrentBlock.InventoryBlockType);
             if (canMine)
             {
-                CurrentBlock.TakeDamage(playerPickaxe.CurrentPickaxeConfig.baseDamage);
+                var damage = Mathf.RoundToInt(playerPickaxe.CurrentPickaxeConfig.baseDamage
+                    * _petStatService.GetMultiplier(PetStatType.BlockDamagePercent));
+                CurrentBlock.TakeDamage(damage);
                 _audioService?.PlaySfx(SoundId.BlockHit, 1f, mineHitPitchJitterHalfRange);
             }
             else

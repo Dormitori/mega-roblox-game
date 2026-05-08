@@ -35,6 +35,7 @@ public class MineManager : MonoBehaviour
     private IAudioService _audioService;
     private ISaveService _saveService;
     private MineLootToastController _lootToast;
+    private PetStatService _petStatService;
 
     private List<Quaternion> _cubeRotations = new();
     private int _curBlocks = 0;
@@ -50,13 +51,15 @@ public class MineManager : MonoBehaviour
     [Inject]
     public void Initialize(Inventory inventory, IAudioService audioService, ISaveService saveService,
         ConfigManager<BlockConfig> blockConfigs,
-        MineLootToastController lootToast)
+        MineLootToastController lootToast,
+        PetStatService petStatService)
     {
         _inventory = inventory;
         _audioService = audioService;
         _saveService = saveService;
         _blockConfigs = blockConfigs;
         _lootToast = lootToast;
+        _petStatService = petStatService;
         _config = mineConfig;
         _cubeRotations = GetUpwardRotations();
         _destroyParticlesPool = new ObjectPool<ParticleSystem>(destroyParticles, blocksParent);
@@ -259,7 +262,7 @@ public class MineManager : MonoBehaviour
         var isOre = false;
         BlockType logical = default;
 
-        if (Random.value < balanceConfig.GetOreChance(deepLevel) &&
+        if (Random.value < balanceConfig.GetOreChance(deepLevel) + _petStatService.GetRareOreChanceBonus() &&
             balanceConfig.TryPickOre(deepLevel, () => Random.value, t => ConfigFor(t) != null, out var orePick))
         {
             logical = orePick;

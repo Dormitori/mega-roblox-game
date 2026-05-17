@@ -22,6 +22,9 @@ public class EggConfig : ScriptableObject
     [Tooltip("Сколько секунд снимает rewarded-реклама с таймера (по ТЗ ~3 минуты).")]
     public int adTimeSkipSeconds = 180;
 
+    [Tooltip("Цена мгновенного высиживания (Hatch Now) в кристаллах.")]
+    public int priceSkipCrystals;
+
     public GameObject eggWorldPrefab;
 
     [Header("Drop chances by rarity (percent, sum = 100)")]

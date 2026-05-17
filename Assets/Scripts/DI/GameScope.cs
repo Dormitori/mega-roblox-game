@@ -16,15 +16,16 @@ namespace DI
 
             builder.Register<Inventory>(Lifetime.Singleton);
             builder.Register<PetProgressService>(Lifetime.Singleton);
-            builder.Register<EggIncubatorService>(Lifetime.Singleton);
             builder.Register<PetEquipService>(Lifetime.Singleton);
             builder.Register<PetStatService>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<EggHatchingService>().AsSelf();
             
             builder.Register<ConfigManager<BlockConfig>>(Lifetime.Singleton);
             builder.Register<ConfigManager<PickaxeConfig>>(Lifetime.Singleton);
             builder.Register<ConfigManager<PetConfig>>(Lifetime.Singleton);
             builder.Register<ConfigManager<EggConfig>>(Lifetime.Singleton);
-            
+
+            builder.RegisterComponentInHierarchy<PetRevealPopup>();
             builder.RegisterComponentInHierarchy<MineManager>();
             builder.RegisterComponentInHierarchy<MineBlocks>();
             builder.RegisterComponentInHierarchy<CharacterMovement>();
@@ -34,14 +35,14 @@ namespace DI
             builder.RegisterComponentInHierarchy<MoneyView>();
             builder.RegisterComponentInHierarchy<MineLootToastController>();
             builder.RegisterComponentInHierarchy<CompanionPetController>();
+            builder.RegisterComponentInHierarchy<EggPedestalManager>();
             builder.RegisterComponentInHierarchy<TutorialManager>();
             builder.RegisterComponentInHierarchy<TutorialView>();
             builder.RegisterComponentInHierarchy<SellShop>();
             builder.RegisterComponentInHierarchy<BuyShop>();
             builder.RegisterComponentInHierarchy<PickaxeShop>();
             builder.RegisterComponentInHierarchy<EggShop>();
-         //   builder.RegisterComponentInHierarchy<PetHatchRevealPopup>();
-            builder.RegisterComponentInHierarchy<PetEggIncubatorWorldController>();
+            builder.RegisterComponentInHierarchy<PetShop>();
             builder.RegisterComponentInHierarchy<SettingsPanel>();
             builder.RegisterEntryPoint<GameInit>();
         }

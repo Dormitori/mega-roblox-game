@@ -12,7 +12,7 @@ public class SelectedPetView : MonoBehaviour
     public TextMeshProUGUI rarityText;
     public TextMeshProUGUI bonusText;
     public TextMeshProUGUI ownedCountText;
-    
+
     public Image petIconImage;
 
     public Button takeButton;
@@ -63,4 +63,3 @@ public class SelectedPetView : MonoBehaviour
         return $"+{cfg.bonusPercent:0.#}% {statLabel}";
     }
 }
-

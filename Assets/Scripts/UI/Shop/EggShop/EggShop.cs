@@ -6,68 +6,66 @@ using VContainer;
 
 public class EggShop : PopUpWindow
 {
-    [Header("Eggs (left)")]
+    [Header("Eggs")]
     public Transform eggButtonsRoot;
     public EggShopEggView eggViewPrefab;
 
-    [Header("Pets (center)")]
-    public Transform petGridRoot;
-    public PetShopGridItemView petItemViewPrefab;
+    [Header("Hatch Slots")]
+    public EggHatchSlotView[] hatchSlots = new EggHatchSlotView[3];
 
-    [Header("Selected (right)")]
-    public SelectedPetView selectedPetView;
+    [Header("Pet Reveal")]
+    public PetRevealPopup petRevealPopup;
 
     private Inventory _inventory;
     private IAudioService _audio;
-    private EggIncubatorService _incubator;
-    private PetProgressService _petProgress;
-    private PetEquipService _petEquip;
     private List<EggConfig> _eggConfigs;
-    private List<PetConfig> _petConfigs;
+    private EggHatchingService _hatchingService;
 
     private readonly List<(EggShopEggView view, EggConfig cfg)> _eggViews = new();
-    private readonly List<(PetShopGridItemView view, PetConfig cfg)> _petViews = new();
-
-    private PetConfig _selectedPet;
 
     [Inject]
     private void Initialize(
         Inventory inventory,
-        EggIncubatorService incubator,
-        PetProgressService petProgress,
-        PetEquipService petEquip,
         ConfigManager<EggConfig> eggConfigs,
-        ConfigManager<PetConfig> petConfigs,
-        IAudioService audioService)
+        IAudioService audioService,
+        EggHatchingService hatchingService)
     {
         _inventory = inventory;
-        _incubator = incubator;
-        _petProgress = petProgress;
-        _petEquip = petEquip;
         _audio = audioService;
         _eggConfigs = eggConfigs.Configs;
-        _petConfigs = petConfigs.Configs;
+        _hatchingService = hatchingService;
 
         BuildOnce();
+        InitHatchSlots();
         SubscribeEvents();
-    }
-
-    public override void Awake()
-    {
-        base.Awake();
     }
 
     private void SubscribeEvents()
     {
         UnsubscribeEvents();
-        if (_inventory != null) _inventory.CurrencyChanged += Refresh;
-        if (_petProgress != null) _petProgress.Changed += Refresh;
+        if (_inventory != null)
+        {
+            _inventory.CurrencyChanged += OnCurrencyChanged;
+            _inventory.EggsChanged += RefreshEggViews;
+        }
+        if (_hatchingService != null) _hatchingService.SlotsChanged += OnSlotsChanged;
     }
 
     private void UnsubscribeEvents()
     {
-        if (_inventory != null) _inventory.CurrencyChanged -= Refresh;
-        if (_petProgress != null) _petProgress.Changed -= Refresh;
+        if (_inventory != null)
+        {
+            _inventory.CurrencyChanged -= OnCurrencyChanged;
+            _inventory.EggsChanged -= RefreshEggViews;
+        }
+        if (_hatchingService != null) _hatchingService.SlotsChanged -= OnSlotsChanged;
+    }
+
+    // Slot changes affect both slot views and hatch button availability.
+    private void OnSlotsChanged()
+    {
+        RefreshSlots();
+        RefreshEggViews();
     }
 
     private void OnDestroy()
@@ -79,90 +77,159 @@ public class EggShop : PopUpWindow
     {
         base.OnWindowShow();
         Refresh();
+        RefreshSlots();
+        RefreshEggViews();
     }
 
     private void BuildOnce()
     {
         if (eggButtonsRoot != null && eggViewPrefab != null && _eggViews.Count == 0)
         {
-            foreach (var egg in _eggConfigs.Where(e => e != null))
+            ClearEggsViews();
+            foreach (var egg in _eggConfigs.Where(e => e != null).Reverse())
             {
                 var view = Instantiate(eggViewPrefab, eggButtonsRoot);
                 view.Bind(egg);
                 view.BuyCoins += () => TryBuyEgg(egg, CurrencyType.Coins);
                 view.BuyCrystals += () => TryBuyEgg(egg, CurrencyType.Crystals);
+                view.Hatch += () => TryHatchEgg(egg);
                 _eggViews.Add((view, egg));
             }
         }
+    }
 
-        if (petGridRoot != null && petItemViewPrefab != null && _petViews.Count == 0)
+    private void ClearEggsViews()
+    {
+        if (eggButtonsRoot == null) return;
+
+        foreach (Transform child in eggButtonsRoot.transform)
+            Destroy(child.gameObject);
+    }
+
+    private void InitHatchSlots()
+    {
+        for (int i = 0; i < hatchSlots.Length; i++)
         {
-            foreach (var pet in _petConfigs.Where(p => p != null))
-            {
-                var view = Instantiate(petItemViewPrefab, petGridRoot);
-                view.SetIcon(pet.icon);
-                view.Clicked += () =>
-                {
-                    _selectedPet = pet;
-                    Refresh();
-                };
-                _petViews.Add((view, pet));
-            }
-        }
+            if (hatchSlots[i] == null) continue;
+            hatchSlots[i].SetEmpty();
 
-        if (selectedPetView != null)
-        {
-            selectedPetView.Take += () =>
-            {
-                if (_selectedPet == null) return;
-                if (_petEquip.TryEquip(_selectedPet.id))
-                    _audio?.PlaySfx(SoundId.BuySell);
-                Refresh();
-            };
+            int slotIndex = i;
+            hatchSlots[i].OnWatchAd  += () => OnSlotWatchAd(slotIndex);
+            hatchSlots[i].OnHatchNow += () => OnSlotHatchNow(slotIndex);
+            hatchSlots[i].OnOpen     += () => OnSlotOpen(slotIndex);
         }
+    }
 
-        _selectedPet ??= _petProgress?.GetEquippedPetConfig() ?? _petConfigs.FirstOrDefault();
+    private void OnSlotOpen(int slotIndex)
+    {
+        var cfg = _hatchingService?.GetSlotConfig(slotIndex);
+        if (cfg == null || petRevealPopup == null) return;
+
+        HideWindowAnimated();
+        petRevealPopup.Setup(cfg, slotIndex);
+        petRevealPopup.ShowWindowAnimated();
+    }
+
+    private void OnSlotWatchAd(int slotIndex) => _hatchingService?.SkipByAd(slotIndex);
+
+    private void OnSlotHatchNow(int slotIndex)
+    {
+        var cfg = _hatchingService?.GetSlotConfig(slotIndex);
+        if (cfg == null) return;
+
+        if (!_inventory.TryRemoveCurrency(CurrencyType.Crystals, cfg.priceSkipCrystals))
+            return;
+
+        _hatchingService.SkipAll(slotIndex);
+        _audio?.PlaySfx(SoundId.BuySell);
     }
 
     private void TryBuyEgg(EggConfig egg, CurrencyType currency)
     {
-        if (_incubator == null || egg == null) return;
-        if (_incubator.TryPurchaseEgg(egg, currency))
+        var price = currency == CurrencyType.Coins ? egg.priceCoins : egg.priceCrystals;
+        if (!_inventory.TryRemoveCurrency(currency, price))
+            return;
+
+        _inventory.AddEgg(egg.id);
+        _audio?.PlaySfx(SoundId.BuySell);
+    }
+
+    private void RefreshSlots()
+    {
+        if (_hatchingService == null) return;
+
+        for (int i = 0; i < hatchSlots.Length && i < EggHatchingService.SlotCount; i++)
         {
-            _audio?.PlaySfx(SoundId.BuySell);
-            Refresh();
+            var view = hatchSlots[i];
+            if (view == null) continue;
+
+            if (_hatchingService.IsSlotEmpty(i))
+            {
+                view.SetEmpty();
+                continue;
+            }
+
+            var cfg = _hatchingService.GetSlotConfig(i);
+            if (_hatchingService.IsHatched(i))
+            {
+                view.SetHatched(cfg?.icon);
+            }
+            else
+            {
+                var remaining = _hatchingService.GetRemainingSeconds(i);
+                bool canSkip = cfg != null &&
+                               _inventory.GetCurrencyCount(CurrencyType.Crystals) >= cfg.priceSkipCrystals;
+                view.SetHatching(cfg?.icon, FormatTime(remaining), canSkip);
+                if (cfg != null)
+                {
+                    view.SetWatchAdSkipMinutes(cfg.adTimeSkipSeconds);
+                    view.SetHatchNowPrice(cfg.priceSkipCrystals);
+                }
+            }
         }
+    }
+
+    private static string FormatTime(float seconds)
+    {
+        var ts = System.TimeSpan.FromSeconds(seconds);
+        if (ts.TotalHours >= 1)
+            return $"{(int)ts.TotalHours}:{ts.Minutes:00}:{ts.Seconds:00}";
+        return $"{ts.Minutes:00}:{ts.Seconds:00}";
+    }
+
+    private void TryHatchEgg(EggConfig egg)
+    {
+        _hatchingService?.TryStartHatchingEgg(egg.id);
+    }
+
+    private void RefreshEggViews()
+    {
+        if (_inventory == null || _hatchingService == null) return;
+
+        bool slotAvailable = _hatchingService.HasFreeSlot();
+        foreach (var (view, cfg) in _eggViews)
+        {
+            int count = _inventory.Eggs.Count(id => id == cfg.id);
+            view.SetHatchState(count, slotAvailable);
+        }
+    }
+
+    private void OnCurrencyChanged()
+    {
+        Refresh();
+        RefreshSlots();
     }
 
     private void Refresh()
     {
-        if (_inventory == null || _incubator == null || _petProgress == null)
+        if (_inventory == null)
             return;
-
-        var equippedId = _petProgress.EquippedPetId;
 
         foreach (var (view, cfg) in _eggViews)
         {
             var canCoins = _inventory.GetCurrencyCount(CurrencyType.Coins) >= cfg.priceCoins;
             var canCrystals = _inventory.GetCurrencyCount(CurrencyType.Crystals) >= cfg.priceCrystals;
             view.SetInteractable(canCoins, canCrystals);
-        }
-
-        foreach (var (view, cfg) in _petViews)
-        {
-            var owned = _petProgress.GetOwnedCount(cfg.id);
-            view.UpdateState(
-                ownedCount: owned,
-                equipped: cfg.id == equippedId,
-                selected: _selectedPet != null && cfg.id == _selectedPet.id
-            );
-        }
-
-        if (selectedPetView != null)
-        {
-            var ownedCount = _selectedPet != null ? _petProgress.GetOwnedCount(_selectedPet.id) : 0;
-            var equipped = _selectedPet != null && _selectedPet.id == equippedId;
-            selectedPetView.UpdateView(_selectedPet, ownedCount, equipped);
         }
     }
 }

@@ -19,6 +19,7 @@ MonoBehaviour:
   priceCrystals: 200
   hatchDurationSeconds: 7200
   adTimeSkipSeconds: 180
+  priceSkipCrystals: 65
   eggWorldPrefab: {fileID: 4348802829318957818, guid: e6a8f9fe32720471eafb029aa55f7976, type: 3}
   rarityChances:
   - rarity: 0

@@ -411,7 +411,9 @@ public class InventoryDebugWindow : EditorWindow
             new HashSet<PickaxeType> { PickaxeType.PickaxeWood01 },
             new HashSet<BlockType>(),
             PickaxeType.PickaxeWood01,
-            40);
+            40,
+            new()
+            );
 
         foreach (CurrencyType c in Enum.GetValues(typeof(CurrencyType)))
             d.Currencies[c] = 0;

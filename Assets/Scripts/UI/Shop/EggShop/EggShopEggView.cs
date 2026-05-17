@@ -7,6 +7,7 @@ public class EggShopEggView : MonoBehaviour
 {
     public event Action BuyCoins;
     public event Action BuyCrystals;
+    public event Action Hatch;
 
     public Image iconImage;
     public TextMeshProUGUI titleText;
@@ -21,6 +22,10 @@ public class EggShopEggView : MonoBehaviour
     public Button buyCrystalsButton;
     public TextMeshProUGUI buyCrystalsPriceText;
 
+    [Header("Inventory / Hatch")]
+    public TextMeshProUGUI inventoryCountText;
+    public Button hatchButton;
+
     private EggConfig _cfg;
 
     private void Awake()
@@ -29,6 +34,8 @@ public class EggShopEggView : MonoBehaviour
             buyCoinsButton.onClick.AddListener(() => BuyCoins?.Invoke());
         if (buyCrystalsButton != null)
             buyCrystalsButton.onClick.AddListener(() => BuyCrystals?.Invoke());
+        if (hatchButton != null)
+            hatchButton.onClick.AddListener(() => Hatch?.Invoke());
     }
 
     public void Bind(EggConfig cfg)
@@ -47,6 +54,14 @@ public class EggShopEggView : MonoBehaviour
     {
         if (buyCoinsButton != null) buyCoinsButton.interactable = coins;
         if (buyCrystalsButton != null) buyCrystalsButton.interactable = crystals;
+    }
+
+    public void SetHatchState(int inventoryCount, bool slotAvailable)
+    {
+        if (inventoryCountText != null)
+            inventoryCountText.text = inventoryCount > 0 ? $"x{inventoryCount}" : string.Empty;
+        if (hatchButton != null)
+            hatchButton.interactable = inventoryCount > 0 && slotAvailable;
     }
 
     private void ApplyRowPlate()

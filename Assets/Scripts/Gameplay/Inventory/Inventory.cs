@@ -15,10 +15,13 @@ public class Inventory
     public PickaxeType CurrentPickaxe { get; private set; }
     public HashSet<BlockType> UnlockedBuyableBlocks { get; } = new(); 
 
+    public event Action EggsChanged;
+
     private Dictionary<CurrencyType, int> _currencies = new();
     private Dictionary<BlockType, int> _blocks = new();
     private Dictionary<BlockType, long> _blockSellValueTotals = new();
     private HashSet<PickaxeType> _pickaxes = new();
+    private List<string> _eggs = new();
     
     private int _backpackCapacity = 40;
 
@@ -56,6 +59,7 @@ public class Inventory
             if (saveData.BlockSellValueTotals == null)
                 MigrateSellTotalsFromBlockConfigs();
             EnsureAllCurrenciesPresent(_currencies);
+            _eggs = saveData.Eggs ?? new List<string>();
             return;
         }
         
@@ -175,6 +179,23 @@ public class Inventory
         return _backpackCapacity - GetAllBlockCount();
     }
 
+    public IReadOnlyList<string> Eggs => _eggs;
+
+    public void AddEgg(string eggId)
+    {
+        _eggs.Add(eggId);
+        EggsChanged?.Invoke();
+        Save();
+    }
+
+    public bool RemoveEgg(string eggId)
+    {
+        if (!_eggs.Remove(eggId)) return false;
+        EggsChanged?.Invoke();
+        Save();
+        return true;
+    }
+
     public void AddPickaxe(PickaxeType pickaxe)
     {
         _pickaxes.Add(pickaxe);
@@ -206,7 +227,7 @@ public class Inventory
     private void Save()
     {
         _saveService.Save(
-            SaveKeys.Inventory, 
+            SaveKeys.Inventory,
             new InventorySaveData(
                 _currencies,
                 _blocks,
@@ -214,7 +235,8 @@ public class Inventory
                 _pickaxes,
                 UnlockedBuyableBlocks,
                 CurrentPickaxe,
-                _backpackCapacity
+                _backpackCapacity,
+                _eggs
             )
         );
     }
@@ -230,6 +252,7 @@ public class InventorySaveData
     public HashSet<BlockType> UnlockedBuyableBlocks;
     public PickaxeType CurrentPickaxe;
     public int backpackCapacity;
+    public List<string> Eggs;
 
     public InventorySaveData(
         Dictionary<CurrencyType, int> currencies,
@@ -238,7 +261,8 @@ public class InventorySaveData
         HashSet<PickaxeType> pickaxes,
         HashSet<BlockType> unlockedBuyableBlocks,
         PickaxeType currentPickaxe,
-        int backpackCapacity)
+        int backpackCapacity,
+        List<string> eggs)
     {
         Currencies = currencies;
         Blocks = blocks;
@@ -247,5 +271,6 @@ public class InventorySaveData
         CurrentPickaxe = currentPickaxe;
         UnlockedBuyableBlocks = unlockedBuyableBlocks;
         this.backpackCapacity = backpackCapacity;
+        Eggs = eggs;
     }
 }

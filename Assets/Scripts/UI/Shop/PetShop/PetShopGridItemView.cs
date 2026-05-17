@@ -57,4 +57,3 @@ public class PetShopGridItemView : MonoBehaviour, IPointerClickHandler
         Clicked?.Invoke();
     }
 }
-

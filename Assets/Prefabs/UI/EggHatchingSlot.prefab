@@ -159,7 +159,7 @@ MonoBehaviour:
   hatchingGroup: {fileID: 8542938337501690512}
   timerText: {fileID: 4356078164739241520}
   watchAdButton: {fileID: 1115308554751881360}
-  watchAdLabel: {fileID: 7663502224525956527}
+  watchAdLabel: {fileID: 5523729477114596811}
   hatchNowButton: {fileID: 6643782454574112953}
   hatchNowLabel: {fileID: 6895820460468621619}
   openButton: {fileID: 6070076303800904622}
